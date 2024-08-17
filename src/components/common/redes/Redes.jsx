@@ -1,4 +1,4 @@
-import './redes.css'
+import './redes.scss'
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
