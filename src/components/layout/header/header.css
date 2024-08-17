@@ -1,0 +1,185 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    background-color: var(--background);
+    padding: 1rem;
+    height: auto;
+    .logo-container{
+        height: 2rem;
+        & img {
+            height: 100%;
+        }
+    }
+    .menu-icon{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        width: 2.5rem;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1000;
+        .line{
+            display: block;
+            width: 100%;
+            height: 5px;
+            border-radius: 10px;
+            background-color: var(--white);
+            transition-property: width opacity transform;
+            transition-duration: .3s;
+            transition-timing-function: ease-in-out;
+        }
+        .line2{
+            width: 65%;
+        }
+        .line3{
+            margin-top: 8px;
+            width: 40%;
+        }
+        .activeLine1{
+            transform-origin: right top;
+            transform: rotate(-45deg);
+        }
+        .activeLine2{
+            transform: translateX(2rem);
+            opacity: .0;
+        }
+        .activeLine3{
+            width: 100%;
+            transform-origin: right bottom;
+            transform: rotate(45deg);
+            margin-top: 1.4rem;
+        }
+    }
+    .navbar{
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 1rem 2rem;
+        border-radius: 0 0 0 10px;
+        background-color:var(--darkerBackground);
+        transition: transform .3s ease-in-out;
+        transform: translate(100%);
+        & ul{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 6rem;
+            .nav-item{
+                margin-bottom: 2rem;
+                .nav-link{
+                    font-size: 24px;
+                    color: var(--white);
+                }
+                .active{
+                    color: var(--white);
+                    font-weight: 500;
+                }
+            }
+        }
+        .nav-contact{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem;
+            .redes{
+                margin-top: 2rem;
+            }
+        }
+    }
+    .nav-open{
+        transform: translateX(0%);
+    }
+}
+/*MEDIA QUERYS*/
+@media (min-width: 425px){
+    header{
+        .logo-container{
+            height: 3rem
+        }
+        .menu-icon{
+            width: 3.5rem;
+            .line{
+                height: 6px;
+            }
+            .line3{
+                margin-top: 10px;
+            }
+            .activeLine3{
+                margin-top: 2rem;
+            }
+        }
+        .navbar{
+            padding: 1rem 4rem;
+        }
+    }
+}
+@media (min-width: 768px){
+    header{
+        max-width: 1170px;
+        height: 6rem;
+        .navbar{
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            position: unset;
+            height: 100%;
+            padding: 0;
+            background-color: var(--background);
+            transition: none;
+            transform: translateX(0%);
+            & ul{
+                flex-direction: row;
+                align-items: center;
+                height: 100%;
+                margin-top: 0;
+                .nav-item{
+                    margin-bottom: 0;
+                    margin-left: 1rem;
+                    .nav-link{
+                        position: relative;
+                        font-size: 16px;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            bottom: -3px;
+                            height: 1px;
+                            width: 0;
+                            background-color: var(--white);
+                            transition: width 0.3s ease;
+                        }
+                        &:hover::after{
+                            width: 100%;
+                        }
+                    }
+                    .active{
+                        font-weight: 500;
+                    }
+                }
+            }
+            .nav-contact{
+                margin: 0;
+                margin-left: 3rem;
+            }
+        }
+    }
+}
+@media (min-width: 1024px){
+    header{
+        padding: 1rem 2rem;
+        .navbar{
+            & ul{
+                .nav-item{
+                    margin-left: 2rem;
+                }
+            }
+            .nav-contact{
+                margin-left: 4rem;
+            }
+        }
+    }
+}

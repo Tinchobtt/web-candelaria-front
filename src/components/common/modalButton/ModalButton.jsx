@@ -25,8 +25,8 @@ const ModalButton = ({ ModalComponent, children }) => {
                 fontSize: '16px', 
                 fontWeight: 600,
                 '&:hover': {
-                    backgroundColor: '#f0f0f0',
-                    color: '#333'
+                    backgroundColor: "#000",
+                    color: 'var(--white)'
                 }
             }}>
             {children}
