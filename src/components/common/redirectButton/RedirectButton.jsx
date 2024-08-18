@@ -20,9 +20,10 @@ const RedirectButton = ({link, variant, children}) => {
             return {
                 color: '#fff',
                 backgroundColor: 'transparent',
-                border: '2px solid #fff',
+                border: '1px solid #fff',
                 fontSize: '16px',
                 fontWeight: 400,
+                width: '180px',
                 '&:hover': {
                     backgroundColor: '#000',
                     borderColor: '#000',
