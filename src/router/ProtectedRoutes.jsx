@@ -1,7 +1,7 @@
 import {Navigate, Outlet} from "react-router-dom";
 
 const ProtectedRoutes = () => {
-    let user = 'notAdmin' //Peticion
+    let user = 'admin' //Peticion
     return(
         <>
         {
