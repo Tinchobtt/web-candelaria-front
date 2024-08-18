@@ -1,14 +1,17 @@
-import './header.css'
+import './header.scss'
 import logo from '../../../assets/logo/logo.png'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Redes from "../../common/redes/Redes.jsx";
 import ModalButton from "../../common/modalButton/ModalButton.jsx";
 import {useLocation} from "react-router-dom";
+import {HashLink} from "react-router-hash-link";
 
 const Header = () => {
     const [menuWidgetOpen, setMenuWidgetOpen] = useState(false);//Estado de cambio del icono del Nav
-    //const loc = useLocation().pathname
+    const [resolution, setResolution] = useState(window.innerWidth);// Estado de resolucion
+    const loc = useLocation().pathname //path de la page actual
+
     const handleWidget = ()=>{ //Cambio de aspecto del icono del Nav
         setMenuWidgetOpen(!menuWidgetOpen);
     }
@@ -16,7 +19,7 @@ const Header = () => {
         setMenuWidgetOpen(false);
     };
 
-    const [resolution, setResolution] = useState(window.innerWidth);// Estado de resolucion
+
     useEffect(() => {
         const handleResize = () => {
             setResolution(window.innerWidth);
@@ -32,9 +35,9 @@ const Header = () => {
     return (
         <header>
             <div className="logo-container">
-                <a href=''>
+                <HashLink to={'/#start'} onClick={closeMenu}>
                     <img src={logo} alt="logo" className='logo-img'/>
-                </a>
+                </HashLink>
             </div>
             {resolution < 768 &&
                 <div className="menu-icon" onClick={handleWidget}>
@@ -45,11 +48,25 @@ const Header = () => {
             }
             <nav className={menuWidgetOpen ? "nav-open navbar": "navbar"}>
                 <ul className="nabvar-list">
-                    <li className="nav-item"><a href="" className="nav-link">Inicio</a></li>
-                    <li className="nav-item"><a href="" className="nav-link">Menú</a></li>
-                    <li className="nav-item"><a href="" className="nav-link">Pedí Ahora</a></li>
-                    <li className="nav-item"><a href="" className="nav-link">Eventos</a></li>
-                    <li className="nav-item"><a href="" className="nav-link">Contacto</a></li>
+                    <li className="nav-item"><HashLink to={'/#start'}
+                                                       className={loc === '/' ? 'nav-link active': 'nav-link'}
+                                                       onClick={handleWidget}>Inicio</HashLink></li>
+
+                    <li className="nav-item"><HashLink to={'/menu#start'}
+                                                       className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'}
+                                                       onClick={handleWidget}>Menú</HashLink></li>
+
+                    <li className="nav-item"><HashLink to={'/ecommerce#start'}
+                                                       className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'}
+                                                       onClick={handleWidget}>Pedí Ahora</HashLink></li>
+
+                    <li className="nav-item"><HashLink to={'/eventos#start'}
+                                                       className={loc.startsWith('/eventos') ? 'nav-link active': 'nav-link'}
+                                                       onClick={handleWidget}>Eventos</HashLink></li>
+
+                    <li className="nav-item"><HashLink to={'/#contacto'}
+                                                       className='nav-link'
+                                                       onClick={handleWidget}>Contacto</HashLink></li>
                 </ul>
                 <div className="nav-contact">
                     <ModalButton>Reservá</ModalButton>
