@@ -41,13 +41,17 @@ body{
     align-items: center;
     width: 100vw;
     min-height: 100vh;
+    background-color: #000;
+
 }
 main{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    margin-top: 6rem;
+    max-width: 1170px;
+    padding-top: 6rem;
+    background-color: var(--background);
 }
 section{
     width: 100vw;
@@ -59,9 +63,4 @@ li{
 }
 a{
     text-decoration: none;
-}
-@media (min-width: 768px){
-    section{
-        padding: 1rem 2rem;
-    }
 }

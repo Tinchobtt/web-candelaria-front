@@ -1,5 +1,4 @@
 import RedirectButton from "../redirectButton/RedirectButton.jsx";
-import gif from '../../../assets/imgs/hero.gif'
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import UseWindowResolution from "../../../hooks/useWindowResolution.jsx";
 import './hero.scss'
