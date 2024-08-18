@@ -1,0 +1,71 @@
+.especialidadCard {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1024px;
+  height: 250px;
+  margin-bottom: 3rem;
+  .especialidadCard-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    .circle{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: calc(100% - 1rem);
+      max-width: 280px;
+      max-height: 280px;
+      aspect-ratio: 1/1;
+      border-radius: 100%;
+      background: radial-gradient(circle,
+              rgba(94, 94, 94, 0.31) 0%,
+              rgba(27, 27, 27, 0) 70%,
+              rgb(15, 15, 15) 100%);
+      z-index: 1;
+      img{
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+  }
+  .especialidadCard-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 400px;
+    padding: .5rem;
+    h3{
+      font-size: clamp(18px, 4vw, 24px);
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+    p{
+      font-size: clamp(14px, 4vw, 18px);
+      font-weight: 200;
+    }
+    &.contentLeft{
+      order: -1;
+      h3, p{
+        text-align: right;
+      }
+    }
+  }
+}
+@media (min-width:  768px){
+  .especialidadCard{
+    .especialidadCard-content{
+      &.contentLeft{
+        h3, p{
+          text-align: left;
+        }
+      }
+    }
+  }
+}

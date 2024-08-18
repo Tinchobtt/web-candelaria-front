@@ -25,10 +25,11 @@
 }
 :root{
     --background: #1C1C1C;
-    --darkerBackground: #0E0E0E;
+    --darkerBackground: #131313;
     --white: #fff;
     --grey: #464646;
     --greyHover: #737373;
+    --brown: #9E6F5E;
 }
 body{
     background-color: var(--background);
@@ -39,7 +40,7 @@ body{
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    min-height: 100vh
+    min-height: 100vh;
 }
 main{
     display: flex;
@@ -58,4 +59,9 @@ li{
 }
 a{
     text-decoration: none;
+}
+@media (min-width: 768px){
+    section{
+        padding: 1rem 2rem;
+    }
 }

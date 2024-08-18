@@ -8,6 +8,7 @@ header {
     padding: 1rem;
     height: auto;
     z-index: 10000;
+    box-shadow: 0 0 10px #000;
     .logo-container{
         height: 2rem;
         & img {
@@ -178,5 +179,11 @@ header {
                 margin-left: 4rem;
             }
         }
+    }
+}
+@media (min-width: 1170px){
+    header{
+        box-shadow: none;
+        border-bottom: 2px solid #151515;
     }
 }

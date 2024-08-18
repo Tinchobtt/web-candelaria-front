@@ -1,6 +1,8 @@
 import Hero from "../../common/hero/Hero.jsx";
 import CardInfo from "../../common/cardInfo/CardInfo.jsx";
 import fireImg from '../../../assets/imgs/fire.png'
+import Especialidades from "../../common/especialidades/Especialidades.jsx";
+import EspecialidadCard from "../../common/especialidadCard/EspecialidadCard.jsx";
 
 const Inicio = () => {
     return (
@@ -17,7 +19,11 @@ const Inicio = () => {
                     img: fireImg
                 }}
             />
-
+            <Especialidades title={'Descubrí Nuestras Especialidades'}>
+                <EspecialidadCard />
+                <EspecialidadCard left={true}/>
+                <EspecialidadCard />
+            </Especialidades>
         </main>
     )
 }
