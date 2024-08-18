@@ -23,9 +23,7 @@ const Hero = () => {
                     <MdKeyboardDoubleArrowDown/>
                 </div>
             ) : (
-                <div className="img-container" >
-                    <img src={gif} alt="asado"/>
-                </div>
+                <div className="img-container" > </div>
             )}
         </section>
 )
