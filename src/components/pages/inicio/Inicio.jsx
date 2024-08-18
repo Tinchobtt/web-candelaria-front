@@ -1,9 +1,9 @@
-import RedirectButton from "../../common/redirectButton/RedirectButton.jsx";
+import Hero from "../../common/hero/Hero.jsx";
 
 const Inicio = () => {
     return (
         <main>
-
+            <Hero />
         </main>
     )
 }

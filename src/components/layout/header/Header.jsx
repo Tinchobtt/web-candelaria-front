@@ -1,15 +1,16 @@
 import './header.scss'
 import logo from '../../../assets/logo/logo.png'
 import { useState } from 'react';
-import { useEffect } from 'react';
 import Redes from "../../common/redes/Redes.jsx";
 import ModalButton from "../../common/modalButton/ModalButton.jsx";
 import {useLocation} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
+import useWindowResolution from "../../../hooks/useWindowResolution.jsx";
 
 const Header = () => {
     const [menuWidgetOpen, setMenuWidgetOpen] = useState(false);//Estado de cambio del icono del Nav
-    const [resolution, setResolution] = useState(window.innerWidth);// Estado de resolucion
+    const resolution = useWindowResolution()
+
     const loc = useLocation().pathname //path de la page actual
 
     const handleWidget = ()=>{ //Cambio de aspecto del icono del Nav
@@ -18,19 +19,6 @@ const Header = () => {
     const closeMenu = () => {
         setMenuWidgetOpen(false);
     };
-
-
-    useEffect(() => {
-        const handleResize = () => {
-            setResolution(window.innerWidth);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [window.innerWidth]);
 
     return (
         <header>
@@ -69,7 +57,7 @@ const Header = () => {
                                                        onClick={handleWidget}>Contacto</HashLink></li>
                 </ul>
                 <div className="nav-contact">
-                    <ModalButton>Reservá</ModalButton>
+                    {/*<ModalButton>Reservá</ModalButton>*/}
                     {resolution < 768 && <Redes />}
                 </div>
             </nav>
