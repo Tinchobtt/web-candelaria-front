@@ -1,12 +1,12 @@
 import './especialidadCard.scss'
-// import vacioImg from '../../../assets/imgs/1.png'
+import vacioImg from '../../../assets/imgs/1.png'
 
 const EspecialidadCard = ({left}) => {
     return (
         <div className='especialidadCard'>
             <div className="especialidadCard-img">
                 <div className='circle'>
-                    {/*<img src={vacioImg} alt=""/>*/}
+                    <img src={vacioImg} alt=""/>
                 </div>
             </div>
             <div className={left ? "especialidadCard-content contentLeft" : "especialidadCard-content"}>

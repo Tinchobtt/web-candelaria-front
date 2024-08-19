@@ -1,7 +1,6 @@
 .cardInfo{
   position: relative;
-  width: calc(100% - 2rem);
-  margin: 6rem 1rem 3rem 1rem;
+  width: 100%;
   max-width: 360px;
   height: 300px;
   .cardInfo-img{
@@ -21,15 +20,17 @@
     position: absolute;
     top: 2rem;
     .cardInfo-title{
-      margin-bottom: 1rem;
-      font-size: 26px;
+      margin-bottom: .5rem;
+      font-size: 24px;
+      padding: 0 1rem;
+      text-align: center;
       font-family: 'LM-light';
       letter-spacing: 3px;
       text-shadow: 2px 2px 4px #000;
     }
     .cardInfo-text{
       margin: 1rem;
-      padding: 2rem;
+      padding: 1rem;
       border-radius: 15px;
       background-color: rgba(0, 0, 0, 0.76);
       text-align: center;
