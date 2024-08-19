@@ -62,3 +62,23 @@ li{
 a{
     text-decoration: none;
 }
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de scroll */
+}
+
+/* Estilo del "track" (fondo de la barra de scroll) */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de fondo */
+    border-radius: 6px; /* Bordes redondeados */
+}
+
+/* Estilo del "thumb" (el área que se arrastra) */
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color del "thumb" */
+    border-radius: 6px; /* Bordes redondeados */
+}
+
+/* Estilo del "thumb" cuando se pasa el mouse sobre él */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color del "thumb" al hacer hover */
+}
