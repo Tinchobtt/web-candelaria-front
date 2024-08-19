@@ -50,6 +50,10 @@
 @media (min-width: 768px){
   #especialidades {
     margin: 5rem 2rem 1rem;
+  }
+}
+@media (min-width: 1024px){
+  #especialidades {
     width: calc(100% - 4rem);
   }
 }

@@ -4,6 +4,7 @@ import fireImg from '../../../assets/imgs/fire.png'
 import Especialidades from "../../common/especialidades/Especialidades.jsx";
 import EspecialidadCard from "../../common/especialidadCard/EspecialidadCard.jsx";
 import EventosSection from "../../common/eventosSection/EventosSection.jsx";
+import Contacto from "../../common/contacto/Contacto.jsx";
 
 const Inicio = () => {
     return (
@@ -26,6 +27,7 @@ const Inicio = () => {
                 <EspecialidadCard />
             </Especialidades>
             <EventosSection />
+            <Contacto />
         </main>
     )
 }

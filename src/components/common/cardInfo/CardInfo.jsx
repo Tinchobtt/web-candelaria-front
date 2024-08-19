@@ -8,7 +8,7 @@ const CardInfo = ({left, content}) => {
             </div>
             <div className={left ? 'cardInfo-content borderLeft' : 'cardInfo-content borderRight'}>
                 <div className="cardInfo-title">
-                    <h2>{content.title}</h2>
+                    <h2 className='cardInfo-title'>{content.title}</h2>
                 </div>
                 <div className="cardInfo-text">
                     <p dangerouslySetInnerHTML={{__html: content.text}}/>
