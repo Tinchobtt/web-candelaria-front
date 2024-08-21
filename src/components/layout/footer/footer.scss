@@ -1,0 +1,92 @@
+.footer-container{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    background-color: var(--darkerBackground);
+    margin-top: 3rem;
+    footer{
+        display: grid;
+        width: 100%;
+        padding: 2rem;
+        .navbar-footer{
+            .navbar-footer-list{
+                .footer-item-container{
+                    margin-bottom: 2rem;
+                    .nav-footer-item{
+                        margin-bottom: 1rem;
+                        .nav-footer-link{
+                            font-size: 16px;
+                        }
+                    }
+                    .nav-footer-item-title{
+                        margin-top: 2rem;
+                        &:first-child{
+                            margin-top: 0;
+                        }
+                        .nav-footer-link{
+                            font-size: 24px;
+                            color: var(--brown);
+                        }
+                    }
+                }
+            }
+        }
+        .logo-container{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 4rem 0 2rem 0;
+            img{
+                width: 60%;
+                max-width: 300px;
+                min-width: 200px;
+            }
+        }
+        span{
+            text-align: center;
+            color: var(--grey);
+        }
+    }
+}
+@media (min-width: 600px){
+    .footer-container{
+        footer{
+            max-width: 1400px;
+            .navbar-footer{
+                .navbar-footer-list{
+                    display: flex;
+                    justify-content: space-between;
+                    .footer-item-container{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            .logo-container{
+                margin: 2rem 0;
+            }
+        }
+    }
+}
+@media (min-width: 1024px){
+    .footer-container{
+        footer{
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-template-rows: auto auto;
+            align-items: center;
+            .footer-contact{
+                justify-self: end;
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                width: auto;
+            }
+            .logo-container{
+                width: 200px;
+            }
+            span{
+                grid-column: 1/3;
+            }
+        }
+    }
+}
