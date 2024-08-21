@@ -10,7 +10,7 @@ const Inicio = () => {
     return (
         <main>
             <Hero />
-            <section style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <section id={"nosotros"} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <CardInfo
                     left={true}
                     content={{
