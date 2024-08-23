@@ -7,7 +7,7 @@ const EventosSection = () => {
             <div className="blackout">
                 <h4>La Candelaria III Express</h4>
                 <h2>RESERVÁ TU EVENTO</h2>
-                <ModalButton>Reservá ahora!</ModalButton>
+                <ModalButton name={'reservaEvento'}>Reservá ahora!</ModalButton>
             </div>
         </section>
     )
