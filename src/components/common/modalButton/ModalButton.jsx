@@ -1,22 +1,12 @@
 import Button from '@mui/material/Button';
-import { useState } from 'react';
-import GenericModal from '../genericModal/GenericModal';
+import {useModal} from "../../../context/ModalContext.jsx";
 
-const ModalButton = ({ ModalComponent, children }) => {
-    const [showModal, setShowModal] = useState(false);
-
-    const handleOpenModal = () => {
-        setShowModal(true);
-    };
-    
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
+const ModalButton = ({ name, children }) => {
+    const {openModal} = useModal()
 
     return (
-        <>
-        <Button 
-            onClick={handleOpenModal}
+        <Button
+            onClick={() => openModal(name)}
             variant="contained" 
             sx={{
                 textTransform: 'none', 
@@ -31,10 +21,6 @@ const ModalButton = ({ ModalComponent, children }) => {
             }}>
             {children}
         </Button>
-        <GenericModal show={showModal} onClose={handleCloseModal}>
-            <ModalComponent />
-        </GenericModal>
-        </>
       )
 };
 
