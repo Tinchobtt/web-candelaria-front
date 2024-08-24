@@ -16,8 +16,12 @@ const ModalReserva = ({name}) => {
             time: '',
         },
         onSubmit: (values, action)=>{
-            console.log(values)
-            //action.resetForm();
+            const message = `Hola, me llamo ${values.name}. Quiero hacer una reserva de ${values.amount} para el ${values.date} a las ${values.time}. Mensaje adicional: ${values.message}`;
+            const phoneNumber = 541125372314
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            action.resetForm();
         },
         //VALIDACIONES
         validationSchema: Yup.object().shape({
