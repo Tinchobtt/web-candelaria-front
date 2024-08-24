@@ -2,6 +2,7 @@ import {useProductsCategories} from "../../../context/ProdcutsCategoriesContext.
 import {useEffect} from "react";
 import CategoryBar from "../../common/CategoryBar/CategoryBar.jsx";
 import ProductList from "../../common/productsList/ProductList.jsx";
+import ProductCard from "../../common/productCard/ProductCard.jsx";
 
 const Ecommerce = () => {
     const { products, categories, isLoading, hasError, active, setActive, filterProductsByCategory} = useProductsCategories()
@@ -14,8 +15,8 @@ const Ecommerce = () => {
 
     return (
         <main id="main-ecommerce">
-            <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />
-            <ProductList products={products} />
+            {/*<CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />*/}
+            {/*<ProductList products={products} />*/}
         </main>
     )
 }
