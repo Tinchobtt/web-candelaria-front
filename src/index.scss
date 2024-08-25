@@ -27,9 +27,11 @@
     --background: #1C1C1C;
     --darkerBackground: #131313;
     --white: #fff;
+    --paper: #F0F0F0;
     --grey: #464646;
     --greyHover: #737373;
     --brown: #9E6F5E;
+    --maxWidth: 1400px
 }
 body{
     background-color: var(--background);
@@ -47,13 +49,14 @@ main{
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    max-width: 1400px;
+    max-width: var(--maxWidth);
+    min-height: 100vh;
     padding-top: 6rem;
     background-color: var(--background);
 }
 section{
     width: 100vw;
-    max-width: 1400px;
+    max-width: var(--maxWidth);
     padding: 1rem;
 }
 li{

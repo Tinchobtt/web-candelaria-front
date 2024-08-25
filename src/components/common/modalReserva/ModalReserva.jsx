@@ -7,6 +7,9 @@ import {useFormik} from "formik";
 
 const ModalReserva = ({name}) => {
     const formRef = useRef(null);
+    const inputTime = useRef(null);
+    const inputDate = useRef(null);
+
     const {handleSubmit, handleChange, handleBlur, touched, values, errors} = useFormik({
         initialValues: {
             name: '',
@@ -16,8 +19,12 @@ const ModalReserva = ({name}) => {
             time: '',
         },
         onSubmit: (values, action)=>{
-            console.log(values)
-            //action.resetForm();
+            const message = `Hola, me llamo ${values.name}. Quiero hacer una reserva de ${values.amount} para el ${values.date} a las ${values.time}. Mensaje adicional: ${values.message}`;
+            const phoneNumber = 541125372314
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            action.resetForm();
         },
         //VALIDACIONES
         validationSchema: Yup.object().shape({
@@ -88,11 +95,17 @@ const ModalReserva = ({name}) => {
                         value={values.date}
                         error={(!!errors.date && touched.date)}
                         helperText={errors.date && touched.date && errors.date}
+                        inputRef={inputDate}
+                        onClick={() => {
+                            if (inputDate.current) {
+                                inputDate.current.showPicker();
+                            }
+                        }}
                     />
                     <TextField
                         type="time"
                         name="time"
-                        label="Fecha"
+                        label="Horario"
                         variant="filled"
                         InputLabelProps={{ shrink: true }}
                         onChange={handleChange}
@@ -100,6 +113,12 @@ const ModalReserva = ({name}) => {
                         value={values.time}
                         error={(!!errors.time && touched.time)}
                         helperText={errors.time && touched.time && errors.time}
+                        inputRef={inputTime}
+                        onClick={() => {
+                            if (inputTime.current) {
+                                inputTime.current.showPicker();
+                            }
+                        }}
                     />
                 </div>
                 <span>Se redirigirá a WhatsApp para notificar al establecimiento.

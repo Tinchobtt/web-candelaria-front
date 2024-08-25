@@ -8,7 +8,7 @@ import Contacto from "../../common/contacto/Contacto.jsx";
 
 const Inicio = () => {
     return (
-        <main>
+        <main id="main-inicio">
             <Hero />
             <section id={"nosotros"} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <CardInfo
