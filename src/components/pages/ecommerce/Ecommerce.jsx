@@ -1,11 +1,10 @@
-import {useProductsCategories} from "../../../context/ProdcutsCategoriesContext.jsx";
+import {useProductsCategories} from "../../../context/ProductsCategoriesContext.jsx";
 import {useEffect} from "react";
-import CategoryBar from "../../common/CategoryBar/CategoryBar.jsx";
+import CategoryBar from "../../common/categoryBar/CategoryBar.jsx";
 import ProductList from "../../common/productsList/ProductList.jsx";
-import ProductCard from "../../common/productCard/ProductCard.jsx";
 
 const Ecommerce = () => {
-    const { products, categories, isLoading, hasError, active, setActive, filterProductsByCategory} = useProductsCategories()
+    const { products, categories, isLoading, active, setActive, filterProductsByCategory, fetchData} = useProductsCategories()
 
     useEffect(() => {
         if (!active) {
@@ -14,9 +13,9 @@ const Ecommerce = () => {
     }, [active]);
 
     return (
-        <main id="main-ecommerce">
-            {/*<CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />*/}
-            {/*<ProductList products={products} />*/}
+        <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)'}}>
+            <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />
+            <ProductList products={products}/>
         </main>
     )
 }

@@ -1,0 +1,17 @@
+.product-list{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-items: center;
+    gap: 1rem;
+    max-width: var(--maxWidth);
+}
+@media (min-width: 768px){
+    .product-list{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        row-gap: 1rem;
+        max-width: var(--maxWidth);
+    }
+
+}
