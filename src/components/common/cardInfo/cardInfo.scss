@@ -3,6 +3,10 @@
   width: 100%;
   max-width: 360px;
   height: 300px;
+  margin-bottom: 8em;
+  &:first-child{
+    margin-bottom: 18rem;
+  }
   .cardInfo-img{
     height: 100%;
     img{
@@ -21,8 +25,8 @@
     top: 2rem;
     .cardInfo-title{
       margin-bottom: .5rem;
-      font-size: 24px;
-      padding: 0 1rem;
+      font-size: clamp(14px, 3vw, 24px);
+      padding: 0 .5rem;
       text-align: center;
       font-family: 'LM-light';
       letter-spacing: 3px;
@@ -32,7 +36,7 @@
       margin: 1rem;
       padding: 1rem;
       border-radius: 15px;
-      background-color: rgba(0, 0, 0, 0.76);
+      background-color: rgba(0, 0, 0, 0.85);
       text-align: center;
       font-size: 14px;
       line-height: 20px;
@@ -40,7 +44,20 @@
     }
   }
 }
-
+@media (min-width: 320px){
+  .cardInfo{
+    &:first-child{
+      margin-bottom: 15rem;
+    }
+  }
+}
+@media (min-width: 375px){
+  .cardInfo{
+    &:first-child{
+      margin-bottom: 10rem;
+    }
+  }
+}
 @media (min-width: 768px){
   .cardInfo{
     position: unset;
@@ -73,8 +90,8 @@
       padding: 2rem 3rem;
       background-color: rgba(0, 0, 0, 0.48);
       .cardInfo-title{
+        text-align: start;
         text-shadow: none;
-        margin-left: 1rem;
         padding: 0;
       }
       .cardInfo-text{
@@ -83,7 +100,6 @@
         text-align: left;
         padding: 0;
         margin: 0;
-        margin-left: 2rem;
         font-weight: 300;
       }
       &.borderLeft{
