@@ -9,8 +9,9 @@ const Hero = () => {
     return (
         <section id="hero">
             <div className="hero-titles-container">
-                <h1 className="hero-title">La Candelaria III - Express -</h1>
-                <h2>Disfruta de una auténtica parrilla Argentina</h2>
+                <h1 className="hero-title">La Candelaria III</h1>
+                <h2>- Express -</h2>
+                <h3>Disfruta de una auténtica parrilla Argentina</h3>
                 <div className="circle"></div>
             </div>
             <div className="hero-buttons">
