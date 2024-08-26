@@ -13,17 +13,17 @@ const CategoryBar = ( {categories, filterProductsByCategory} ) =>{
         <div className="category-bar">
             <div className="category-slider">
                 <button
-                    className={actuaCategory == 'todos' ? 'category-btn active' : 'category-btn'} o
-                    nClick={() => selectCategory('todos')}
+                    className={actuaCategory === 'todos' ? 'category-btn active' : 'category-btn'}
+                    onClick={() => selectCategory('todos')}
                 >Todos</button>
-                {
-                    categories &&
+                {categories &&
                     categories.map(category =>
                         <button
-                            className={actuaCategory == category ? 'category-btn active' : 'category-btn'}
-                            key={category}
-                            onClick={() => selectCategory(category)}
-                        >{category}</button>
+                            className={actuaCategory === category ? 'category-btn active' : 'category-btn'}
+                            key={category.id}
+                            onClick={() => selectCategory(category.name)}
+                        >{category.name}
+                        </button>
                     )
                 }
             </div>

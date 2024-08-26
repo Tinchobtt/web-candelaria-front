@@ -7,10 +7,10 @@ const Ecommerce = () => {
     const { products, categories, isLoading, active, setActive, filterProductsByCategory, fetchData} = useProductsCategories()
 
     useEffect(() => {
-        if (!active) {
-            setActive(true);
+        if ((!products || products.length === 0) && !isLoading) {
+            fetchData(true);
         }
-    }, [active]);
+    }, [products, active]);
 
     return (
         <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)'}}>
