@@ -3,9 +3,8 @@
     flex-direction: column;
     align-items: center;
     max-width: 500px;
-    width: calc(100% - 2rem);
-    margin: 1rem;
-    padding: 2rem;
+    width: calc(100%);
+    padding: 2rem 1rem;
     border-radius: 15px;
     background-color: #000;
     .modal-title{
@@ -52,6 +51,7 @@
 }
 @media (min-width: 425px){
     .modal-content{
+        padding: 2rem;
         .modal-form{
             .date-hour-container{
                 display: flex;

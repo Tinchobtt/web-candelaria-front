@@ -17,16 +17,14 @@
     position: relative;
     height: 100vw;
     width: 100%;
-    padding: 0 1rem;
-    .hero-title{
-      width: 300px;
+    .hero-title, h2{
       text-align: center;
-      font-size: 30px;
+      font-size: clamp(24px, 4vw, 50px);
       font-family: 'LM-regular';
       margin-bottom: 1rem;
       z-index: 10;
    }
-    h2{
+    h3{
       text-align: center;
       font-size: clamp(14px, 3vw, 18px);
       font-weight: 300;
@@ -78,13 +76,6 @@
   #hero{
     grid-template-rows: 600px auto auto;
     .hero-titles-container {
-      .hero-title {
-        width: 320px;
-        text-align: center;
-        font-size: 32px;
-        font-family: 'LM-regular';
-        margin-bottom: 1rem;
-      }
       .circle{
         width: 600px;
         height: 600px;
@@ -102,6 +93,7 @@
     padding: 1rem 2rem;
     .hero-titles-container{
       height: 400px;
+      padding: 1rem;
       .circle{
         width: 400px;
         height: 400px;
@@ -124,19 +116,6 @@
       background-position: center;
       border-radius: 50px;
       box-shadow: 0 5px 10px #000;
-    }
-  }
-}
-@media (min-width: 1440px){
-  #hero{
-    .hero-titles-container {
-      .hero-title {
-        width: 450px;
-        text-align: center;
-        font-size: 46px;
-        font-family: 'LM-regular';
-        margin-bottom: 1rem;
-      }
     }
   }
 }

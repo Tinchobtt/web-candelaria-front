@@ -1,14 +1,9 @@
 .cardInfo{
-  position: relative;
   width: 100%;
-  max-width: 360px;
-  height: 300px;
-  margin-bottom: 8em;
-  &:first-child{
-    margin-bottom: 18rem;
-  }
-  //todo sacar la imagen y dejar como en desktop las puntas opuestas redondeadas
+  height: auto;
+  margin-bottom: 4rem;
   .cardInfo-img{
+    display: none;
     height: 100%;
     img{
       width: 100%;
@@ -21,47 +16,27 @@
   .cardInfo-content{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 2rem;
+    padding: 2rem;
+    border-radius: 15px;
+    background: linear-gradient(270deg, rgba(28,28,28,1) 0%, rgba(0,0,0,1) 100%);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.75);
     .cardInfo-title{
-      margin-bottom: .5rem;
-      font-size: clamp(14px, 3vw, 24px);
-      padding: 0 .5rem;
-      text-align: center;
+      margin-bottom: 2rem;
+      font-size: clamp(16px, 3vw, 24px);
       font-family: 'LM-light';
       letter-spacing: 3px;
       text-shadow: 2px 2px 4px #000;
     }
     .cardInfo-text{
-      margin: 1rem;
-      padding: 1rem;
       border-radius: 15px;
-      background-color: rgba(0, 0, 0, 0.85);
-      text-align: center;
-      font-size: 14px;
+      font-size: clamp(14px, 3vw, 16px);
+      font-weight: 200;
       line-height: 20px;
-      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.68);
-    }
-  }
-}
-@media (min-width: 320px){
-  .cardInfo{
-    &:first-child{
-      margin-bottom: 15rem;
-    }
-  }
-}
-@media (min-width: 375px){
-  .cardInfo{
-    &:first-child{
-      margin-bottom: 10rem;
     }
   }
 }
 @media (min-width: 768px){
   .cardInfo{
-    position: unset;
     display: grid;
     grid-template-columns: 40% 60%;
     width: 100%;
@@ -73,9 +48,10 @@
       grid-template-columns: 70% 30%;
     }
     .cardInfo-img{
+      display: block;
       img{
         border-radius: 0;
-        box-shadow: none;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.7);
         &.borderLeft{
           border-radius: 50px 0 0 0;
         }
@@ -85,11 +61,10 @@
       }
     }
     .cardInfo-content{
-      position: unset;
       justify-content: center;
       align-items: start;
       padding: 2rem 3rem;
-      background-color: rgba(0, 0, 0, 0.48);
+      border: none;
       .cardInfo-title{
         text-align: start;
         text-shadow: none;
