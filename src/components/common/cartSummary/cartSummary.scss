@@ -1,0 +1,26 @@
+.cart-summary{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem 1rem;
+    background-color: var(--background);
+    .cart-summary-info{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .summary-quantity{
+            font-size: clamp(14px, 3vw, 16px);
+        }
+        .summary-price{
+            font-size: clamp(16px, 4vw, 20px);
+        }
+    }
+}
+@media (min-width: 1024px){
+    .cart-summary{
+        padding: 2rem;
+    }
+}
