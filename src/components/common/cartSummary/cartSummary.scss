@@ -2,11 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     width: 100%;
     padding: 2rem 1rem;
-    background-color: var(--background);
+    background-color: #000;
     .cart-summary-info{
         display: flex;
         flex-direction: column;

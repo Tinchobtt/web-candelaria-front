@@ -5,7 +5,6 @@ import ProductList from "../../common/productsList/ProductList.jsx";
 import { Toaster } from "sonner";
 import CartSummary from "../../common/cartSummary/CartSummary.jsx";
 import { useCart } from "../../../context/CartContext.jsx";
-import zIndex from "@mui/material/styles/zIndex.js";
 
 const Ecommerce = () => {
     const { products, categories, isLoading, active, setActive, filterProductsByCategory, fetchData} = useProductsCategories()
@@ -15,7 +14,7 @@ const Ecommerce = () => {
             fetchData(true);
         }
     }, [products, active]);
-
+    
     return (
         <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)'}}>
             <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />

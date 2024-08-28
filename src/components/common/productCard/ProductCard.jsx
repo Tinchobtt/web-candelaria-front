@@ -1,6 +1,7 @@
 import { toast } from 'sonner'
 import { useCart } from '../../../context/CartContext'
 import './productCard.scss'
+import { formattedPrice } from '../../../utils/numberFormater'
 
 const ProductCard = ({product}) => {
     const {cart, addToCart} = useCart()
@@ -12,11 +13,12 @@ const ProductCard = ({product}) => {
             duration: 1500
         });
     }
-
+    const discount = () => product.actualPrice > 0
+    
     return(
         <div className="product-card">
             <div className="product-img">
-                <img src={product.img} alt=""/>
+                <img src={product.img} alt={product.title}/>
             </div>
             <div className="product-info">
                 <h3 className="product-title">{product.title}</h3>
@@ -25,10 +27,13 @@ const ProductCard = ({product}) => {
             <div className="product-card-bottom">
                 <div className="product-price-container">
                     <div className="product-actual-price">
-                        <span>${product.actualPrice}</span>
+                        <span>{discount() ? formattedPrice(product.actualPrice) : formattedPrice(product.price)}</span>
                     </div>
                     <div className="product-real-price">
-                        <span>${product.price}</span>
+                        {
+                            discount() &&
+                            <span>{formattedPrice(product.price)}</span>
+                        }
                     </div>
                 </div>
                 <button className="product-add" onClick={addToCartAction}>+</button>
