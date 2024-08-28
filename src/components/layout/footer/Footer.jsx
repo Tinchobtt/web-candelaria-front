@@ -17,7 +17,7 @@ const Footer = () => {
                         </div>
                         <div className="footer-item-container">
                             <li className="nav-footer-item nav-footer-item-title"><HashLink to={'/'} className="nav-footer-link">Menú</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/menu'} className="nav-footer-link"> </HashLink>Carta digital</li>
+                            <li className="nav-footer-item"><HashLink to={'/menu'} className="nav-footer-link">Carta digital</HashLink></li>
                             <li className="nav-footer-item"><HashLink to={'/ecommerce'} className="nav-footer-link">Armar pedido</HashLink></li>
                         </div>
                         <div className="footer-item-container">
