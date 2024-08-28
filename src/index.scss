@@ -21,7 +21,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
-    color: var(--white);
 }
 :root{
     --background: #1C1C1C;
@@ -59,10 +58,14 @@ section{
     max-width: var(--maxWidth);
     padding: 1rem;
 }
+h1,h2,h3,h4,p,span{
+    color: var(--white);
+}
 li{
     list-style: none;
 }
 a{
+    color: unset;
     text-decoration: none;
 }
 
