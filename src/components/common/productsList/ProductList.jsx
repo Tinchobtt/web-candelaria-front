@@ -8,14 +8,7 @@ const ProductList = ({products}) =>{
             {
                 products &&
                 products.map(product => (
-                    <ProductCard
-                        key={product.title}
-                        title={product.title}
-                        description={product.description.slice(0, 100)}
-                        price={product.price}
-                        actualPrice={product.actualPrice}
-                        img={product.image}
-                    />
+                    <ProductCard key={product.id} product={product}/>
                 ))
             }
         </section>

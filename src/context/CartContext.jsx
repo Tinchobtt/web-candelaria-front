@@ -9,9 +9,9 @@ export const CartContextProvider = ({ children }) => {
         const index = findIndexItem(product.id)
 
         if (index !== -1) {
-            changeQuantity(product.id, add=true)
+            changeQuantity(product.id, true)
         } else {
-            setCart([...cart, { id: product.id, quantity: 1 }]);
+            setCart([...cart, { ...product, quantity: 1 }]);
         }
     };
 
@@ -38,6 +38,8 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
+    const totalPrice = cart.reduce((accumulator, prod) => accumulator + prod.actualPrice, 0);
+
     const findIndexItem = (id) => cart.findIndex(prod => prod.id === id)
 
     return (
@@ -45,6 +47,7 @@ export const CartContextProvider = ({ children }) => {
             addToCart,
             deleteFromCart,
             changeQuantity,
+            totalPrice,
             cart
         }}>
             {children}
