@@ -38,7 +38,7 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
-    const totalPrice = cart.reduce((accumulator, prod) => accumulator + prod.actualPrice, 0);
+    const totalPrice = cart.reduce((accumulator, prod) => accumulator + prod.actualPrice * prod.quantity, 0);
 
     const findIndexItem = (id) => cart.findIndex(prod => prod.id === id)
 
