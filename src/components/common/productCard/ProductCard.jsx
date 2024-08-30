@@ -9,7 +9,7 @@ const ProductCard = ({product}) => {
     const addToCartAction = () => {
         addToCart(product)
         toast.success("Se agrego un producto al carrito", {
-            style: {background: 'black'},
+            style: {background: 'black', color: 'white'},
             duration: 1500
         });
     }

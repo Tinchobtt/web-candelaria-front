@@ -2,9 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
+    position: sticky;
     bottom: 0;
-    width: 100%;
+    width: 100vw;
+    margin-top: auto;
     padding: 2rem 1rem;
     background-color: #000;
     .cart-summary-info{
