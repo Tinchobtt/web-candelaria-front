@@ -65,6 +65,8 @@
             position: fixed;
             top: 0;
             right: 0;
+            width: 100vw;
+            height: 100vh;
             padding: 1rem;
             border-radius: 0 0 0 10px;
             background-color:var(--darkerBackground);
@@ -119,9 +121,6 @@
                 .activeLine3{
                     margin-top: 2rem;
                 }
-            }
-            .navbar{
-                padding: 1rem 4rem;
             }
         }
     }

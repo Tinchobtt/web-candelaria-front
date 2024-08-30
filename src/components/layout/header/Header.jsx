@@ -28,7 +28,7 @@ const Header = () => {
                         <img src={logo} alt="logo" className='logo-img'/>
                     </HashLink>
                 </div>
-                {resolution < 768 &&
+                {resolution < 768 && 
                     <div className="menu-icon" onClick={handleWidget}>
                         <span className={menuWidgetOpen ? "line line1 activeLine1" : "line line1"}></span>
                         {/*<span className={menuWidgetOpen ? "line line2 activeLine2" : "line line2"}></span>*/}
