@@ -1,0 +1,20 @@
+.whatsapp-icon{
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    bottom: 8rem;
+    left: 50%;
+    width: calc(100% - 1rem);
+    max-width: 1600px;
+    transform: translateX(-50%);
+    z-index: 1000000;
+    img{
+        width: 4rem;
+        height: 4rem;
+    }
+}
+@media (min-width: 1400px){
+    .whatsapp-icon{
+        
+    }
+}

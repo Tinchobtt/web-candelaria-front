@@ -1,14 +1,11 @@
-import React from 'react';
-import { IoLogoWhatsapp } from 'react-icons/io';
-import { useLocation } from 'react-router-dom';
+import './whatsapp.scss'
+import wpp from '../../../assets/imgs/whatsapp.png'
 
 const WhatsAppIcon = () => {
-  const loc = useLocation().pathname;
-  const colorIcon = loc === '/ecommerce' ? 'black' : loc === '/carrito' ? 'black' : 'white';
-    
+ 
   return (
-    <a href="https://wa.me/541125372314" target="_blank" style={{position: 'fixed', bottom: '2rem', right: '2rem'}}>
-      <IoLogoWhatsapp size={'3rem'} color={colorIcon} />
+    <a href="https://wa.me/541125372314" className='whatsapp-icon' target="_blank">
+        <img src={wpp} alt="whatsapp" title='WhatsApp'/>
     </a>
   );
 };
