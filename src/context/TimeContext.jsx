@@ -1,4 +1,8 @@
-export const isOpen = () =>{
+import { createContext, useContext } from "react";
+
+const TimeContext = createContext()
+
+export const TimeContextoProvider = ({children}) => {
     const schedules = {
         "Domingo": [{ start: "11:30", end: "15:00" }],
         "Lunes": [{ start: "19:00", end: "22:30" }],
@@ -16,7 +20,7 @@ export const isOpen = () =>{
         ],
         "Viernes": [
             { start: "11:30", end: "15:00" },
-            { start: "19:00", end: "22:30" }
+            { start: "19:00", end: "20:30" }
         ],
         "Sábado": [
             { start: "11:30", end: "15:00" },
@@ -31,7 +35,14 @@ export const isOpen = () =>{
 
     const daySchedules = schedules[currentDay];
 
-    return daySchedules.some(schedule => {
+    const isOpen = daySchedules.some(schedule => {
         return currentTime >= schedule.start && currentTime <= schedule.end;
-    });
+    })
+
+    return <TimeContext.Provider value={{ isOpen }}>
+        {children}
+    </TimeContext.Provider>
+
 }
+
+export const useTime = ()=> useContext(TimeContext)

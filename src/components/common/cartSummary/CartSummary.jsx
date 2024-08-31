@@ -12,7 +12,7 @@ const CartSummary = () => {
                 <span className='summary-quantity'>{cart.length} Productos</span>
                 <span className='summary-price'>{formattedPrice(totalPrice)}</span>
             </div>
-            <RedirectButton link={'/carrito'} variant={'contained'}>Ver mi pedido</RedirectButton>
+            <RedirectButton link={'/carrito#start'} variant={'contained'}>Ver mi pedido</RedirectButton>
         </section>
     )
 }

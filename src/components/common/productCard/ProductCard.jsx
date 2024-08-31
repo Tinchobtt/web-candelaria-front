@@ -1,24 +1,28 @@
+import './productCard.scss'
 import { toast } from 'sonner'
 import { useCart } from '../../../context/CartContext'
-import './productCard.scss'
 import { formattedPrice } from '../../../utils/numberFormater'
+import { Button } from '@mui/material'
+import { useTime } from '../../../context/TimeContext'
 
 const ProductCard = ({product}) => {
-    const {cart, addToCart} = useCart()
+    const {addToCart} = useCart()
+    const {isOpen} = useTime()
 
     const addToCartAction = () => {
         addToCart(product)
         toast.success("Se agrego un producto al carrito", {
             style: {background: 'black', color: 'white'},
-            duration: 1500
+            duration: 1500,
+            position: "top-center"
         });
     }
     const discount = () => product.actualPrice > 0
-    
+    let open = false
     return(
         <div className="product-card">
             <div className="product-img">
-                <img src={product.img} alt={product.title}/>
+                <img src={product.image} alt={product.title}/>
             </div>
             <div className="product-info">
                 <h3 className="product-title">{product.title}</h3>
@@ -36,7 +40,7 @@ const ProductCard = ({product}) => {
                         }
                     </div>
                 </div>
-                <button className="product-add" onClick={addToCartAction}>+</button>
+                <Button className="product-add" onClick={addToCartAction} disabled={isOpen ? false : true}>+</Button>
             </div>
         </div>
     )
