@@ -5,6 +5,7 @@ import Especialidades from "../../common/especialidades/Especialidades.jsx";
 import EspecialidadCard from "../../common/especialidadCard/EspecialidadCard.jsx";
 import EventosSection from "../../common/eventosSection/EventosSection.jsx";
 import Contacto from "../../common/contacto/Contacto.jsx";
+import PedidosYa from "../../common/pedidosYa/PedidosYa.jsx";
 
 const Inicio = () => {
     return (
@@ -30,6 +31,7 @@ const Inicio = () => {
             </Especialidades>
             <EventosSection />
             <Contacto />
+            <PedidosYa />
         </main>
     )
 }
