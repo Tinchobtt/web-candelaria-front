@@ -22,8 +22,7 @@ const Footer = () => {
                         </div>
                         <div className="footer-item-container">
                             <li className="nav-footer-item nav-footer-item-title"><HashLink to={'/'} className="nav-footer-link">Eventos</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/'} className="nav-footer-link">Reservar</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/eventos'} className="nav-footer-link">Información de eventos</HashLink></li>
+                            <li className="nav-footer-item"><HashLink to={'/eventos#start'} className="nav-footer-link">Información de eventos</HashLink></li>
                         </div>
                     </ul>
                 </nav>

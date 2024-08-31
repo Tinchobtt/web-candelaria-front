@@ -14,5 +14,9 @@
         row-gap: 1rem;
         max-width: var(--maxWidth);
     }
-
+}
+@media (min-width: 1024px){
+    .product-list{
+        padding: 2rem;
+    }
 }
