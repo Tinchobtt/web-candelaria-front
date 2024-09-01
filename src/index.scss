@@ -32,6 +32,9 @@
     --brown: #9E6F5E;
     --maxWidth: 1400px
 }
+html{
+    scroll-padding-top: 6rem;
+}
 body{
     background-color: var(--background);
     overflow-x: hidden;

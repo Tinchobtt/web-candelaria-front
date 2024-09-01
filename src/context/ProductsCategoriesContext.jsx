@@ -5,8 +5,8 @@ const ProductsCategoriesContext = createContext();
 
 export const ProdcutsCategoriesProvider = ({ children }) => {
     const [products, setProducts] = useState(null);
-    const [filteredProducts, setFilteredProducts] = useState([]);
-    const [categories, setCategories] = useState(null);
+    const [filteredProducts, setFilteredProducts] = useState();
+    const [categories, setCategories] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [active, setActive] = useState(true);
 
@@ -26,6 +26,7 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
             ]);
             setProducts(productsResponse.data);
             setCategories(categoriesResponse.data);
+            
         } catch (error) {
             console.error("Error fetching products or categories:", error);
         } finally {

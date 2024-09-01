@@ -1,8 +1,8 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext } from 'react';
 
-const TimeContext = createContext()
+const TimeContext = createContext();
 
-export const TimeContextoProvider = ({children}) => {
+export const TimeContextProvider = ({ children }) => {
     const schedules = {
         "Domingo": [{ start: "11:30", end: "15:00" }],
         "Lunes": [{ start: "19:00", end: "22:30" }],
@@ -33,16 +33,26 @@ export const TimeContextoProvider = ({children}) => {
     const currentDay = daysOfWeek[now.getDay()];
     const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-    const daySchedules = schedules[currentDay];
-
+    const daySchedules = schedules[currentDay] || [];
     const isOpen = daySchedules.some(schedule => {
         return currentTime >= schedule.start && currentTime <= schedule.end;
-    })
+    });
 
-    return <TimeContext.Provider value={{ isOpen }}>
-        {children}
-    </TimeContext.Provider>
+    const checkIfOpen = (date, time) => {
+        const selectedDate = new Date(date);
+        const selectedDay = daysOfWeek[selectedDate.getDay()];
+        const selectedSchedules = schedules[selectedDay] || [];
 
-}
+        return selectedSchedules.some(schedule => {
+            return time >= schedule.start && time <= schedule.end;
+        });
+    };
 
-export const useTime = ()=> useContext(TimeContext)
+    return (
+        <TimeContext.Provider value={{ isOpen, checkIfOpen }}>
+            {children}
+        </TimeContext.Provider>
+    );
+};
+
+export const useTime = () => useContext(TimeContext);
