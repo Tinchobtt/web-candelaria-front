@@ -4,12 +4,12 @@ import AppRouter from "./router/AppRouter.jsx";
 import {ModalProvider} from "./context/ModalContext.jsx";
 import {ProdcutsCategoriesProvider} from "./context/ProductsCategoriesContext.jsx";
 import { CartContextProvider } from './context/CartContext.jsx';
-import { TimeContextoProvider } from './context/TimeContext.jsx';
+import { TimeContextProvider } from './context/TimeContext.jsx';
 
 function App() {
 
   return (
-    <TimeContextoProvider>
+    <TimeContextProvider>
     <CartContextProvider>
     <ProdcutsCategoriesProvider>
     <ModalProvider>
@@ -19,7 +19,7 @@ function App() {
     </ModalProvider>
     </ProdcutsCategoriesProvider>
     </CartContextProvider>
-    </TimeContextoProvider>
+    </TimeContextProvider>
   )
 }
 

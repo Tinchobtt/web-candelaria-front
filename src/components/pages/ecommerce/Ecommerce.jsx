@@ -13,7 +13,7 @@ const Ecommerce = () => {
     const {cart} = useCart()
     const { isOpen } = useTime()
     const navigate = useNavigate()
-
+    
     useEffect(() => {
         if(!isOpen){
             setTimeout(()=>{

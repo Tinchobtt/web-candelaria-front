@@ -1,6 +1,6 @@
 #contacto{
   display: grid;
-  grid-auto-flow: auto auto;
+  grid-template-rows: auto auto;
   justify-items: center;
   gap: 3rem;
   width: 100%;

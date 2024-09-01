@@ -4,11 +4,15 @@ import {useRef} from "react";
 import {TextField} from "@mui/material";
 import * as Yup from 'yup';
 import {useFormik} from "formik";
+import { useTime } from '../../../context/TimeContext';
 
 const ModalReserva = ({name}) => {
     const formRef = useRef(null);
     const inputTime = useRef(null);
     const inputDate = useRef(null);
+    const {checkIfOpen} = useTime()
+    const today = new Date()
+    today.setHours(0,0,0,0)
 
     const {handleSubmit, handleChange, handleBlur, touched, values, errors} = useFormik({
         initialValues: {
@@ -19,10 +23,17 @@ const ModalReserva = ({name}) => {
             time: '',
         },
         onSubmit: (values, action)=>{
-            const message = `Hola, me llamo ${values.name}. Quiero hacer una reserva de ${values.amount} para el ${values.date} a las ${values.time}. Mensaje adicional: ${values.message}`;
+            const message = `Hola, me llamo ${values.name}. Quiero hacer una reserva de ${values.amount} personas para el ${values.date} a las ${values.time}.\nMensaje adicional: ${values.message}`;
             const phoneNumber = 541125372314
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+
+            const { date, time } = values;
+            if (!checkIfOpen(date, time)) {
+                action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas');
+                return;
+            }
+
             window.open(whatsappUrl, '_blank');
             action.resetForm();
         },
@@ -37,10 +48,11 @@ const ModalReserva = ({name}) => {
             message: Yup.string(),
             date: Yup.date()
                 .required('Campo obligatorio')
-                .typeError('Fecha no válida'), // Esto captura errores si la fecha no es válida
+                .min(today, 'La fecha no puede ser anterior al día presente')
+                .typeError('Fecha no válida'),
             time: Yup.string()
                 .required('Campo obligatorio')
-                .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Hora no válida'), // Verifica el formato HH:mm
+                .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Hora no válida'),
         }),
     })
 

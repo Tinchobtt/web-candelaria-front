@@ -15,15 +15,15 @@ const Hero = () => {
                 <div className="circle"></div>
             </div>
             <div className="hero-buttons">
-                <RedirectButton link={'/ecommerce'} variant={'outlined'}>Hace tu pedido</RedirectButton>
-                <RedirectButton link={'/menu'} variant={'outlined'}>Menú</RedirectButton>
+                <RedirectButton link={'/ecommerce#start'} variant={'outlined'}>Hace tu pedido</RedirectButton>
+                <RedirectButton link={'/menu#start'} variant={'outlined'}>Menú</RedirectButton>
             </div>
             {resolution < 768 ? (
                 <div className="arrow-container">
                     <MdKeyboardDoubleArrowDown/>
                 </div>
             ) : (
-                <div className="img-container" > </div>
+                <div className="img-container"> </div>
             )}
         </section>
 )
