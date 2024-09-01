@@ -9,7 +9,7 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { products, categories, isLoading, active, setActive, filterProductsByCategory, fetchData} = useProductsCategories()
+    const { products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
     const {cart} = useCart()
     const { isOpen } = useTime()
     const navigate = useNavigate()
@@ -40,7 +40,7 @@ const Ecommerce = () => {
         if ((!products || products.length === 0) && !isLoading) {
             fetchData(true);
         }
-    }, [products, active]);
+    }, [products]);
     
     return (
         <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>

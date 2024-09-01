@@ -2,13 +2,13 @@ import {useProductsCategories} from "../../../context/ProductsCategoriesContext.
 import {useEffect} from "react";
 
 const Admin = () => {
-    const { products, categories, isLoading, active, setActive, filterProductsByCategory, fetchData} = useProductsCategories()
+    const { products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
 
     useEffect(() => {
         if ((!products || products.length === 0) && !isLoading) {
             fetchData(false);
         }
-    }, [products, active]);
+    }, [products]);
 
     return (
         <main>

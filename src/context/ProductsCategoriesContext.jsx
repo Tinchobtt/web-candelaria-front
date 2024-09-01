@@ -8,7 +8,6 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     const [filteredProducts, setFilteredProducts] = useState();
     const [categories, setCategories] = useState();
     const [isLoading, setIsLoading] = useState(false);
-    const [active, setActive] = useState(true);
 
     const fetchData = async (activeValue) => {
         if (products && categories) {
@@ -48,14 +47,28 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         }
     };
 
+    const groupProductsByCategory = (categories, products) => {
+        const categoriesWithProducts = [];
+        
+        categories.forEach(category => {
+            const productsInCategory = products.filter(product => product.category === category.name);
+            const categoryWithProducts = {
+                category: category.name,
+                products: productsInCategory
+            };
+            categoriesWithProducts.push(categoryWithProducts);
+        });
+    
+        return categoriesWithProducts;
+    }
+
     return (
         <ProductsCategoriesContext.Provider value={{
             products: filteredProducts,
             categories,
             isLoading,
-            active,
-            setActive,
             filterProductsByCategory,
+            groupProductsByCategory,
             fetchData
         }}>
             {children}
