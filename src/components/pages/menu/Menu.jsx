@@ -17,13 +17,11 @@ const Menu = () => {
         <main id="main-menu">
             <Carta title="Menú">
                 <div className="menu-sections-container">
-                    {
-                        categories && products && (
-                            groupProductsByCategory(categories, products).map( info => {
-                                return <MenuCard key={info.category} content={info}/>
-                            })
-                        )
-                    }
+                    {categories && products && (
+                        groupProductsByCategory(categories, products).map( info => {
+                            return <MenuCard key={info.id} content={info}/>
+                        })
+                    )}
                 </div>
             </Carta>
         </main>

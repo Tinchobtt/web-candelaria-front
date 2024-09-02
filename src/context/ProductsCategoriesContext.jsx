@@ -53,6 +53,7 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         categories.forEach(category => {
             const productsInCategory = products.filter(product => product.category === category.name);
             const categoryWithProducts = {
+                id: category.id,
                 category: category.name,
                 products: productsInCategory
             };
