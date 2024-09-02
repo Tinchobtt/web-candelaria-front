@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 import {useProductsCategories} from "../../../context/ProductsCategoriesContext.jsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import CategoryBar from "../../common/categoryBar/CategoryBar.jsx";
 import ProductList from "../../common/productsList/ProductList.jsx";
 import CartSummary from "../../common/cartSummary/CartSummary.jsx";
@@ -13,9 +13,11 @@ const Ecommerce = () => {
     const {cart} = useCart()
     const { isOpen } = useTime()
     const navigate = useNavigate()
-    
+    const [alertShown, setAlertShown] = useState(false);
+
     useEffect(() => {
-        if(!isOpen){
+        if(!isOpen && !alertShown ){
+            setAlertShown(true);
             setTimeout(()=>{
                 Swal.fire({
                     title: 'Local cerrado!',
@@ -41,6 +43,7 @@ const Ecommerce = () => {
             fetchData(true);
         }
     }, [products]);
+    
     
     return (
         <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
