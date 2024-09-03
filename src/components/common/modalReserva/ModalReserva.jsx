@@ -28,13 +28,15 @@ const ModalReserva = ({name}) => {
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
 
-            const { date, time } = values;
-            if (!checkIfOpen(date, time)) {
+            // Ajustar la fecha para que coincida con la zona horaria local
+            let selectedDate = new Date(values.date);
+            selectedDate = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
+ 
+            if (!checkIfOpen(selectedDate, values.time)) {
                 action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas');
                 return;
             }
-
-            window.open(whatsappUrl, '_blank');
+            //window.open(whatsappUrl, '_blank');
             action.resetForm();
         },
         //VALIDACIONES

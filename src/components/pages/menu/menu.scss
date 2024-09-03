@@ -1,0 +1,35 @@
+#main-menu{
+    .menu-sections-container{
+        display: grid;
+        justify-items: center;
+        width: 100%;
+    }
+}
+@media (min-width: 425px){
+    .menu-sections-container{
+        padding: 0 1rem;
+    }
+}
+@media (min-width: 768px){
+    .menu-sections-container{
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        position: relative;
+    }
+    .menu-sections-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background-color: rgb(255, 255, 255); /* Color del borde */
+        transform: translateX(-50%);
+    }
+}
+@media (min-width: 1024px){
+    .menu-sections-container{
+        gap: 4rem;
+        padding: 2rem;
+    }
+}

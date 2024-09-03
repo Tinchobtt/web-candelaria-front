@@ -1,11 +1,12 @@
+import './inicio.scss';
 import Hero from "../../common/hero/Hero.jsx";
 import CardInfo from "../../common/cardInfo/CardInfo.jsx";
 import fireImg from '../../../assets/imgs/fire.png'
-import Especialidades from "../../common/especialidades/Especialidades.jsx";
 import EspecialidadCard from "../../common/especialidadCard/EspecialidadCard.jsx";
 import EventosSection from "../../common/eventosSection/EventosSection.jsx";
 import Contacto from "../../common/contacto/Contacto.jsx";
 import PedidosYa from "../../common/pedidosYa/PedidosYa.jsx";
+import Carta from "../../common/carta/Carta.jsx";
 
 const Inicio = () => {
     return (
@@ -24,11 +25,13 @@ const Inicio = () => {
                     }}
                 />
             </section>
-            <Especialidades title={'Descubrí Nuestras Especialidades'}>
-                <EspecialidadCard />
-                <EspecialidadCard left={true}/>
-                <EspecialidadCard />
-            </Especialidades>
+            <Carta title={'Descubrí Nuestras Especialidades'}>
+                <div className="especialidades-content">
+                    <EspecialidadCard />
+                    <EspecialidadCard left={true}/>
+                    <EspecialidadCard />
+                </div>
+            </Carta>
             <EventosSection />
             <Contacto />
             <PedidosYa />
