@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout.jsx";
 import { routes } from "./routes.js";
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
 import Admin from "../components/pages/admin/Admin.jsx";
+import Login from "../components/pages/login/Login.jsx";
 
 const AppRouter = () => {
     return (
@@ -11,6 +12,9 @@ const AppRouter = () => {
                 {
                     routes.map( ({id, path, Element}) => <Route key={id} path={path} element={ <Element />} />)
                 }
+            </Route>
+            <Route>
+                <Route path="/login" element={<Login />}/>
             </Route>
             <Route element={ <ProtectedRoutes /> }>
                 <Route path={'/admin'} element={<Admin />} />

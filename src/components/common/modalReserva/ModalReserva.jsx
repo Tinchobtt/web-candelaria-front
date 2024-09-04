@@ -36,7 +36,7 @@ const ModalReserva = ({name}) => {
                 action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas');
                 return;
             }
-            //window.open(whatsappUrl, '_blank');
+            window.open(whatsappUrl, '_blank');
             action.resetForm();
         },
         //VALIDACIONES
