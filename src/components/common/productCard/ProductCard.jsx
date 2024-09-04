@@ -17,8 +17,8 @@ const ProductCard = ({product}) => {
             position: "top-center"
         });
     }
-    const discount = () => product.actualPrice > 0
-    let open = false
+    const discount = () => product.actualPrice !== product.price
+
     return(
         <div className="product-card">
             <div className="product-img">
@@ -34,10 +34,10 @@ const ProductCard = ({product}) => {
                         <span>{discount() ? formattedPrice(product.actualPrice) : formattedPrice(product.price)}</span>
                     </div>
                     <div className="product-real-price">
-                        {
-                            discount() &&
-                            <span>{formattedPrice(product.price)}</span>
-                        }
+                    {
+                        discount() &&
+                        <span>{formattedPrice(product.price)}</span>
+                    }
                     </div>
                 </div>
                 <Button className="product-add" onClick={addToCartAction} disabled={isOpen ? false : true}>+</Button>

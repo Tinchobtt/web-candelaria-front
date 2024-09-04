@@ -1,0 +1,22 @@
+#main-login{
+    margin: auto;
+    padding-top: 10rem;
+    .login{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .login-form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1.5rem;
+            .input-login{
+                background-color: #fff;
+            }
+            .login-btn{
+                margin-top: 1.5rem;
+            }
+        }
+    }
+}

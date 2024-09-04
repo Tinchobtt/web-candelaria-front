@@ -30,10 +30,5 @@ export const routes = [
         id: 'carrito',
         path: '/carrito',
         Element: Carrito,
-    },
-    {
-        id: 'login',
-        path: '/login',
-        Element: Login,
     }
 ]

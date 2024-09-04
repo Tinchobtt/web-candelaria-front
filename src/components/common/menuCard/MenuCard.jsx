@@ -10,7 +10,7 @@ const MenuCard = ({content}) => {
             <div key={prod.id} className='menu-product'>
                 <span className='menu-prod-title'>{prod.title}</span>
                 <span className='menu-line-dotted'></span>
-                <span className='menu-prod-price'>{formattedPrice(prod.price)}</span>
+                <span className='menu-prod-price'>{formattedPrice(prod.actualPrice)}</span>
             </div>
         ))}
         </div>

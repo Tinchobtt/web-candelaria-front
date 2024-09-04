@@ -1,12 +1,10 @@
 import {Navigate, Outlet} from "react-router-dom";
 
 const ProtectedRoutes = () => {
-    let user = 'admin' //Peticion
+    let user = 'user' //Peticion
     return(
         <>
-        {
-            user === 'admin' ? <Outlet /> : <Navigate to={'/'} />
-        }
+        { user === 'admin' ? <Outlet /> : <Navigate to={'/login'} /> }
         </>
     )
 }
