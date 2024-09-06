@@ -70,20 +70,12 @@ const ModalPedido = () => {
             
             if (tipoPedido === 'A domicilio') {
                 try {
-                    // Petición al backend para verificar el domicilio
-                    const response = await axios.post(`http://localhost:8080/api/address?street=${values.domicilio}`, {
-                        domicilio: values.domicilio,
-                    });
+                    const response = await axios.get(`http://localhost:8080/api/address?street=ezpeleta%20&number=1159`)
                     
-                    // Manejar la respuesta del backend
-                    if (!response.data.valido) {
-                        // Si el domicilio no es válido, establecer un error en Formik
-                        action.setFieldError('domicilio', 'Domicilio dentro de rango');
+                    if (response.data.valido) {
                         action.setSubmitting(false);
-                        return;
                     }
                 } catch (error) {
-                    console.log(error);
                     action.error('Error verificando el domicilio:', error);
                     action.setFieldError('domicilio', 'Domicilio fuera de rango');
                     action.setSubmitting(false);
@@ -314,7 +306,7 @@ const messageBuild = (values) =>{
     const message = `Hola, me llamo ${values.name}. Quiero hacer un pedido para el ${values.date} a las ${values.time} hs.\nMensaje adicional: ${values.message}\nPedido: `
     const phoneNumber = 541125372314;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+    const whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
 
     return whatsappUrl
 }

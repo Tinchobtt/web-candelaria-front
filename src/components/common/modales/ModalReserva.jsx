@@ -26,7 +26,7 @@ const ModalReserva = ({name}) => {
             const message = `Hola, me llamo ${values.name}. Quiero hacer una reserva de ${values.amount} personas para el ${values.date} a las ${values.time}.\nMensaje adicional: ${values.message}`;
             const phoneNumber = 541125372314
             const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+            const whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
 
             // Ajustar la fecha para que coincida con la zona horaria local
             let selectedDate = new Date(values.date);
