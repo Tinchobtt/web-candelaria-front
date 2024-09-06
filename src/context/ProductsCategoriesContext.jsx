@@ -48,9 +48,10 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     };
 
     const groupProductsByCategory = (categories, products) => {
+        const sortedCategories = categories.sort((a, b) => a.position - b.position);
         const categoriesWithProducts = [];
         
-        categories.forEach(category => {
+        sortedCategories.forEach(category => {
             const productsInCategory = products.filter(product => product.category === category.name);
             const categoryWithProducts = {
                 id: category.id,
