@@ -1,11 +1,13 @@
-import ModalReserva from "../modalReserva/ModalReserva.jsx";
+import ModalReserva from "../modales/ModalReserva.jsx";
 import {useModal} from "../../../context/ModalContext.jsx";
 import {useEffect, useRef} from "react";
 import './genericModal.scss'
+import ModalPedido from "../modales/ModalPedido.jsx";
 
 const ModalContent = {
-    reservaMesa: <ModalReserva name={'Mesa'} />,
-    reservaEvento: <ModalReserva name={'Evento'} />,
+    modalReservaMesa: <ModalReserva name={'Mesa'} />,
+    modalReservaEvento: <ModalReserva name={'Evento'} />,
+    modalPedido: <ModalPedido />
 };
 
 const GenericModal = () => {

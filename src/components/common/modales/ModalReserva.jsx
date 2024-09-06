@@ -1,4 +1,4 @@
-import './modalReserva.scss'
+import './modal.scss'
 import Button from "@mui/material/Button";
 import {useRef} from "react";
 import {TextField} from "@mui/material";
