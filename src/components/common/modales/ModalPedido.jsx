@@ -7,12 +7,16 @@ import * as Yup from 'yup';
 import {useFormik} from "formik";
 import { useTime } from '../../../context/TimeContext';
 import axios from 'axios';
+import { splitAddress } from '../../../utils/splitAdress';
+import { useCart } from '../../../context/CartContext';
+import { messageBuilder } from '../../../utils/messageBuilder';
 
 const ModalPedido = () => {
     const formRef = useRef(null);
     const inputTime = useRef(null);
     const inputDate = useRef(null);
     const {checkIfOpen} = useTime()
+    const {cart} = useCart()
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -50,7 +54,7 @@ const ModalPedido = () => {
             time: '',
         },
         onSubmit: async (values, action) => {
-            const whatsappUrl = messageBuild(values)
+            const whatsappUrl = messageBuilder('pedido', values, tipoPedido, metodoPago, cart)
  
             if (!checkIfOpen(values.date, values.time)) {
                 action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas');
@@ -68,9 +72,11 @@ const ModalPedido = () => {
             // Validar domicilio
             action.setSubmitting(true);
             
+            console.log(tipoPedido, metodoPago)
             if (tipoPedido === 'A domicilio') {
                 try {
-                    const response = await axios.get(`http://localhost:8080/api/address?street=ezpeleta%20&number=1159`)
+                    const {street, number} = splitAddress(values.domicilio)
+                    const response = await axios.get(`http://localhost:8080/api/address?street=${encodeURIComponent(street)}%20&number=${encodeURIComponent(number)}`)
                     
                     if (response.data.valido) {
                         action.setSubmitting(false);
@@ -82,9 +88,8 @@ const ModalPedido = () => {
                     return;
                 }
             }
-            //window.open(whatsappUrl, '_blank');
+            window.open(whatsappUrl, '_blank');
             //action.resetForm();
-            console.log(values)
         },
         // VALIDACIONES
         validationSchema: Yup.object().shape({
@@ -304,9 +309,10 @@ export default ModalPedido
 
 const messageBuild = (values) =>{
     const message = `Hola, me llamo ${values.name}. Quiero hacer un pedido para el ${values.date} a las ${values.time} hs.\nMensaje adicional: ${values.message}\nPedido: `
+
     const phoneNumber = 541125372314;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
 
-    return whatsappUrl
+    return encodeURIComponent(whatsappUrl)
 }
