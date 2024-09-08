@@ -6,8 +6,10 @@ import * as Yup from 'yup'
 import { AiFillEye } from "react-icons/ai";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,9 +31,27 @@ const Login = () => {
             password: Yup.string()
                 .required('La contraseña es obligatoria')
         }),
-        onSubmit: (values, action) =>{
-            console.log(values)
-            action.resetForm()
+        onSubmit: async (values, actions) => {
+            try {
+                const response = await fetch('http://localhost:8080/api/auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(values),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error en la autenticación');
+                }
+                //TODO: Guardar credenciales para confirmarlas en ProtectedRoutes
+                navigate('/admin');
+                
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                actions.resetForm(); 
+            }
         }
     })
 
