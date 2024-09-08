@@ -69,11 +69,9 @@ const ModalPedido = () => {
                 setMetodoPagoHelper('Campo obligatorio')
                 return
             }
-            // Validar domicilio
-            action.setSubmitting(true);
             
-            console.log(tipoPedido, metodoPago)
             if (tipoPedido === 'A domicilio') {
+                action.setSubmitting(true);
                 try {
                     const {street, number} = splitAddress(values.domicilio)
                     const response = await axios.get(`http://localhost:8080/api/address?street=${encodeURIComponent(street)}%20&number=${encodeURIComponent(number)}`)
@@ -89,7 +87,7 @@ const ModalPedido = () => {
                 }
             }
             window.open(whatsappUrl, '_blank');
-            //action.resetForm();
+            action.resetForm();
         },
         // VALIDACIONES
         validationSchema: Yup.object().shape({
