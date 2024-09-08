@@ -72,7 +72,7 @@ const Header = () => {
                                                                onClick={handleWidget}>Contacto</HashLink></li>
                         </ul>
                         <div className="nav-contact">
-                            <ModalButton name={'reservaMesa'}>Reservá</ModalButton>
+                            <ModalButton name={'modalReservaMesa'}>Reservá</ModalButton>
                             {resolution < 768 && <Redes />}
                         </div>
                     </nav>

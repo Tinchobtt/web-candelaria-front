@@ -1,10 +1,11 @@
-import './modalReserva.scss'
+import './modal.scss'
 import Button from "@mui/material/Button";
 import {useRef} from "react";
 import {TextField} from "@mui/material";
 import * as Yup from 'yup';
 import {useFormik} from "formik";
 import { useTime } from '../../../context/TimeContext';
+import { messageBuilder } from '../../../utils/messageBuilder';
 
 const ModalReserva = ({name}) => {
     const formRef = useRef(null);
@@ -23,10 +24,7 @@ const ModalReserva = ({name}) => {
             time: '',
         },
         onSubmit: (values, action)=>{
-            const message = `Hola, me llamo ${values.name}. Quiero hacer una reserva de ${values.amount} personas para el ${values.date} a las ${values.time}.\nMensaje adicional: ${values.message}`;
-            const phoneNumber = 541125372314
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+            const whatsappUrl = messageBuilder('reserva', values)
 
             // Ajustar la fecha para que coincida con la zona horaria local
             let selectedDate = new Date(values.date);

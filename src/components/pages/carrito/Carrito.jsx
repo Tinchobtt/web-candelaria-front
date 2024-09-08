@@ -26,7 +26,7 @@ const Carrito = () => {
             </section>
             <div className="cart-checkout">
                 <span>TOTAL {formattedPrice(totalPrice)}</span>
-                <ModalButton name="pedido">Continuar</ModalButton>
+                <ModalButton name="modalPedido">Continuar</ModalButton>
             </div>
         </main>
     )

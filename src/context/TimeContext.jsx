@@ -20,7 +20,7 @@ export const TimeContextProvider = ({ children }) => {
         ],
         "Viernes": [
             { start: "11:30", end: "15:00" },
-            { start: "19:00", end: "20:30" }
+            { start: "19:00", end: "22:30" }
         ],
         "Sábado": [
             { start: "11:30", end: "15:00" },
@@ -39,7 +39,8 @@ export const TimeContextProvider = ({ children }) => {
     });
 
     const checkIfOpen = (date, time) => {
-        const selectedDate = new Date(date);
+        let selectedDate = new Date(date);
+        selectedDate = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
         const selectedDay = daysOfWeek[selectedDate.getDay()];
         const selectedSchedules = schedules[selectedDay] || [];
 
