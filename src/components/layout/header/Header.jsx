@@ -45,17 +45,15 @@ const Header = () => {
                     </div>
                     <nav className={menuWidgetOpen ? "nav-open navbar-admin": "navbar-admin"}>
                         <ul className="nabvar-list">
-                            <li className="nav-item"><HashLink to={'/#start'}
-                                                            className={loc === '/' ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Ver sitio Web</HashLink></li>
-    
-                            <li className="nav-item"><HashLink to={'/menu#start'}
-                                                            className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Actualizar contraseña</HashLink></li>
-    
-                            <li className="nav-item"><HashLink to={'/ecommerce#start'}
-                                                            className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Cerrar sesión</HashLink></li>
+                            <li className="nav-item">
+                                <a href={'/'} className={loc === '/' ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Ver sitio Web</a>
+                            </li>
+                            <li className="nav-item">
+                                <a to={'/menu#start'} className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Actualizar contraseña</a>
+                            </li>
+                            <li className="nav-item">
+                                <a to={'/ecommerce#start'} className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Cerrar sesión</a>
+                            </li>
                         </ul>
                     </nav>
                     <div className="menu-icon-admin">
