@@ -6,7 +6,7 @@
     background-color: var(--darkerBackground);
     box-shadow: 0 0 10px #000;
     z-index: 1000;
-    header {
+    header{
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -102,6 +102,53 @@
             transform: translateX(0%);
         }
     }
+    .header-admin {
+        position: relative;
+        .menu-icon-admin{
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            .gear{
+                font-size: 2rem;
+                color: #fff;
+                margin-left: 1rem;
+                cursor: pointer;
+            }
+        }
+        .navbar-admin{
+            display: none;
+            position: absolute;
+            top: 4rem;
+            right: 0;
+            width: auto;
+            height: auto;
+            padding: 2rem;
+            border-radius: 10px;
+            background-color:var(--white);
+            & ul{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .nav-item{
+                    margin-bottom: 2rem;
+                    .nav-link{
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #000;
+                    }
+                    .active{
+                        font-weight: 700;
+                    }
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        .nav-open{
+            display: block;
+        }
+    }
 }
 /*MEDIA QUERYS*/
 @media (min-width: 425px){
@@ -121,6 +168,11 @@
                 .activeLine3{
                     margin-top: 2rem;
                 }
+            }
+        }
+        .header-admin {
+            .navbar-admin{
+                top: 5rem;
             }
         }
     }
@@ -171,6 +223,11 @@
                     margin: 0;
                     margin-left: 3rem;
                 }
+            }
+        }
+        .header-admin {
+            .navbar-admin{
+                top: 6rem;
             }
         }
     }
