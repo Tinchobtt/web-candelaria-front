@@ -13,7 +13,7 @@
 @media (min-width: 768px){
     .menu-sections-container{
         grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+        column-gap: 2rem;
         position: relative;
     }
     .menu-sections-container::before {
@@ -29,7 +29,7 @@
 }
 @media (min-width: 1024px){
     .menu-sections-container{
-        gap: 4rem;
+        column-gap: 4rem;
         padding: 2rem;
     }
 }

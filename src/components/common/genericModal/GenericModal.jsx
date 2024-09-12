@@ -3,19 +3,20 @@ import {useModal} from "../../../context/ModalContext.jsx";
 import {useEffect, useRef} from "react";
 import './genericModal.scss'
 import ModalPedido from "../modales/ModalPedido.jsx";
+import ModalProduct from "../modales/ModalProduct.jsx";
 
 const ModalContent = {
     modalReservaMesa: <ModalReserva name={'Mesa'} />,
     modalReservaEvento: <ModalReserva name={'Evento'} />,
-    modalPedido: <ModalPedido />
+    modalPedido: <ModalPedido />,
+    modalProducto: (data) => <ModalProduct data={data} /> 
 };
 
 const GenericModal = () => {
-    const {modalType, closeModal} = useModal()
+    const { modalType, modalData, closeModal } = useModal()
     const modalRef = useRef(null);
-
+    
     useEffect(() => {
-        //Verifica clicks fuera del modal para cerrarlo
         const handleClickOutside = (event) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
                 closeModal();
@@ -28,13 +29,17 @@ const GenericModal = () => {
         };
     }, [closeModal]);
 
-    if(!modalType) return null
+    if (!modalType) return null;
+
+    const ModalComponent = ModalContent[modalType];
 
     return (
         <div className="overlay">
             <div ref={modalRef} className="modal">
                 <button onClick={closeModal} className="closeButton">X</button>
-                { ModalContent[modalType] }
+                {typeof ModalComponent === 'function' 
+                    ? ModalComponent(modalData) 
+                    : ModalComponent}
             </div>
         </div>
     );

@@ -23,8 +23,9 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
                 axios.get(`http://localhost:8080/api/products?onlyActives=${activeValue}`),
                 axios.get(`http://localhost:8080/api/categories?onlyActives=${activeValue}`)
             ]);
+            const sortedCategories = categoriesResponse.data.sort((a, b) => a.position - b.position);
             setProducts(productsResponse.data);
-            setCategories(categoriesResponse.data);
+            setCategories(sortedCategories);
             
         } catch (error) {
             console.error("Error fetching products or categories:", error);
@@ -48,10 +49,9 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     };
 
     const groupProductsByCategory = (categories, products) => {
-        const sortedCategories = categories.sort((a, b) => a.position - b.position);
         const categoriesWithProducts = [];
         
-        sortedCategories.forEach(category => {
+        categories.forEach(category => {
             const productsInCategory = products.filter(product => product.category === category.name);
             const categoryWithProducts = {
                 id: category.id,

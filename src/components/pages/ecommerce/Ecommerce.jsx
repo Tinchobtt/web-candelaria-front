@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
     const { products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
-    const {cart} = useCart()
+    const { cart } = useCart()
     const { isOpen } = useTime()
     const navigate = useNavigate()
     const [alertShown, setAlertShown] = useState(false);
@@ -48,7 +48,7 @@ const Ecommerce = () => {
     return (
         <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
             <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />
-            <ProductList products={products} />
+            <ProductList products={products} admin={false}/>
             {
                 cart.length > 0 &&
                 <CartSummary />

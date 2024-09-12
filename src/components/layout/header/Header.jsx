@@ -6,6 +6,7 @@ import ModalButton from "../../common/modalButton/ModalButton.jsx";
 import {useLocation} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
 import useWindowResolution from "../../../hooks/useWindowResolution.jsx";
+import { VscGear } from "react-icons/vsc";
 
 const Header = () => {
     const [menuWidgetOpen, setMenuWidgetOpen] = useState(false);//Estado de cambio del icono del Nav
@@ -30,6 +31,35 @@ const Header = () => {
                         </HashLink>
                     </div>
                     <span style={{fontSize: 'clamp(10px, 4vw, 18px)'}}>ADMINISTRADOR</span>
+                </header>
+            </div>
+        )
+    }else if(loc === '/admin'){
+        return (
+            <div className='header-container'>
+                <header className='header-admin'>
+                    <div className="logo-container">
+                        <a href={'/'} onClick={closeMenu}>
+                            <img src={logo} alt="logo" className='logo-img'/>
+                        </a>
+                    </div>
+                    <nav className={menuWidgetOpen ? "nav-open navbar-admin": "navbar-admin"}>
+                        <ul className="nabvar-list">
+                            <li className="nav-item">
+                                <a href={'/'} className={loc === '/' ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Ver sitio Web</a>
+                            </li>
+                            <li className="nav-item">
+                                <a to={'/menu#start'} className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Actualizar contraseña</a>
+                            </li>
+                            <li className="nav-item">
+                                <a to={'/ecommerce#start'} className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div className="menu-icon-admin">
+                        <span style={{fontSize: 'clamp(10px, 4vw, 18px)'}}>ADMIN</span>
+                        <VscGear className='gear' onClick={handleWidget}/>
+                    </div>
                 </header>
             </div>
         )

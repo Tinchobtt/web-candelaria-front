@@ -1,12 +1,12 @@
 import Button from '@mui/material/Button';
 import {useModal} from "../../../context/ModalContext.jsx";
 
-const ModalButton = ({ name, children }) => {
-    const {openModal} = useModal()
-
+const ModalButton = ({ name, children, data = null }) => { 
+    const { openModal } = useModal()
+    
     return (
         <Button
-            onClick={() => openModal(name)}
+            onClick={() => openModal(name, data)}
             variant="contained" 
             sx={{
                 textTransform: 'none', 
@@ -21,7 +21,8 @@ const ModalButton = ({ name, children }) => {
             }}>
             {children}
         </Button>
-      )
+    )
 };
+
 
 export default ModalButton
