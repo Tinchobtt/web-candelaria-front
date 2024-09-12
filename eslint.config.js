@@ -32,7 +32,8 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
-      'no-unused-vars': ['warn', { args: 'none' }], // No marca error en variables de parámetros no utilizados
+      'no-unused-vars': ['warn', { args: 'none' }], 
+      'react/prop-types': 'off',
     },
     linterOptions: {
       reportUnusedDisableDirectives: 'error',

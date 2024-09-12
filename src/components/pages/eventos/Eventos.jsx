@@ -12,7 +12,6 @@ const Eventos = () => {
                 </div>
             </section>
             <section className="events-container">
-                {console.log(eventos[0].img)}
                 {
                     eventos.map( evento => <CardInfo key={evento.id} left={evento.left} content={evento} />)
                 }

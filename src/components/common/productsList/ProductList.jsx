@@ -1,6 +1,7 @@
 import './productList.scss'
 import ProductCard from "../productCard/ProductCard.jsx";
 import { Skeleton } from '@mui/material';
+import AdminProductCard from '../adminProductCard/AdminProductCard.jsx';
 
 
 const ProductList = ({products, admin}) =>{
@@ -11,7 +12,7 @@ const ProductList = ({products, admin}) =>{
                 products ? (
                     products.map(product => (
                       admin ? (
-                          <div key={product.id}>hola</div>
+                          <AdminProductCard key={product.id} product={product} />
                         ) : (
                           <ProductCard key={product.id} product={product} />
                       )
