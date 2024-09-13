@@ -1,6 +1,7 @@
 import './modalProducto.scss';
+import Swal from 'sweetalert2'
 import Button from "@mui/material/Button";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { TextField, Checkbox, FormControl, FormControlLabel } from "@mui/material";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
@@ -11,7 +12,7 @@ import StateCircle from '../stateCircle/StateCircle';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import { useModal } from '../../../context/ModalContext';
 
-const ModalProduct = () => {
+const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null);
     const { categories } = useProductsCategories();
@@ -47,7 +48,6 @@ const ModalProduct = () => {
             formData.append('discountPercentage', values.discountPercentage);
             formData.append('active', values.active);
 
-            console.log(formData);
             try {
                 await axios.post('http://localhost:8080/api/products', formData, {
                     headers: {
@@ -58,7 +58,7 @@ const ModalProduct = () => {
             } catch (error) {
                 console.error('Error uploading image:', error);
             }
-            //console.log(values);
+            console.log(values);
             //action.resetForm();
         },
         validationSchema: Yup.object().shape({
@@ -93,12 +93,56 @@ const ModalProduct = () => {
         setFieldValue('active', value);
     };
 
+    const deleteProduct = (id) => {
+        closeModal()
+        Swal.fire({
+            title: "Deseas eliminar el producto?",
+            confirmButtonColor: '#D32F2F',
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+            reverseButtons: true,
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                position: "center-center",
+                icon: "success",
+                title: "El producto se eliminó correctamente",
+                showConfirmButton: false,
+                timer: 1000
+            });
+            //Peticion
+            console.log('deleted', id);
+            
+        } else if (result.isDismissed) {
+            Swal.fire({
+                position: "center-center",
+                icon: "warning",
+                title: "Operación cancelada",
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }
+        });
+    }
+
+    useEffect(() => {
+        if (data) {
+            setFieldValue('title', data.title || '');
+            setFieldValue('category', data.category || '');
+            setFieldValue('description', data.description || '');
+            setFieldValue('price', data.price || '');
+            setFieldValue('discountPercentage', data.discountPercentage || '');
+            setFieldValue('active', data.active !== undefined ? data.active : true);
+            setFieldValue('image', data.image || null);
+        }
+    }, [data, setFieldValue]);
+
     return (
         <div className='modal-content-producto'>
-            <h2 className="modal-title">Nuevo producto</h2>
+            <h2 className="modal-title">{data? 'Editar producto' : 'Nuevo producto'}</h2>
             <form ref={formRef} onSubmit={handleSubmit} className="modal-form">
                 <div className="image-upload">
-                    <img src={values.image ? URL.createObjectURL(values.image) : uploadFood} alt="imagen Producto" />
+                <img src={values.image ? (typeof values.image === 'object' && URL.createObjectURL(values.image)) : uploadFood} alt="Imagen Producto" />
                     <input
                         id='file-input'
                         type="file"
@@ -163,7 +207,7 @@ const ModalProduct = () => {
                     <TextField
                         type="number"
                         name="discountPercentage"
-                        label="Descuento"
+                        label="Descuento %"
                         variant="filled"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -173,26 +217,21 @@ const ModalProduct = () => {
                     />
                 </div>
                 <div className="prodcut-actions">
-                    <FormControl
-                        error={!!errors.active && touched.active}
-                        component="fieldset"
-                        variant="standard"
-                        className='modal-btn'
-                    >
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    className='hidden-checkbox' // Clase para ocultar el checkbox
-                                    checked={values.active}
-                                    onChange={(e) => changeCheckbox(e.target.checked)}
-                                    name="active"
-                                />
-                            }
-                            label="Activo"
-                        />
+                    <div className="product-action-btn">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={values.active}
+                                onChange={(e) => changeCheckbox(e.target.checked)}
+                                name="active"
+                            />
+                            Activo
+                        </label>
                         <StateCircle state={values.active} />
-                    </FormControl>
-                    {/* <button className='modal-btn'>Eliminar producto</button> */}
+                    </div>
+                    {
+                        data && <button type="button" className='product-action-btn' onClick={() => deleteProduct(data.id)}>Eliminar producto</button>
+                    }
                 </div>
                 <div className="modal-action-btns">
                     <Button className="modal-btn-send" color='error' size={"large"} variant='contained' onClick={closeModal}>Cancelar</Button>
