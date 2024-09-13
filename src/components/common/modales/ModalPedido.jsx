@@ -256,7 +256,7 @@ const ModalPedido = () => {
                     error={!!(errors.message && touched.message)}
                     helperText={errors.message && touched.message && errors.message}
                 />
-                <div className="date-hour-container">
+                <div className="double-input-cotainer">
                     <TextField
                         type="date"
                         name="date"

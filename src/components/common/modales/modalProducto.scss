@@ -1,0 +1,155 @@
+.modal-content-producto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    width: calc(100%);
+    padding: 2rem 1rem;
+    border-radius: 5px;
+    background-color: #000;
+    .modal-title{
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .modal-form{
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        grid-template-rows: repeat(5, auto);
+        gap: 1rem;
+        .MuiFormControl-root{ //Todo el input
+            margin-bottom: 1rem;
+            width: 100%;
+            min-width: unset;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            .MuiInputBase-root{ //La parte de color
+                width: 100%;
+                background-color: var(--white);
+                border-radius: 5px;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+        .modal-btn-send{
+            margin-top: 3rem;
+        }
+        //MODAL PRODUCT
+        .image-upload{
+            position: relative;
+            grid-row: 1/3;
+            max-height: 150px;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+            input[type="file"] {
+                visibility: hidden;
+            }
+            .editImg{
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                position: absolute;
+                bottom: -5px;
+                right: -5px;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                background-color: #1976D2;
+                padding: 5px;
+                cursor: pointer;
+                .editIcon{
+                    font-size: 1.5rem;
+                    color: #fff;
+                    margin-right: 1px;
+                }
+            }
+        }
+        .input-select{
+            grid-column: 2/3;
+            height: 56px;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            color: #666666;
+            font-size: 16px;
+            padding-left: .5rem;
+        }
+        .input-description{
+            grid-column: 1/3;
+        }
+        .double-input-cotainer{
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            grid-row: 4/5;
+            grid-column: 1/3;
+        }
+        .prodcut-actions{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            grid-column: 1/3;
+            .MuiFormControl-root, .MuiFormControlLabel-root, .MuiCheckbox-root{
+                padding: 0;
+                margin: 0;
+            }
+            .MuiFormControl-root{
+                display: flex;
+                align-items: center;
+            }
+            .modal-btn{
+                position: relative;
+                background-color: var(--background);
+                width: auto;
+                height: 40px;
+                padding: 5px 1rem;
+                margin: 0;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover{
+                    background-color: var(--darkerBackground);
+                }
+                .outer-circle{
+                    position: absolute;
+                    top: 13px;
+                    right: 1rem;
+                }
+                .MuiFormControlLabel-root{
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                }
+                .MuiTypography-root, .css-ahj2mt-MuiTypography-root{
+                    color: #fff;
+                    font-weight: 400;
+                    font-family: 'Montserrat';
+                    font-size: 14px;
+                    margin-right: 1.5rem;
+                }
+                .MuiSvgIcon-root {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                    overflow: hidden;
+                }
+            }
+        }
+        .modal-action-btns{
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            grid-column: 1/3;
+        }
+    }
+}
+@media (min-width: 425px){
+    .modal-content-producto{
+        padding: 2rem;
+    }
+}

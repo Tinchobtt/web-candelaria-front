@@ -22,7 +22,9 @@ const Admin = () => {
             <main>
                 <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory}/>
                 <ProductList products={products} admin={true} />
-                <ModalButton name="modalProducto">Agregar</ModalButton>
+                <div className="add-btn-container">
+                    <ModalButton name="modalProducto">Agregar producto</ModalButton>
+                </div>
                 <GenericModal />
             </main>
         </div>
