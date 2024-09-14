@@ -1,26 +1,25 @@
 import './login.scss'
 import Header from "../../layout/header/Header"
-import { Button, FilledInput, FormControl, FormHelperText, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
+import { Button, FilledInput, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel } from '@mui/material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { AiFillEye } from "react-icons/ai";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { login } from '../../../services/authServide'
 
 const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [status, setStatus] = useState(null)
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    const handleMouseUpPassword = (event) => {
-        event.preventDefault();
-    };
 
-    const {handleSubmit, handleChange, handleBlur, touched, values, errors} = useFormik({
+    const { handleSubmit, handleChange, handleBlur, touched, values, errors, setSubmitting } = useFormik({
         initialValues: {
             username: '',
             password: ''
@@ -32,28 +31,23 @@ const Login = () => {
                 .required('La contraseña es obligatoria')
         }),
         onSubmit: async (values, actions) => {
+            setSubmitting(true);
+            setStatus(null);
             try {
-                const response = await fetch('http://localhost:8080/api/auth', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(values),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Error en la autenticación');
+                const response = await login(values);
+                if (response.status === 200) {
+                    navigate('/admin');
+                } else {
+                    setStatus('Usuario o contraseña incorrecta');
                 }
-                //TODO: Guardar credenciales para confirmarlas en ProtectedRoutes
-                navigate('/admin');
-                
             } catch (error) {
-                console.error('Error:', error);
+                setStatus('Error en la autenticación');
             } finally {
-                actions.resetForm(); 
+                setSubmitting(false);
+                actions.resetForm();
             }
         }
-    })
+    });
 
     return (
         <>
@@ -72,7 +66,7 @@ const Login = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.username}
-                        error={!!errors.username && touched.username} // Esto también aplica el estilo de error al borde del input
+                        error={!!errors.username && touched.username} 
                         aria-describedby="username-helper-text"
                     />
                     <FormHelperText id="username-helper-text">
@@ -90,7 +84,7 @@ const Login = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
-                        error={!!errors.password && touched.password} // Esto también aplica el estilo de error al borde del input
+                        error={!!errors.password && touched.password} 
                         id="filled-adornment-password"
                         aria-describedby="password-helper-text"
                         endAdornment={
@@ -99,7 +93,6 @@ const Login = () => {
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
-                            onMouseUp={handleMouseUpPassword}
                             >
                             {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
                             </IconButton>
@@ -110,7 +103,7 @@ const Login = () => {
                         {errors.password && touched.password && errors.password}
                     </FormHelperText>
                 </FormControl>
-
+                    {status && <div style={{color: "#DF0000", margin: ".5rem 0 1rem"}}>{status}</div>}
                     <Button type={'submit'} className="login-btn" size={"large"} variant='contained'>Ingresar</Button>
                 </form>
             </div>

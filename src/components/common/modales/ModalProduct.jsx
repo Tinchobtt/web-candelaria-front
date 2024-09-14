@@ -2,15 +2,15 @@ import './modalProducto.scss';
 import Swal from 'sweetalert2'
 import Button from "@mui/material/Button";
 import { useEffect, useRef } from "react";
-import { TextField, Checkbox, FormControl, FormControlLabel } from "@mui/material";
+import { TextField } from "@mui/material";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
-import axios from 'axios';
 import uploadFood from '../../../assets/imgs/uploadFood.png';
 import { FaEdit } from "react-icons/fa";
 import StateCircle from '../stateCircle/StateCircle';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import { useModal } from '../../../context/ModalContext';
+import { createProduct, deleteProduct, updateProduct } from '../../../services/productService';
 
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
@@ -48,16 +48,12 @@ const ModalProduct = ({ data }) => {
             formData.append('discountPercentage', values.discountPercentage);
             formData.append('active', values.active);
 
-            try {
-                await axios.post('http://localhost:8080/api/products', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                
-            } catch (error) {
-                console.error('Error uploading image:', error);
+            if(data){
+                updateProduct(formData)
+            }else{
+                createProduct(formData)
             }
+
             console.log(values);
             //action.resetForm();
         },
@@ -93,7 +89,7 @@ const ModalProduct = ({ data }) => {
         setFieldValue('active', value);
     };
 
-    const deleteProduct = (id) => {
+    const deleteProd = (id) => {
         closeModal()
         Swal.fire({
             title: "Deseas eliminar el producto?",
@@ -111,8 +107,8 @@ const ModalProduct = ({ data }) => {
                 timer: 1000
             });
             //Peticion
-            console.log('deleted', id);
-            
+            deleteProduct(id)
+
         } else if (result.isDismissed) {
             Swal.fire({
                 position: "center-center",
@@ -230,7 +226,7 @@ const ModalProduct = ({ data }) => {
                         <StateCircle state={values.active} />
                     </div>
                     {
-                        data && <button type="button" className='product-action-btn' onClick={() => deleteProduct(data.id)}>Eliminar producto</button>
+                        data && <button type="button" className='product-action-btn' onClick={() => deleteProd(data.id)}>Eliminar producto</button>
                     }
                 </div>
                 <div className="modal-action-btns">

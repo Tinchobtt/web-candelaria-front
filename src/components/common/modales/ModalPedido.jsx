@@ -6,10 +6,10 @@ import {Accordion, AccordionDetails, AccordionSummary, Box, TextField, Typograph
 import * as Yup from 'yup';
 import {useFormik} from "formik";
 import { useTime } from '../../../context/TimeContext';
-import axios from 'axios';
 import { splitAddress } from '../../../utils/splitAdress';
 import { useCart } from '../../../context/CartContext';
 import { messageBuilder } from '../../../utils/messageBuilder';
+import { getAddress } from '../../../services/addressService';
 
 const ModalPedido = () => {
     const formRef = useRef(null);
@@ -73,10 +73,10 @@ const ModalPedido = () => {
             if (tipoPedido === 'A domicilio') {
                 action.setSubmitting(true);
                 try {
-                    const {street, number} = splitAddress(values.domicilio)
-                    const response = await axios.get(`http://localhost:8080/api/address?street=${encodeURIComponent(street)}%20&number=${encodeURIComponent(number)}`)
+                    const { street, number } = splitAddress(values.domicilio);
+                    const response = await getAddress(street, number);
                     
-                    if (response.data.valido) {
+                    if (response.valido) {
                         action.setSubmitting(false);
                     }
                 } catch (error) {
