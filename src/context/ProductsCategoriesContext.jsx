@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { getProducts } from "../services/productService";
+import { getCategories } from "../services/categoryService";
 
 const ProductsCategoriesContext = createContext();
 
@@ -20,8 +21,8 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
 
         try {
             const [productsResponse, categoriesResponse] = await Promise.all([
-                axios.get(`http://localhost:8080/api/products?onlyActives=${activeValue}`),
-                axios.get(`http://localhost:8080/api/categories?onlyActives=${activeValue}`)
+                getProducts(activeValue), 
+                getCategories(activeValue)
             ]);
             const sortedCategories = categoriesResponse.data.sort((a, b) => a.position - b.position);
             setProducts(productsResponse.data);
