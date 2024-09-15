@@ -69,6 +69,7 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         <ProductsCategoriesContext.Provider value={{
             products: filteredProducts,
             categories,
+            setCategories,
             isLoading,
             filterProductsByCategory,
             groupProductsByCategory,

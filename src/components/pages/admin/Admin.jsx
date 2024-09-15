@@ -6,6 +6,7 @@ import CategoryBar from "../../common/categoryBar/CategoryBar.jsx";
 import ProductList from '../../common/productsList/ProductList.jsx';
 import ModalButton from '../../common/modalButton/ModalButton.jsx';
 import GenericModal from '../../common/genericModal/GenericModal.jsx';
+import CategoryBarAdmin from '../../common/categoryBar/CategoryBarAdmin.jsx';
 
 const Admin = () => {
     const { products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
@@ -20,6 +21,7 @@ const Admin = () => {
         <div className="admin-container">
             <Header />
             <main>
+                <CategoryBarAdmin categories={categories} filterProductsByCategory={filterProductsByCategory} />
                 <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory}/>
                 <ProductList products={products} admin={true} />
                 <div className="add-btn-container">

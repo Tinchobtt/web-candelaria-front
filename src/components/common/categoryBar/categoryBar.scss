@@ -33,6 +33,13 @@
                 border-bottom: 3px solid var(--greyHover)
             }
         }
+        .category-add-btn{
+            font-size: 2rem;
+            font-weight: 500;
+            padding: 0 .6rem;
+            border-radius: 50%;
+            border: none;
+        }
     }
 }
 @media (min-width: 768px) {
