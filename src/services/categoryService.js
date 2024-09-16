@@ -14,7 +14,12 @@ export const getCategories = async (active) => {
 
 export const createCategory = async (categoryData) => {
   try {
-    const response = await axios.post(API_URL, categoryData);
+    const response = await axios.post(API_URL, categoryData, {
+      headers: {
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
     return response;
   } catch (error) {
     console.error("Error creating category:", error);
@@ -22,9 +27,28 @@ export const createCategory = async (categoryData) => {
   }
 };
 
+export const updateCategory = async (id, categoryData) => {
+  try {
+    const response = await axios.put(`${API_URL}/${id}`, categoryData, {
+      headers: {
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error("Error updating category:", error);
+    throw error;
+  }
+};
+
 export const deleteCategory = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await axios.delete(`${API_URL}/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
     return response;
   } catch (error) {
     console.error("Error deleting category:", error);

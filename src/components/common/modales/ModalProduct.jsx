@@ -15,7 +15,7 @@ import { createProduct, deleteProduct, updateProduct } from '../../../services/p
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null);
-    const { categories } = useProductsCategories();
+    const { categories, products, setProducts } = useProductsCategories();
 
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
@@ -53,6 +53,7 @@ const ModalProduct = ({ data }) => {
                 updateProduct(data.id, formData)
             }else{
                 createProduct(formData)
+                
             }
 
             console.log(values);

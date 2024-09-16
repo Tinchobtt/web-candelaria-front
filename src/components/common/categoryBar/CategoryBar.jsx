@@ -1,8 +1,10 @@
 import { Box, Skeleton } from '@mui/material';
 import './categoryBar.scss'
 import {useState} from "react";
+import { useLocation } from 'react-router-dom';
 
 const CategoryBar = ( {categories, filterProductsByCategory} ) =>{
+    const loc = useLocation().pathname
     const [actualCategory, setActualCategory] = useState('todos')
 
     const selectCategory = (category) =>{
@@ -15,6 +17,7 @@ const CategoryBar = ( {categories, filterProductsByCategory} ) =>{
             {
                 categories ? (
                 <div className="category-slider">
+                    {loc === '/admin' && <button className='category-add-btn'>+</button>}
                     <button
                         className={actualCategory === 'todos' ? 'category-btn active' : 'category-btn'}
                         onClick={() => selectCategory('todos')}

@@ -7,6 +7,7 @@ import {useLocation} from "react-router-dom";
 import {HashLink} from "react-router-hash-link";
 import useWindowResolution from "../../../hooks/useWindowResolution.jsx";
 import { VscGear } from "react-icons/vsc";
+import { logout } from '../../../services/authServide.js';
 
 const Header = () => {
     const [menuWidgetOpen, setMenuWidgetOpen] = useState(false);//Estado de cambio del icono del Nav
@@ -52,7 +53,7 @@ const Header = () => {
                                 <a to={'/menu#start'} className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Actualizar contraseña</a>
                             </li>
                             <li className="nav-item">
-                                <a to={'/ecommerce#start'} className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'} onClick={handleWidget}>Cerrar sesión</a>
+                                <button className={'nav-link'} onClick={logout}>Cerrar sesión</button>
                             </li>
                         </ul>
                     </nav>
