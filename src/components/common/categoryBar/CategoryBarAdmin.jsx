@@ -1,7 +1,7 @@
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import './categoryBar.scss'
 import { Box, Skeleton } from '@mui/material';
-import {Fragment, useState} from "react";
+import { useState} from "react";
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import Swal from 'sweetalert2'
@@ -77,38 +77,36 @@ const CategoryBarAdmin = ( {categories, filterProductsByCategory} ) =>{
             collisionDetection={closestCenter}
             onDragEnd={handleDrag}
         >
-            {
-                categories ? (
-                    <SortableContext
-                        items={categories}
-                        strategy={horizontalListSortingStrategy}
-                    >
-                        <div className="category-bar">
-                            <div className="category-slider">
-                                <button className='category-add-btn' onClick={() => handleAddCategory(0)}>+</button>
-                                <button
-                                    className={actualCategory === 'todos' ? 'category-btn active' : 'category-btn'}
-                                    onClick={() => selectCategory('todos')}
-                                >Todos</button>
-                                {
-                                    categories.map((category) =>
-                                        <CategoryButton key={category.id} category={category} actualCategory={actualCategory} selectCategory={selectCategory} />
-                                    )
-                                }
-                            </div>
+            {categories ? (
+                <SortableContext
+                    items={categories}
+                    strategy={horizontalListSortingStrategy}
+                >
+                    <div className="category-bar">
+                        <div className="category-slider">
+                            <button className='category-add-btn' onClick={() => handleAddCategory(0)}>+</button>
+                            <button
+                                className={actualCategory === 'todos' ? 'category-btn active' : 'category-btn'}
+                                onClick={() => selectCategory('todos')}
+                            >Todos</button>
+                            {
+                                categories.map((category) =>
+                                    <CategoryButton key={category.id} category={category} actualCategory={actualCategory} selectCategory={selectCategory} />
+                                )
+                            }
                         </div>
-                    </SortableContext>
-                ) : (
-                    <Box sx={{display: 'flex', width: '100%', maxWidth: '1024px', margin: {xs: '0 1rem', md: '0 2rem'}}}>
-                    <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
-                    <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
-                    <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
-                    <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
-                    <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
-                    <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
-                    </Box>
-                )
-            }
+                    </div>
+                </SortableContext>
+            ) : (
+                <Box sx={{display: 'flex', width: '100%', maxWidth: '1024px', margin: {xs: '0 1rem', md: '0 2rem'}}}>
+                <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
+                <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
+                <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
+                <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
+                <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
+                <Skeleton sx={{margin: '0 2px'}} variant='rectangular' width={'100%'} height={'50px'} />
+                </Box>
+            )}
         </DndContext>
     )
 }

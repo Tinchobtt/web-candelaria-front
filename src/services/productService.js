@@ -16,7 +16,8 @@ export const createProduct = async (formData) => {
     try {
         const response = await axios.post(API_URL, formData, {
             headers: {
-            'Content-Type': 'multipart/form-data' 
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         return response;
@@ -30,7 +31,8 @@ export const updateProduct = async (id, formData) => {
     try {
         const response = await axios.put(`${API_URL}/${id}`, formData, {
             headers: {
-            'Content-Type': 'multipart/form-data' 
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         return response;

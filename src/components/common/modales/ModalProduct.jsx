@@ -38,6 +38,7 @@ const ModalProduct = ({ data }) => {
             } else {
                 image = values.image
             }
+            
             setFieldValue('image', image)
 
             formData.append('image', image);
@@ -49,7 +50,7 @@ const ModalProduct = ({ data }) => {
             formData.append('active', values.active);
 
             if(data){
-                updateProduct(formData)
+                updateProduct(data.id, formData)
             }else{
                 createProduct(formData)
             }
