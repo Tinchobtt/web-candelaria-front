@@ -15,7 +15,7 @@ import { createProduct, deleteProduct, updateProduct } from '../../../services/p
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null);
-    const { categories } = useProductsCategories();
+    const { categories, products, setProducts } = useProductsCategories();
 
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
@@ -38,6 +38,7 @@ const ModalProduct = ({ data }) => {
             } else {
                 image = values.image
             }
+            
             setFieldValue('image', image)
 
             formData.append('image', image);
@@ -49,9 +50,10 @@ const ModalProduct = ({ data }) => {
             formData.append('active', values.active);
 
             if(data){
-                updateProduct(formData)
+                updateProduct(data.id, formData)
             }else{
                 createProduct(formData)
+                
             }
 
             console.log(values);
@@ -188,7 +190,7 @@ const ModalProduct = ({ data }) => {
                     error={!!errors.description && touched.description}
                     helperText={errors.description && touched.description && errors.description}
                 />
-                <div className="double-input-cotainer">
+                <div className="double-input-container">
                     <TextField
                         type="number"
                         name="price"

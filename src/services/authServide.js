@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/auth'
+const API_URL = 'http://localhost:8080/api/login'
 
 export const login = async (credentials) => {
     try {
@@ -16,4 +16,5 @@ export const login = async (credentials) => {
   
 export const logout = () => {
     localStorage.removeItem('token');
+    window.location.href = '/login';
 };

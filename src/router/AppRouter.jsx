@@ -4,6 +4,8 @@ import { routes } from "./routes.js";
 import ProtectedRoutes from "./ProtectedRoutes.jsx";
 import Admin from "../components/pages/admin/Admin.jsx";
 import Login from "../components/pages/login/Login.jsx";
+import AdminProducts from "../components/pages/admin/AdminProducts.jsx";
+import AdminCategories from "../components/pages/admin/AdminCategories.jsx";
 
 const AppRouter = () => {
     return (
@@ -17,7 +19,10 @@ const AppRouter = () => {
                 <Route path="/login" element={<Login />}/>
             </Route>
             <Route element={ <ProtectedRoutes /> }>
-                <Route path={'/admin'} element={<Admin />} />
+                <Route path="/admin" element={<Admin />}>
+                    <Route index element={<AdminProducts />} />
+                    <Route path="categories" element={<AdminCategories />} />
+                </Route>
             </Route>
         </Routes>
     )

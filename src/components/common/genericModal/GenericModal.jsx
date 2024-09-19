@@ -9,7 +9,7 @@ const ModalContent = {
     modalReservaMesa: <ModalReserva name={'Mesa'} />,
     modalReservaEvento: <ModalReserva name={'Evento'} />,
     modalPedido: <ModalPedido />,
-    modalProducto: (data) => <ModalProduct data={data} /> 
+    modalProducto: (data) => <ModalProduct data={data} />,
 };
 
 const GenericModal = () => {

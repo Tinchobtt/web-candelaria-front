@@ -21,7 +21,7 @@ const Ecommerce = () => {
             setTimeout(()=>{
                 Swal.fire({
                     title: 'Local cerrado!',
-                    color: "#DF0000",
+                    color: "var(--red)",
                     confirmButtonColor: 'black',
                     confirmButtonText: 'Ver Horarios',
                     showCloseButton: true
