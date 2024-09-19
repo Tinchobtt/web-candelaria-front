@@ -1,5 +1,5 @@
 import './adminCategories.scss';
-import { closestCenter, DndContext } from '@dnd-kit/core';
+import { closestCenter, DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useProductsCategories } from "../../../context/ProductsCategoriesContext";
 import { createCategory, updateCategory, deleteCategory } from '../../../services/categoryService';
@@ -8,30 +8,41 @@ import Swal from 'sweetalert2';
 import { Button } from '@mui/material';
 import CategoryButton from '../../common/categoryButton/CategoryButton';
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 const AdminCategories = () => {
     const { categories, setCategories } = useProductsCategories()
     const [ isEditing, setIsEditing ] = useState(false);
     const [ categoriesBU, setCategoriesBU ] = useState();
     
-    const reindexCategories = (categories) => {
-        return categories.map((category, index) => ({
-            ...category,
-            position: index
-        }));
-    };
+    const pointerSensor = useSensor(PointerSensor);
+    const touchSensor = useSensor(TouchSensor, {
+        activationConstraint: { distance: 10 }
+    });
+    
+    const isTouchDevice = 'ontouchstart' in window;
+    const sensors = isTouchDevice ? [touchSensor] : [pointerSensor];
 
     const handleDrag = useCallback((event) => {
-        setCategoriesBU(categories);
+        setCategoriesBU(categories)
         const { active, over } = event;
-        
-        const oldIndex = categories.findIndex(category => category.id === active.id);
-        const newIndex = categories.findIndex(category => category.id === over.id);
-        const newOrder = arrayMove(categories, oldIndex, newIndex);
-
-        setCategories(reindexCategories(newOrder));
+    
+        if (active.id !== over.id) {
+            const oldIndex = categories.findIndex((category) => category.id === active.id);
+            const newIndex = categories.findIndex((category) => category.id === over.id);
+            const newOrder = arrayMove(categories, oldIndex, newIndex);
+    
+            setCategories(reindexCategories(newOrder));
+        }
     }, [categories]);
-
+    
+    const reindexCategories = (categories) => {
+        return categories.map((category, id) => ({
+            ...category,
+            position: id
+        }));
+    };
+    
     const saveDrag = useCallback( async () => {
         // try{
         //     const response = await updateCategory()
@@ -41,10 +52,10 @@ const AdminCategories = () => {
         setIsEditing(false);
     }, []);
 
-    const cancelDrag = useCallback(() => {
+    const cancelDrag = (() => {
         setCategories(categoriesBU);
         setIsEditing(false);
-    }, [categoriesBU]);
+    });
 
     const handleDeleteCategory = useCallback((id) => {
         Swal.fire({
@@ -80,6 +91,7 @@ const AdminCategories = () => {
             reverseButtons: true,
             confirmButtonText: "Agregar",
             confirmButtonColor: '#1975d1',
+            
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const newCategory = {
@@ -105,11 +117,38 @@ const AdminCategories = () => {
         });
     }, [categories]);
 
+    const handleEditCategory = async (category) => {
+        Swal.fire({
+            text: "Editar nombre de categoria",
+            input: "text",
+            inputValue: category.name,
+            inputAttributes: {
+                autocapitalize: "off"
+            },
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            reverseButtons: true,
+            confirmButtonText: "Agregar",
+            confirmButtonColor: '#1975d1',
+            
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                const updatedCategories = categories.map(cat => 
+                    cat.id === category.id ? { ...cat, name: result.value } : cat
+                );
+    
+                setCategories(updatedCategories);
+            }
+        })
+    }
+
     return (
         <>
-        {categories && (
+        {categories && (            
             isEditing ? (
                 <DndContext 
+                    sensors={sensors}
                     collisionDetection={closestCenter}
                     onDragEnd={handleDrag}
                 >
@@ -120,9 +159,9 @@ const AdminCategories = () => {
                         <div className="category-admin">
                             <div className="admin-categories-container">
                                 {
-                                    categories.map((category, index) =>
+                                    categories.map( category =>
                                         <div className='admin-category-item' key={category.id}>
-                                            <CategoryButton category={category} />
+                                            <CategoryButton category={category}/>
                                         </div>
                                     )
                                 }
@@ -144,6 +183,9 @@ const AdminCategories = () => {
                                     <CategoryButton category={category} />
                                     <button className='category-delete-btn' onClick={() => handleDeleteCategory(category.id)}>
                                         <MdOutlineDeleteOutline />
+                                    </button>
+                                    <button className='category-edit-btn' onClick={() => handleEditCategory(category)}>
+                                        <MdEdit />
                                     </button>
                                     <button className='category-add-btn' onClick={() => handleAddCategory(index + 1)}>+</button>
                                 </div>
