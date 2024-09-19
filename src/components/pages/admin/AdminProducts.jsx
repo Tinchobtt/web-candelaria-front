@@ -6,6 +6,7 @@ import { useProductsCategories } from "../../../context/ProductsCategoriesContex
 
 const AdminProducts = () => {
   const { products, categories, filterProductsByCategory } = useProductsCategories();
+  
   return (
     <>
     <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory}/>

@@ -7,11 +7,11 @@ import { Outlet } from 'react-router-dom';
 const Admin = () => {
     const { products, categories, isLoading, fetchData} = useProductsCategories()
 
-    useEffect(() => {
-        if ((!products || products.length === 0) && !isLoading) {
-            fetchData(false);
-        }
-    }, [products, categories]);
+    // useEffect(() => {
+    //     if ((!products || products.length === 0) && !isLoading) {
+    //         fetchData(false);
+    //     }
+    // }, [products, categories]);
     
     return (
         <div className="admin-container">

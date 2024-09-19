@@ -103,7 +103,7 @@ const Login = () => {
                         {errors.password && touched.password && errors.password}
                     </FormHelperText>
                 </FormControl>
-                    {status && <div style={{color: "#DF0000", margin: ".5rem 0 1rem"}}>{status}</div>}
+                    {status && <div style={{color: "var(--red)", margin: ".5rem 0 1rem"}}>{status}</div>}
                     <Button type={'submit'} className="login-btn" size={"large"} variant='contained'>Ingresar</Button>
                 </form>
             </div>
