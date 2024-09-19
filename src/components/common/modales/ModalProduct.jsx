@@ -190,7 +190,7 @@ const ModalProduct = ({ data }) => {
                     error={!!errors.description && touched.description}
                     helperText={errors.description && touched.description && errors.description}
                 />
-                <div className="double-input-cotainer">
+                <div className="double-input-container">
                     <TextField
                         type="number"
                         name="price"

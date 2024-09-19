@@ -50,6 +50,21 @@
         .modal-btn-send{
             margin-top: 3rem;
         }
+        .categories-list{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 1rem;
+            .category-add-btn{
+                font-size: 2rem;
+                font-weight: 500;
+                padding: 0 .6rem;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+            }
+        }
     }
 }
 @media (min-width: 425px){

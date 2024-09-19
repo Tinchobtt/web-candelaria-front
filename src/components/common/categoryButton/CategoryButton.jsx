@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import './categoryButton.scss'
 import { CSS } from '@dnd-kit/utilities'
-const CategoryButton = ({category, actualCategory, selectCategory}) => {
+const CategoryButton = ({category}) => {
 
     const {attributes, listeners, setNodeRef, transform, transition} = useSortable({
         id: category.id
@@ -13,16 +13,15 @@ const CategoryButton = ({category, actualCategory, selectCategory}) => {
     }
 
     return (
-        <button
+        <div
             style={style}
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            className={actualCategory === category.name ? 'category-btn active' : 'category-btn'}
-            key={category.id}
-            onClick={() => selectCategory(category.name)}
-        >{category.name}
-        </button>
+            type='button'
+        >
+            <button className='category-slide-btn'>{category.name}</button>
+        </div>
     )
 }
 

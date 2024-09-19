@@ -1,12 +1,12 @@
 import { closestCenter, DndContext } from '@dnd-kit/core';
+import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
+import CategoryButton from '../categoryButton/CategoryButton';
+import { createCategory } from '../../../services/categoryService';
 import './categoryBar.scss'
 import { Box, Skeleton } from '@mui/material';
 import { useState} from "react";
-import { arrayMove, horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import Swal from 'sweetalert2'
-import CategoryButton from '../categoryButton/CategoryButton';
-import { createCategory } from '../../../services/categoryService';
 
 const CategoryBarAdmin = ( {categories, filterProductsByCategory} ) =>{
     const {setCategories} = useProductsCategories()
