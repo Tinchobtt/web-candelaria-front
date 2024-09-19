@@ -1,8 +1,8 @@
 import './admin.scss'
 import {useProductsCategories} from "../../../context/ProductsCategoriesContext.jsx";
 import {useEffect} from "react";
-import Header from "../../layout/header/Header.jsx";
 import { Outlet } from 'react-router-dom';
+import AdminHeader from '../../layout/header/AdminHeader.jsx';
 
 const Admin = () => {
     const { products, categories, isLoading, fetchData} = useProductsCategories()
@@ -15,7 +15,7 @@ const Admin = () => {
     
     return (
         <div className="admin-container">
-            <Header />
+            <AdminHeader />
             <main>
                 <Outlet />
             </main>

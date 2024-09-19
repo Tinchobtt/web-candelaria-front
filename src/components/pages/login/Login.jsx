@@ -1,5 +1,4 @@
 import './login.scss'
-import Header from "../../layout/header/Header"
 import { Button, FilledInput, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel } from '@mui/material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -8,6 +7,7 @@ import { AiFillEyeInvisible } from "react-icons/ai";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../../services/authServide'
+import AdminHeader from '../../layout/header/AdminHeader'
 
 const Login = () => {
     const navigate = useNavigate();
@@ -51,7 +51,7 @@ const Login = () => {
 
     return (
         <>
-        <Header />
+        <AdminHeader />
         <main id="main-login">
             <div className="login">
                 <h2>Iniciar sesión</h2>

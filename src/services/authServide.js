@@ -18,3 +18,18 @@ export const logout = () => {
     localStorage.removeItem('token');
     window.location.href = '/login';
 };
+
+
+export const updatePassword = async (credentials) => {
+    try {
+        const response = await axios.put(`${API_URL}/update-password`, credentials, {
+            headers: {
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response;
+    } catch (error) {
+        return error
+    }
+};
