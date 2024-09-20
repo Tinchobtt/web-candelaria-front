@@ -17,6 +17,9 @@ const ModalProduct = ({ data }) => {
     const formRef = useRef(null);
     const { categories, products, setProducts } = useProductsCategories();
 
+    console.log('render');
+    
+
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
             title: '',
@@ -49,15 +52,15 @@ const ModalProduct = ({ data }) => {
             formData.append('discountPercentage', values.discountPercentage);
             formData.append('active', values.active);
 
-            if(data){
-                updateProduct(data.id, formData)
-            }else{
-                createProduct(formData)
-                
+            if (data) {
+                await updateProduct(data.id, formData);
+            } else {
+                await createProduct(formData);
             }
 
             console.log(values);
             //action.resetForm();
+            // closeModal();
         },
         validationSchema: Yup.object().shape({
             title: Yup.string()
@@ -132,15 +135,21 @@ const ModalProduct = ({ data }) => {
             setFieldValue('discountPercentage', data.discountPercentage || '');
             setFieldValue('active', data.active !== undefined ? data.active : true);
             setFieldValue('image', data.image || null);
+        }else {
+            setFieldValue('image', uploadFood);
         }
     }, [data, setFieldValue]);
+
+    const imageSrc = values.image 
+    ? (typeof values.image === 'object' ? URL.createObjectURL(values.image) : values.image) 
+    : uploadFood;
 
     return (
         <div className='modal-content-producto'>
             <h2 className="modal-title">{data? 'Editar producto' : 'Nuevo producto'}</h2>
             <form ref={formRef} onSubmit={handleSubmit} className="modal-form">
                 <div className="image-upload">
-                <img src={values.image ? (typeof values.image === 'object' && URL.createObjectURL(values.image)) : uploadFood} alt="Imagen Producto" />
+                <img src={imageSrc} alt="Imagen Producto" />
                     <input
                         id='file-input'
                         type="file"
