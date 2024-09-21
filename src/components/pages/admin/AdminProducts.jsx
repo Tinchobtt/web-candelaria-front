@@ -5,11 +5,11 @@ import GenericModal from '../../common/genericModal/GenericModal.jsx';
 import { useProductsCategories } from "../../../context/ProductsCategoriesContext";
 
 const AdminProducts = () => {
-  const { products, categories, filterProductsByCategory } = useProductsCategories();
+  const { filteredProducts: products, categories, filterProductsByCategory, actualCategory } = useProductsCategories();
   
   return (
     <>
-    <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory}/>
+    <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory}/>
     <ProductList products={products} admin={true} />
     <div className="add-btn-container">
         <ModalButton name="modalProducto">Agregar producto</ModalButton>

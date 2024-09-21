@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { TextField } from "@mui/material";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
-import uploadFood from '../../../assets/imgs/uploadFood.png';
+import defaultProdImg from '../../../assets/imgs/defaultProdImg.png';
 import { FaEdit } from "react-icons/fa";
 import StateCircle from '../stateCircle/StateCircle';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
@@ -15,15 +15,12 @@ import { createProduct, deleteProduct, updateProduct } from '../../../services/p
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null);
-    const { categories, products, setProducts } = useProductsCategories();
-
-    console.log('render');
-    
+    const { categories, products, setProducts } = useProductsCategories(); 
 
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
             title: '',
-            category: '',
+            category: 'Entradas',
             description: '',
             price: '',
             discountPercentage: '',
@@ -33,17 +30,16 @@ const ModalProduct = ({ data }) => {
         onSubmit: async (values, action) => {
             const formData = new FormData();
             let image;
-
+            
             if (!values.image) {
-                const response = await fetch(uploadFood);
+                const response = await fetch(defaultProdImg);
                 const blob = await response.blob();
-                image = new File([blob], 'uploadFood.png', { type: blob.type });
-            } else {
+                let iamge_name = 'default' + Date.now.toString() + '.png'
+                image = new File([blob], iamge_name, { type: blob.type });
+            }else{
                 image = values.image
             }
             
-            setFieldValue('image', image)
-
             formData.append('image', image);
             formData.append('title', values.title);
             formData.append('category', values.category);
@@ -52,15 +48,17 @@ const ModalProduct = ({ data }) => {
             formData.append('discountPercentage', values.discountPercentage);
             formData.append('active', values.active);
 
-            if (data) {
-                await updateProduct(data.id, formData);
+            if (data) {                
+                const product = await updateProduct(data.id, formData);
+                const updatedProducts = products.map(prod => prod.id === data.id ? product.data : prod)
+                setProducts(updatedProducts)
             } else {
-                await createProduct(formData);
+                const product = await createProduct(formData);
+                setProducts([...products, product.data])
             }
 
-            console.log(values);
-            //action.resetForm();
-            // closeModal();
+            action.resetForm();
+            closeModal();
         },
         validationSchema: Yup.object().shape({
             title: Yup.string()
@@ -111,8 +109,9 @@ const ModalProduct = ({ data }) => {
                 showConfirmButton: false,
                 timer: 1000
             });
-            //Peticion
             deleteProduct(id)
+            const updatedProducts = products.filter(product => product.id !== id)
+            setProducts(updatedProducts)
 
         } else if (result.isDismissed) {
             Swal.fire({
@@ -132,17 +131,24 @@ const ModalProduct = ({ data }) => {
             setFieldValue('category', data.category || '');
             setFieldValue('description', data.description || '');
             setFieldValue('price', data.price || '');
-            setFieldValue('discountPercentage', data.discountPercentage || '');
+            setFieldValue('discountPercentage', data.discountPercentage || 0);
             setFieldValue('active', data.active !== undefined ? data.active : true);
             setFieldValue('image', data.image || null);
-        }else {
-            setFieldValue('image', uploadFood);
+            fetch(data.image)
+            .then(response => response.blob())
+            .then(blob => {
+                let image = new File([blob], `${data.title}`, { type: blob.type });
+                setFieldValue('image', image);
+            })
+            .catch(error => {
+                setFieldValue('image', null);
+            });
         }
-    }, [data, setFieldValue]);
+    }, [data]);
 
     const imageSrc = values.image 
     ? (typeof values.image === 'object' ? URL.createObjectURL(values.image) : values.image) 
-    : uploadFood;
+    : defaultProdImg;
 
     return (
         <div className='modal-content-producto'>
@@ -242,7 +248,7 @@ const ModalProduct = ({ data }) => {
                 </div>
                 <div className="modal-action-btns">
                     <Button className="modal-btn-send" color='error' size={"large"} variant='contained' onClick={closeModal}>Cancelar</Button>
-                    <Button type={'submit'} className="modal-btn-send" size={"large"} variant='contained'>Agregar</Button>
+                    <Button type={'submit'} className="modal-btn-send" size={"large"} variant='contained'>{data ? 'Editar' : 'Agregar'}</Button>
                 </div>
             </form>
         </div>

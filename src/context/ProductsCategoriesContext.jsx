@@ -9,6 +9,7 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     const [filteredProducts, setFilteredProducts] = useState();
     const [categories, setCategories] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [actualCategory, setActualCategory] = useState('todos')
 
     const fetchData = async (activeValue) => {
         if (products && categories) {
@@ -35,20 +36,15 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         }
     };
 
-    useEffect(() => {
-        if (products && products.length > 0) {
-            setFilteredProducts(products);
-        }
-    }, [products]);
-
     const filterProductsByCategory = (category) => {
+        setActualCategory(category)
         if (category === 'todos') {
             setFilteredProducts(products);
         } else {
             setFilteredProducts(products?.filter(product => product.category === category));
         }
     };
-
+    
     const groupProductsByCategory = (categories, products) => {
         const categoriesWithProducts = [];
         
@@ -61,20 +57,32 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
             };
             categoriesWithProducts.push(categoryWithProducts);
         });
-    
+        
         return categoriesWithProducts;
     }
+    
+    useEffect(() => {
+        if(actualCategory === 'todos'){
+            setFilteredProducts(products);
+        }else{
+            setFilteredProducts(filteredProducts);
+        }
+    }, [products]);
 
     return (
         <ProductsCategoriesContext.Provider value={{
-            products: filteredProducts,
+            products,
             setProducts,
             categories,
             setCategories,
             isLoading,
             filterProductsByCategory,
+            filteredProducts,
+            setFilteredProducts,
             groupProductsByCategory,
-            fetchData
+            fetchData,
+            actualCategory,
+            setActualCategory
         }}>
             {children}
         </ProductsCategoriesContext.Provider>
@@ -82,4 +90,3 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
 };
 
 export const useProductsCategories = () => useContext(ProductsCategoriesContext);
-

@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 import AdminHeader from '../../layout/header/AdminHeader.jsx';
 
 const Admin = () => {
-    const { products, categories, isLoading, fetchData} = useProductsCategories()
+    const { filteredProducts: products, categories, isLoading, fetchData} = useProductsCategories()
 
     useEffect(() => {
         if ((!products || products.length === 0) && !isLoading) {
