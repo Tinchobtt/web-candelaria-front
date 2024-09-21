@@ -34,8 +34,7 @@ const ModalProduct = ({ data }) => {
             if (!values.image) {
                 const response = await fetch(defaultProdImg);
                 const blob = await response.blob();
-                let iamge_name = 'default' + Date.now.toString() + '.png'
-                image = new File([blob], iamge_name, { type: blob.type });
+                image = new File([blob], 'default.png', { type: blob.type });
             }else{
                 image = values.image
             }
@@ -230,20 +229,19 @@ const ModalProduct = ({ data }) => {
                     />
                 </div>
                 <div className="prodcut-actions">
-                    <div className="product-action-btn">
-                        <label>
+                    <label type='button' className="product-action-btn activo-btn" htmlFor="active-checkbox">
                             <input
+                                id="active-checkbox"
                                 type="checkbox"
                                 checked={values.active}
-                                onChange={(e) => changeCheckbox(e.target.checked)}
+                                onChange={(e) => changeCheckbox(!values.active)}
                                 name="active"
                             />
                             Activo
-                        </label>
                         <StateCircle state={values.active} />
-                    </div>
+                    </label>
                     {
-                        data && <button type="button" className='product-action-btn' onClick={() => deleteProd(data.id)}>Eliminar producto</button>
+                        data && <button type="button" className='product-action-btn delete-prod-btn' onClick={() => deleteProd(data.id)}>Eliminar producto</button>
                     }
                 </div>
                 <div className="modal-action-btns">

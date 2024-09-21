@@ -126,10 +126,10 @@
                 input[type="checkbox"] {
                     display: none;
                 }
-                &:first-child{
+                .activo-btn{
                     width: 105px;
                 }
-                &:last-child{
+                .delete-prod-btn{
                     width: 155px;
                 }
                 &:hover{
