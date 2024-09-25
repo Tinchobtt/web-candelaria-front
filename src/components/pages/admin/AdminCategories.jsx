@@ -23,8 +23,12 @@ const AdminCategories = () => {
     const isTouchDevice = 'ontouchstart' in window;
     const sensors = isTouchDevice ? [touchSensor] : [pointerSensor];
 
-    const handleDrag = useCallback((event) => {
+    const edit = () => {
         setCategoriesBU(categories)
+        setIsEditing(true)
+    }
+
+    const handleDrag = useCallback((event) => {
         const { active, over } = event;
     
         if (active.id !== over.id) {
@@ -193,7 +197,7 @@ const AdminCategories = () => {
                         }
                     </div>
                     <div className="admin-category-control">
-                        <Button onClick={() => setIsEditing(true)} variant='contained'>Editar</Button>
+                        <Button onClick={edit} variant='contained'>Editar</Button>
                     </div>
                 </div>
             )

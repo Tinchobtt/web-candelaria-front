@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 const AdminHeader = () => {
     const [menuWidgetOpen, setMenuWidgetOpen] = useState(false);//Estado de cambio del icono del Nav
     const menuRef = useRef(null);
+    const buttonRef = useRef(null);
     const loc = useLocation().pathname //path de la page actual
 
     const handleWidget = () =>{ //Cambio de aspecto del icono del Nav
@@ -69,7 +70,6 @@ const AdminHeader = () => {
                 }
             } catch (error) {
                 console.log(error);
-                
             }
         }
     };
@@ -77,7 +77,7 @@ const AdminHeader = () => {
     
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+            if (menuRef.current && !menuRef.current.contains(event.target) && !buttonRef.current.contains(event.target)) {
                 closeMenu();
             }
         };
@@ -131,7 +131,9 @@ const AdminHeader = () => {
                     </nav>
                     <div className="menu-icon-admin">
                         <span style={{fontSize: 'clamp(10px, 4vw, 18px)'}}>ADMIN</span>
-                        <VscGear className='gear' onClick={handleWidget}/>
+                        <div className="gear" ref={buttonRef}>
+                            <VscGear onClick={handleWidget} />
+                        </div>
                     </div>
                 </header>
             </div>

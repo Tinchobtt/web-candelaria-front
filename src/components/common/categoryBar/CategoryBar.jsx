@@ -1,15 +1,11 @@
-import { Box, Skeleton } from '@mui/material';
 import './categoryBar.scss'
-import {useState} from "react";
+import { Box, Skeleton } from '@mui/material';
 
-const CategoryBar = ( {categories, filterProductsByCategory} ) =>{
-    const [actualCategory, setActualCategory] = useState('todos')
-
+const CategoryBar = ( {categories, filterProductsByCategory, actualCategory} ) =>{
     const selectCategory = (category) =>{
         filterProductsByCategory(category)
-        setActualCategory(category)
     }
-    
+
     return(
         <div className="category-bar">
             {

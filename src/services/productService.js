@@ -44,7 +44,12 @@ export const updateProduct = async (id, formData) => {
 
 export const deleteProduct = async (id) => {
     try{
-        const response = await axios.delete(`${API_URL}/${id}`);
+        const response = await axios.delete(`${API_URL}/${id}`, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
         return response.data;
     } catch (error){
         console.log("Error deleting product");

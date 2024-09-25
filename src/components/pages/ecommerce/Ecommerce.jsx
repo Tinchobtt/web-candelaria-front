@@ -9,7 +9,7 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
+    const { filteredProducts: products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
     const { cart } = useCart()
     const { isOpen } = useTime()
     const navigate = useNavigate()

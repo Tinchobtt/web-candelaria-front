@@ -109,6 +109,8 @@
             align-items: center;
             z-index: 1000;
             .gear{
+                display: flex;
+                align-items: center;
                 font-size: 2rem;
                 color: #fff;
                 margin-left: 1rem;
