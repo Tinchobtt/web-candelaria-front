@@ -8,7 +8,7 @@ const Eventos = () => {
             <section className="event-portada">
                 <div className="blackout">
                     <h2>¡Haz de Tu Evento una Experiencia a las Brasas!</h2>
-                    <ModalButton name={'modalReservaEvento'}>Reservá ahora!</ModalButton>
+                    <ModalButton name={'modalReservaEvento'}>¡Reservá ahora!</ModalButton>
                 </div>
             </section>
             <section className="events-container">

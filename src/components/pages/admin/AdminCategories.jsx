@@ -197,7 +197,7 @@ const AdminCategories = () => {
                         }
                     </div>
                     <div className="admin-category-control">
-                        <Button onClick={edit} variant='contained'>Editar</Button>
+                        <Button onClick={edit} variant='contained'>Editar orden</Button>
                     </div>
                 </div>
             )

@@ -1,3 +1,4 @@
+import './ecommerce.scss'
 import Swal from 'sweetalert2'
 import {useProductsCategories} from "../../../context/ProductsCategoriesContext.jsx";
 import {useEffect, useState} from "react";
@@ -46,14 +47,16 @@ const Ecommerce = () => {
     
     
     return (
-        <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
-            <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />
-            <ProductList products={products} admin={false}/>
-            {
-                cart.length > 0 &&
-                <CartSummary />
-            }
-        </main>
+        <div className="expandenContainer">
+            <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
+                <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />
+                <ProductList products={products} admin={false}/>
+                {
+                    cart.length > 0 &&
+                    <CartSummary />
+                }
+            </main>
+        </div>
     )
 }
 export default Ecommerce

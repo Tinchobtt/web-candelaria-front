@@ -56,6 +56,24 @@ const ModalPedido = () => {
         onSubmit: async (values, action) => {
             const whatsappUrl = messageBuilder('pedido', values, tipoPedido, metodoPago, cart)
  
+            const selectedDate = new Date(values.date);
+            selectedDate.setHours(values.time.split(':')[0], values.time.split(':')[1]);
+
+            // Obtener la hora actual
+            const now = new Date();
+            const currentDay = now.toDateString();
+            const selectedDay = selectedDate.toDateString();
+            const selectedTime = values.time;
+
+            // Verificar si es hoy y si la hora ya ha pasado
+            if (currentDay === selectedDay) {
+                const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                if (selectedTime < currentTime) {
+                    action.setFieldError('time', 'La hora seleccionada ya ha pasado. Por favor elige un horario futuro.');
+                    return;
+                }
+            }
+
             if (!checkIfOpen(values.date, values.time)) {
                 action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas');
                 return;
