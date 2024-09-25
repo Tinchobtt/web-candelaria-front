@@ -130,9 +130,10 @@ const ModalProduct = ({ data }) => {
             setFieldValue('category', data.category || '');
             setFieldValue('description', data.description || '');
             setFieldValue('price', data.price || '');
-            setFieldValue('discountPercentage', data.discountPercentage || 0);
+            setFieldValue('discountPercentage', data.actualPrice !== data.price ? data.actualPrice : 0 );
             setFieldValue('active', data.active !== undefined ? data.active : true);
             setFieldValue('image', data.image || null);
+
             fetch(data.image)
             .then(response => response.blob())
             .then(blob => {

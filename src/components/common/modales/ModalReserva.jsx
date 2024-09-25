@@ -30,6 +30,21 @@ const ModalReserva = ({name}) => {
             let selectedDate = new Date(values.date);
             selectedDate = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
  
+            // Obtener la hora actual
+            const now = new Date();
+            const currentDay = now.toDateString();
+            const selectedDay = selectedDate.toDateString();
+            const selectedTime = values.time;
+
+            // Verificar si es hoy y si la hora ya ha pasado
+            if (currentDay === selectedDay) {
+                const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                if (selectedTime < currentTime) {
+                    action.setFieldError('time', 'La hora seleccionada ya ha pasado. Por favor elige un horario futuro.');
+                    return;
+                }
+            }
+
             if (!checkIfOpen(selectedDate, values.time)) {
                 action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas');
                 return;

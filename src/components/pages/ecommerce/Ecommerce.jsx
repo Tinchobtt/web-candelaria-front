@@ -1,3 +1,4 @@
+import './ecommerce.scss'
 import Swal from 'sweetalert2'
 import {useProductsCategories} from "../../../context/ProductsCategoriesContext.jsx";
 import {useEffect, useState} from "react";
@@ -9,7 +10,7 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { filteredProducts: products, categories, isLoading, filterProductsByCategory, fetchData} = useProductsCategories()
+    const { filteredProducts: products, categories, isLoading, filterProductsByCategory, fetchData, actualCategory} = useProductsCategories()
     const { cart } = useCart()
     const { isOpen } = useTime()
     const navigate = useNavigate()
@@ -46,14 +47,16 @@ const Ecommerce = () => {
     
     
     return (
-        <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
-            <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} />
-            <ProductList products={products} admin={false}/>
-            {
-                cart.length > 0 &&
-                <CartSummary />
-            }
-        </main>
+        <div className="expandenContainer">
+            <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
+                <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory}/>
+                <ProductList products={products} admin={false}/>
+                {
+                    cart.length > 0 &&
+                    <CartSummary />
+                }
+            </main>
+        </div>
     )
 }
 export default Ecommerce
