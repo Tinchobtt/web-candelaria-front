@@ -10,3 +10,5 @@ Comandos para generar la imagen que utiliza el server
 - npm run build
 - docker build -t tobiasriccone/frontend-lacandelaria:latest .
 - docker push tobiasriccone/frontend-lacandelaria:latest
+
+Antes de construir la imagen, setear correctamente el valor de API_URL.

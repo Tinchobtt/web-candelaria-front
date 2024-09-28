@@ -1,6 +1,7 @@
 import axios from 'axios'
+import {BASE_API_URL} from "../../config.js";
 
-const API_URL = import.meta.env.VITE_API_URL + '/api/address'
+const API_URL = BASE_API_URL + '/api/address'
 
 export const getAddress = async (street, number) => {
     try {
