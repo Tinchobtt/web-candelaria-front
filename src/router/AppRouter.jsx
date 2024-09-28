@@ -6,6 +6,7 @@ import Admin from "../components/pages/admin/Admin.jsx";
 import Login from "../components/pages/login/Login.jsx";
 import AdminProducts from "../components/pages/admin/AdminProducts.jsx";
 import AdminCategories from "../components/pages/admin/AdminCategories.jsx";
+import Inicio from "../components/pages/inicio/Inicio.jsx";
 
 const AppRouter = () => {
     return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
                 {
                     routes.map( ({id, path, Element}) => <Route key={id} path={path} element={ <Element />} />)
                 }
+                <Route path={"*"} element={<Inicio />}/>
             </Route>
             <Route>
                 <Route path="/login" element={<Login />}/>
