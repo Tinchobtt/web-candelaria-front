@@ -28,6 +28,21 @@ export const createCategory = async (categoryData) => {
   }
 };
 
+export const updateCategories = async (categoryData) => {
+  try {
+    const response = await axios.put(API_URL, categoryData, {
+      headers: {
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error("Error updating category:", error);
+    throw error;
+  }
+};
+
 export const updateCategory = async (id, categoryData) => {
   try {
     const response = await axios.put(`${API_URL}/${id}`, categoryData, {
