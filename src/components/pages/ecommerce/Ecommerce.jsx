@@ -1,7 +1,7 @@
-import './ecommerce.scss'
-import Swal from 'sweetalert2'
-import {useProductsCategories} from "../../../context/ProductsCategoriesContext.jsx";
-import {useEffect, useState} from "react";
+import './ecommerce.scss';
+import Swal from 'sweetalert2';
+import { useProductsCategories } from "../../../context/ProductsCategoriesContext.jsx";
+import { useEffect, useState } from "react";
 import CategoryBar from "../../common/categoryBar/CategoryBar.jsx";
 import ProductList from "../../common/productsList/ProductList.jsx";
 import CartSummary from "../../common/cartSummary/CartSummary.jsx";
@@ -10,16 +10,19 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { filteredProducts: products, categories, isLoading, filterProductsByCategory, fetchData, actualCategory} = useProductsCategories()
-    const { cart } = useCart()
-    const { isOpen } = useTime()
-    const navigate = useNavigate()
+    const { filteredProducts: products, categories, isLoading, filterProductsByCategory, fetchData, actualCategory } = useProductsCategories();
+    const { cart } = useCart();
+    const { isOpen } = useTime();
+    const navigate = useNavigate();
     const [alertShown, setAlertShown] = useState(false);
+    
+    // Verificamos si los productos y categorías ya han sido cargados (aunque estén vacíos)
+    const hasFetchedData = products !== null && categories !== null;
 
     useEffect(() => {
-        if(!isOpen && !alertShown ){
+        if (!isOpen && !alertShown) {
             setAlertShown(true);
-            setTimeout(()=>{
+            setTimeout(() => {
                 Swal.fire({
                     title: 'Local cerrado!',
                     color: "var(--red)",
@@ -37,26 +40,31 @@ const Ecommerce = () => {
                         }, 300);
                     }
                 });
-            }, 500)
+            }, 500);
         }
 
-        if ((!products || products.length === 0) && !isLoading) {
+        // Solo hacemos la petición si los datos no han sido cargados y no estamos cargando actualmente
+        if (!hasFetchedData && !isLoading) {
             fetchData(true);
         }
-    }, [products]);
-    
-    
+    }, [hasFetchedData, isLoading, isOpen, alertShown, fetchData, navigate]);
+
     return (
         <div className="expandenContainer">
-            <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
-                <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory}/>
-                <ProductList products={products} admin={false}/>
+            <main id="main-ecommerce" style={{ backgroundColor: 'var(--paper)', position: 'relative' }}>
+                <CategoryBar 
+                    categories={categories} 
+                    filterProductsByCategory={filterProductsByCategory} 
+                    actualCategory={actualCategory} 
+                />
+                <ProductList products={products} admin={false} />
                 {
                     cart.length > 0 &&
                     <CartSummary />
                 }
             </main>
         </div>
-    )
-}
-export default Ecommerce
+    );
+};
+
+export default Ecommerce;
