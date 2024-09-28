@@ -48,11 +48,11 @@ const AdminCategories = () => {
     };
     
     const saveDrag = useCallback( async () => {
-        // try{
-        //     const response = await updateCategory()
-        // }catch(error){
-        //     console.log(error);
-        // }
+        try{
+            const response = await updateCategory()
+        }catch(error){
+            console.log(error);
+        }
         setIsEditing(false);
     }, []);
 
@@ -72,11 +72,11 @@ const AdminCategories = () => {
             confirmButtonColor: '#DF0000',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                // try{
-                //     const response = await deleteCategory(id)
-                // }catch(error){
-                //     console.log(error);
-                // }
+                try{
+                    const response = await deleteCategory(id)
+                }catch(error){
+                    console.log(error);
+                }
                 const updatedCategories = categories.filter(category => category.id !== id);
                 setCategories(reindexCategories(updatedCategories));
             }
@@ -104,11 +104,12 @@ const AdminCategories = () => {
                     position: position
                 };
 
-                // try{
-                //     const response = await createCategory(newCategory)
-                // }catch(error){
-                //     console.log(error);
-                // }
+                try{
+                    const response = await createCategory(newCategory)
+                    
+                }catch(error){
+                    console.log(error);
+                }
 
                 const updatedCategories = [
                     ...categories.slice(0, position),

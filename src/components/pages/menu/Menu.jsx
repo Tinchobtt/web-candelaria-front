@@ -12,7 +12,7 @@ const Menu = () => {
         if (!hasFetchedData && !isLoading) {
             fetchData(true);  // True para traer productos activos solamente
         }
-    }, [hasFetchedData, isLoading]);
+    }, [hasFetchedData]);
     
     return (
         <main id="main-menu">
