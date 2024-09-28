@@ -47,7 +47,7 @@ const Ecommerce = () => {
         if (!hasFetchedData && !isLoading) {
             fetchData(true);
         }
-    }, [hasFetchedData, isLoading, isOpen, alertShown, fetchData, navigate]);
+    }, [hasFetchedData]);
 
     return (
         <div className="expandenContainer">

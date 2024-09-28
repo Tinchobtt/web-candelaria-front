@@ -23,7 +23,7 @@ const ModalProduct = ({ data }) => {
             category: 'Entradas',
             description: '',
             price: '',
-            discountPercentage: '',
+            discountPercentage: 0,
             active: true,
             image: null
         },
