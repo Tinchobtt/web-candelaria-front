@@ -1,9 +1,9 @@
 import './adminCategories.scss';
-import { closestCenter, DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { closestCenter, DndContext, PointerSensor, TouchSensor, useSensor } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useProductsCategories } from "../../../context/ProductsCategoriesContext";
-import { createCategory, updateCategory, deleteCategory } from '../../../services/categoryService';
-import { useState, useCallback } from "react";
+import { createCategory, updateCategory, deleteCategory, updateCategories } from '../../../services/categoryService';
+import { useState } from "react";
 import Swal from 'sweetalert2';
 import { Button } from '@mui/material';
 import CategoryButton from '../../common/categoryButton/CategoryButton';
@@ -28,7 +28,7 @@ const AdminCategories = () => {
         setIsEditing(true)
     }
 
-    const handleDrag = useCallback((event) => {
+    const handleDrag = (event) => {
         const { active, over } = event;
     
         if (active.id !== over.id) {
@@ -38,7 +38,7 @@ const AdminCategories = () => {
     
             setCategories(reindexCategories(newOrder));
         }
-    }, [categories]);
+    };
     
     const reindexCategories = (categories) => {
         return categories.map((category, id) => ({
@@ -47,21 +47,44 @@ const AdminCategories = () => {
         }));
     };
     
-    const saveDrag = useCallback( async () => {
+    const saveDrag =( async () => {
         try{
-            const response = await updateCategory()
+            const response = await updateCategories(categories)
+            if(response.status === 200){
+                Swal.fire({
+                    position: "center-center",
+                    icon: "success",
+                    title: "Categoria actualizada",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }else{
+                Swal.fire({
+                    position: "center-center",
+                    icon: "error",
+                    title: "Error al actualizar categoria",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         }catch(error){
-            console.log(error);
+            Swal.fire({
+                position: "center-center",
+                icon: "error",
+                title: "Error al actualizar categorias",
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
         setIsEditing(false);
-    }, []);
+    });
 
     const cancelDrag = (() => {
         setCategories(categoriesBU);
         setIsEditing(false);
     });
 
-    const handleDeleteCategory = useCallback((id) => {
+    const handleDeleteCategory = (id) => {
         Swal.fire({
             icon: "warning",
             text: "Desea eliminar esta categoria?",
@@ -74,16 +97,39 @@ const AdminCategories = () => {
             if (result.isConfirmed) {
                 try{
                     const response = await deleteCategory(id)
+                    if(response.status === 200){
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "success",
+                            title: "Categoria eliminada",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }else{
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "error",
+                            title: "Error al eliminar categoria",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 }catch(error){
-                    console.log(error);
+                    Swal.fire({
+                        position: "center-center",
+                        icon: "error",
+                        title: "Error al eliminar categoria",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
                 const updatedCategories = categories.filter(category => category.id !== id);
                 setCategories(reindexCategories(updatedCategories));
             }
         })
-    }, [categories]);
+    };
 
-    const handleAddCategory = useCallback((position) => {
+    const handleAddCategory = (position) => {
         Swal.fire({
             title: "Nueva categoria",
             input: "text",
@@ -106,9 +152,31 @@ const AdminCategories = () => {
 
                 try{
                     const response = await createCategory(newCategory)
-                    
+                    if(response.status === 200){
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "success",
+                            title: "Categoria creada",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }else{
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "error",
+                            title: "Error al creada categoria",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 }catch(error){
-                    console.log(error);
+                    Swal.fire({
+                        position: "center-center",
+                        icon: "error",
+                        title: "Error al creada categoria",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
 
                 const updatedCategories = [
@@ -120,7 +188,7 @@ const AdminCategories = () => {
                 setCategories(reindexCategories(updatedCategories));
             }
         });
-    }, [categories]);
+    };
 
     const handleEditCategory = async (category) => {
         Swal.fire({
@@ -138,11 +206,38 @@ const AdminCategories = () => {
             
         }).then(async (result) => {
             if (result.isConfirmed) {
-
+                let updatedCategory = {...category, name: result.value}
+                try{
+                    const response = await updateCategory(category.id, updatedCategory)
+                    if(response.status === 200){
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "success",
+                            title: "Categoria actualizada",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }else{
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "error",
+                            title: response.data.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                }catch(error){
+                    Swal.fire({
+                        position: "center-center",
+                        icon: "error",
+                        title: error.response.data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
                 const updatedCategories = categories.map(cat => 
                     cat.id === category.id ? { ...cat, name: result.value } : cat
                 );
-    
                 setCategories(updatedCategories);
             }
         })
