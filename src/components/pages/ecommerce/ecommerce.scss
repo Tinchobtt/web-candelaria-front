@@ -5,12 +5,14 @@
     background-color: var(--paper);
     .localClose{
         margin-top: 2rem;
-        background-color: #000000;
         padding: 1rem;
+        border: 1px solid var(--red);
         border-radius: 5px;
+        background-color: #ffffff;
         animation: move 2s ease-in-out infinite;
         span{
             font-weight: 500;
+            color: var(--red);
         }
     }
 }
