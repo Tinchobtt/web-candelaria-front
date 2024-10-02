@@ -62,18 +62,17 @@ const AdminCategories = () => {
                 Swal.fire({
                     position: "center-center",
                     icon: "error",
-                    title: "Error al actualizar categoria",
-                    showConfirmButton: false,
-                    timer: 1500
+                    title: response.data.message,
+                    confirmButtonText: 'Cerrar'
                 });
             }
         }catch(error){
             Swal.fire({
                 position: "center-center",
                 icon: "error",
-                title: "Error al actualizar categorias",
-                showConfirmButton: false,
-                timer: 1500
+                title: error.response.data.message,
+                confirmButtonText: 'Cerrar',
+                confirmButtonColor: '#1975d1'
             });
         }
         setIsEditing(false);
@@ -105,26 +104,25 @@ const AdminCategories = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        const updatedCategories = categories.filter(category => category.id !== id);
+                        setCategories(reindexCategories(updatedCategories));
                     }else{
                         Swal.fire({
                             position: "center-center",
                             icon: "error",
-                            title: "Error al eliminar categoria",
-                            showConfirmButton: false,
-                            timer: 1500
+                            title: response.data.message,
+                            confirmButtonText: 'Cerrar'
                         });
                     }
                 }catch(error){
                     Swal.fire({
                         position: "center-center",
                         icon: "error",
-                        title: "Error al eliminar categoria",
-                        showConfirmButton: false,
-                        timer: 1500
+                        title: error.response.data.message,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
                     });
                 }
-                const updatedCategories = categories.filter(category => category.id !== id);
-                setCategories(reindexCategories(updatedCategories));
             }
         })
     };
@@ -145,13 +143,13 @@ const AdminCategories = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const newCategory = {
-                    id: Date.now(), // Genera un ID único
                     name: result.value,
                     position: position
                 };
 
                 try{
                     const response = await createCategory(newCategory)
+                    
                     if(response.status === 200){
                         Swal.fire({
                             position: "center-center",
@@ -160,32 +158,31 @@ const AdminCategories = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+
+                        const updatedCategories = [
+                            ...categories.slice(0, position),
+                            response.data,
+                            ...categories.slice(position)
+                        ];
+
+                        setCategories(reindexCategories(updatedCategories));
                     }else{
                         Swal.fire({
                             position: "center-center",
                             icon: "error",
-                            title: "Error al creada categoria",
-                            showConfirmButton: false,
-                            timer: 1500
+                            title: response.data.message,
+                            confirmButtonText: 'Cerrar'
                         });
                     }
                 }catch(error){
                     Swal.fire({
                         position: "center-center",
                         icon: "error",
-                        title: "Error al creada categoria",
-                        showConfirmButton: false,
-                        timer: 1500
+                        title: error.response.data.message,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
                     });
                 }
-
-                const updatedCategories = [
-                    ...categories.slice(0, position),
-                    newCategory,
-                    ...categories.slice(position)
-                ];
-                
-                setCategories(reindexCategories(updatedCategories));
             }
         });
     };
@@ -222,8 +219,7 @@ const AdminCategories = () => {
                             position: "center-center",
                             icon: "error",
                             title: response.data.message,
-                            showConfirmButton: false,
-                            timer: 1500
+                            confirmButtonText: 'Cerrar'
                         });
                     }
                 }catch(error){
@@ -231,8 +227,8 @@ const AdminCategories = () => {
                         position: "center-center",
                         icon: "error",
                         title: error.response.data.message,
-                        showConfirmButton: false,
-                        timer: 1500
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
                     });
                 }
                 const updatedCategories = categories.map(cat => 
