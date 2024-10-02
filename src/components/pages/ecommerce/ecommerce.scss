@@ -3,4 +3,25 @@
     justify-content: center;
     width: 100vw;
     background-color: var(--paper);
+    .localClose{
+        margin-top: 2rem;
+        background-color: #000000;
+        padding: 1rem;
+        border-radius: 5px;
+        animation: move 2s ease-in-out infinite;
+        span{
+            font-weight: 500;
+        }
+    }
+}
+@keyframes move {
+    0%, 80% {
+        transform: rotate(0);
+    }
+    10%, 30%, 50% { 
+        transform: rotate(2deg);
+    }
+    20%, 40%, 60% { 
+        transform: rotate(-2deg);
+    }
 }

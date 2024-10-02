@@ -52,6 +52,11 @@ const Ecommerce = () => {
     return (
         <div className="expandenContainer">
             <main id="main-ecommerce" style={{ backgroundColor: 'var(--paper)', position: 'relative' }}>
+                { !isOpen &&
+                    <div className="localClose">
+                        <span>Local Cerrado</span>
+                    </div>
+                }
                 <CategoryBar 
                     categories={categories} 
                     filterProductsByCategory={filterProductsByCategory} 
