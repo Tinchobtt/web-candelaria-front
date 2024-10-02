@@ -92,7 +92,7 @@ const AdminHeader = () => {
             <div className='header-container'>
                 <header>
                     <div className="logo-container">
-                        <HashLink to={'/#start'} onClick={closeMenu}>
+                        <HashLink to={'/'} onClick={closeMenu}>
                             <img src={logo} alt="logo" className='logo-img'/>
                         </HashLink>
                     </div>
