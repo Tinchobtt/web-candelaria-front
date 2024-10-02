@@ -1,17 +1,16 @@
 import './especialidadCard.scss'
-import vacioImg from '../../../assets/imgs/1.png'
 
-const EspecialidadCard = ({left}) => {
+const EspecialidadCard = ({left, especialidad}) => {
     return (
         <div className='especialidadCard'>
             <div className="especialidadCard-img">
                 <div className='circle'>
-                    <img src={vacioImg} alt=""/>
+                    <img src={especialidad.image} alt={especialidad.title}/>
                 </div>
             </div>
             <div className={left ? "especialidadCard-content contentLeft" : "especialidadCard-content"}>
-                <h3>Vacío al asador</h3>
-                <p>Carne elaborada a las leñas con cocción lenta acompañada con ensalada de la huerta</p>
+                <h3>{especialidad.title}</h3>
+                <p>{especialidad.description}</p>
             </div>
         </div>
     )

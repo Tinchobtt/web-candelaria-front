@@ -7,13 +7,17 @@ const CartSummary = () => {
     const {cart, totalPrice} = useCart()
 
     return (
-        <section className="cart-summary">
-            <div className="cart-summary-info">
-                <span className='summary-quantity'>{cart.length} Productos</span>
-                <span className='summary-price'>{formattedPrice(totalPrice)}</span>
+        <div className="expanded">
+            <div className="restricted">
+                <div className="cart-summary">
+                    <div className="cart-summary-info">
+                        <span className='summary-quantity'>{cart.length} Productos</span>
+                        <span className='summary-price'>{formattedPrice(totalPrice)}</span>
+                    </div>
+                    <RedirectButton link={'/carrito'} variant={'contained'}>Ver mi pedido</RedirectButton>
+                </div>
             </div>
-            <RedirectButton link={'/carrito'} variant={'contained'}>Ver mi pedido</RedirectButton>
-        </section>
+        </div>
     )
 }
 

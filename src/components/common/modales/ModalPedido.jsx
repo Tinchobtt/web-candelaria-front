@@ -18,7 +18,7 @@ const ModalPedido = () => {
     const {checkIfOpen} = useTime()
     const {cart} = useCart()
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(0,0,0,0);
 
     const [tipoPedido, setTipoPedido] = useState(null);
     const [tipoPedidoHelper, setTipoPedidoHelper] = useState('');
@@ -56,8 +56,8 @@ const ModalPedido = () => {
         onSubmit: async (values, action) => {
             const whatsappUrl = messageBuilder('pedido', values, tipoPedido, metodoPago, cart)
  
-            const selectedDate = new Date(values.date);
-            selectedDate.setHours(values.time.split(':')[0], values.time.split(':')[1]);
+            let selectedDate = new Date(values.date);
+            selectedDate = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
 
             // Obtener la hora actual
             const now = new Date();
@@ -68,6 +68,7 @@ const ModalPedido = () => {
             // Verificar si es hoy y si la hora ya ha pasado
             if (currentDay === selectedDay) {
                 const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
                 if (selectedTime < currentTime) {
                     action.setFieldError('time', 'La hora seleccionada ya ha pasado. Por favor elige un horario futuro.');
                     return;

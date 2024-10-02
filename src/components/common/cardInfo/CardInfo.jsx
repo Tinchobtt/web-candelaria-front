@@ -5,7 +5,7 @@ const CardInfo = ({left, content}) => {
     return (
         <div className={left ? 'cardInfo' : 'cardInfo imageRight'}>
             <div className="cardInfo-img">
-                <img src={content.img} alt="brasas" className={left ? 'borderLeft' : 'borderRight'} />
+                <img src={content.img} alt={content.title} className={left ? 'borderLeft' : 'borderRight'} />
             </div>
             <div className={left ? 'cardInfo-content borderLeft' : 'cardInfo-content borderRight'}>
                 <div className="cardInfo-title">

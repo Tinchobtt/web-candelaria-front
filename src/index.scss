@@ -74,7 +74,13 @@ a{
     color: unset;
     text-decoration: none;
 }
-
+.expandenContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: var(--paper);
+}
 ::-webkit-scrollbar {
     width: 12px; /* Ancho de la barra de scroll */
 }
