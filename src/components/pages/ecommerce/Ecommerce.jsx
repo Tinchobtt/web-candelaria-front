@@ -63,11 +63,11 @@ const Ecommerce = () => {
                     actualCategory={actualCategory} 
                 />
                 <ProductList products={products} admin={false} />
-                {
-                    cart.length > 0 &&
-                    <CartSummary />
-                }
             </main>
+            {
+                cart.length > 0 &&
+                <CartSummary />
+            }
         </div>
     );
 };

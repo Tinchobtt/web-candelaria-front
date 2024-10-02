@@ -1,12 +1,12 @@
 import './inicio.scss';
 import Hero from "../../common/hero/Hero.jsx";
 import CardInfo from "../../common/cardInfo/CardInfo.jsx";
-import fireImg from '../../../assets/imgs/fire.png'
 import EspecialidadCard from "../../common/especialidadCard/EspecialidadCard.jsx";
 import EventosSection from "../../common/eventosSection/EventosSection.jsx";
 import Contacto from "../../common/contacto/Contacto.jsx";
 import PedidosYa from "../../common/pedidosYa/PedidosYa.jsx";
 import Carta from "../../common/carta/Carta.jsx";
+import { especialidades } from '../../../information/especialidades.js';
 
 const Inicio = () => {
     return (
@@ -21,15 +21,16 @@ const Inicio = () => {
                                Somos apasionados de la buena carne, expertos en la elaboración de carnes a las leñas y a las brasa.<br/>
                                Nuestra misión es ofrecer una experiencia culinaria unica que resalte los sabores autenticos y tradicionales de la parrilla Argentina.<br/><br/>
                                Te invitamos a disfrutar de un ambiente calido e ideal para compartir momentos en familia y con amigos.`,
-                        img: fireImg
+                        img: '../../../../public/images/fire.png'
                     }}
                 />
             </section>
             <Carta title={'Descubrí Nuestras Especialidades'}>
                 <div id='especialidades' className="especialidades-content">
-                    <EspecialidadCard />
-                    <EspecialidadCard left={true}/>
-                    <EspecialidadCard />
+                    {especialidades.map( (esp, i) => {
+                        if(i%2 === 0) return <EspecialidadCard key={esp.id} especialidad={esp} />
+                        else return <EspecialidadCard key={esp.id} especialidad={esp} left={true}/>
+                    })}
                 </div>
             </Carta>
             <EventosSection />

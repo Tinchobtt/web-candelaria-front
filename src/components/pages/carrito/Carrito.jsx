@@ -17,18 +17,20 @@ const Carrito = () => {
     }, [cart.length]);
 
     return (
-        <main id="main-carrito">
-            <h2 className="carrito-title">Tu pedido</h2>
-            <section className='cart-prodcuts-container'>
-            {
-                cart.map( item => <CartProductCard key={item.id} product={item} />)
-            }
-            </section>
-            <div className="cart-checkout">
-                <span>TOTAL {formattedPrice(totalPrice)}</span>
-                <ModalButton name="modalPedido">Continuar</ModalButton>
-            </div>
-        </main>
+        <div className="expandenContainer">
+            <main id="main-carrito">
+                <h2 className="carrito-title">Tu pedido</h2>
+                <section className='cart-prodcuts-container'>
+                {
+                    cart.map( item => <CartProductCard key={item.id} product={item} />)
+                }
+                </section>
+                <div className="cart-checkout">
+                    <span>TOTAL {formattedPrice(totalPrice)}</span>
+                    <ModalButton name="modalPedido">Continuar</ModalButton>
+                </div>
+            </main>
+        </div>
     )
 }
 export default Carrito
