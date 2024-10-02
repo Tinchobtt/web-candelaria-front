@@ -26,7 +26,7 @@ const Inicio = () => {
                 />
             </section>
             <Carta title={'Descubrí Nuestras Especialidades'}>
-                <div className="especialidades-content">
+                <div id='especialidades' className="especialidades-content">
                     <EspecialidadCard />
                     <EspecialidadCard left={true}/>
                     <EspecialidadCard />

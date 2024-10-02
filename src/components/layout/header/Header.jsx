@@ -27,7 +27,7 @@ const Header = () => {
         <div className='header-container'>
             <header>
                 <div className="logo-container">
-                    <HashLink to={'/#start'} onClick={closeMenu}>
+                    <HashLink to={'/'} onClick={closeMenu}>
                         <img src={logo} alt="logo" className='logo-img'/>
                     </HashLink>
                 </div>
@@ -40,19 +40,19 @@ const Header = () => {
                 }
                 <nav className={menuWidgetOpen ? "nav-open navbar": "navbar"}>
                     <ul className="nabvar-list">
-                        <li className="nav-item"><HashLink to={'/#start'}
+                        <li className="nav-item"><HashLink to={'/'}
                                                             className={loc === '/' ? 'nav-link active': 'nav-link'}
                                                             onClick={handleWidget}>Inicio</HashLink></li>
 
-                        <li className="nav-item"><HashLink to={'/menu#start'}
+                        <li className="nav-item"><HashLink to={'/menu'}
                                                             className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'}
                                                             onClick={handleWidget}>Menú</HashLink></li>
 
-                        <li className="nav-item"><HashLink to={'/ecommerce#start'}
+                        <li className="nav-item"><HashLink to={'/ecommerce'}
                                                             className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'}
                                                             onClick={handleWidget}>Pedí Ahora</HashLink></li>
 
-                        <li className="nav-item"><HashLink to={'/eventos#start'}
+                        <li className="nav-item"><HashLink to={'/eventos'}
                                                             className={loc.startsWith('/eventos') ? 'nav-link active': 'nav-link'}
                                                             onClick={handleWidget}>Eventos</HashLink></li>
 

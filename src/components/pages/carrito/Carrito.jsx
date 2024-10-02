@@ -12,7 +12,7 @@ const Carrito = () => {
 
     useEffect(() => {
       if (cart.length === 0) {
-        navigate('/ecommerce#start');
+        navigate('/ecommerce');
       }
     }, [cart.length]);
 
