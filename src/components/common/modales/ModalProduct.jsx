@@ -17,10 +17,10 @@ const ModalProduct = ({ data }) => {
     const formRef = useRef(null);
     const { categories, products, setProducts } = useProductsCategories(); 
 
-    const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
+    const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue,setTouched  } = useFormik({
         initialValues: {
             title: '',
-            category: 'Entrada',
+            category: '',
             description: '',
             price: '',
             discountPercentage: 0,
@@ -47,13 +47,65 @@ const ModalProduct = ({ data }) => {
             formData.append('discountPercentage', values.discountPercentage);
             formData.append('active', values.active);
 
-            if (data) {                
-                const product = await updateProduct(data.id, formData);
-                const updatedProducts = products.map(prod => prod.id === data.id ? product.data : prod)
-                setProducts(updatedProducts)
-            } else {
-                const product = await createProduct(formData);
-                setProducts([...products, product.data])
+            if (data) { 
+                try{
+                    const response = await updateProduct(data.id, formData);
+                    if(response.status === 200){
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "success",
+                            title: "producto actualizado",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        const updatedProducts = products.map(prod => prod.id === data.id ? response.data : prod)
+                        setProducts(updatedProducts)
+                    }else{
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "error",
+                            title: response.data.message,
+                            confirmButtonText: 'Cerrar'
+                        });
+                    }
+                }catch(error){
+                    Swal.fire({
+                        position: "center-center",
+                        icon: "error",
+                        title: error.response.data.message,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
+                    })
+                }
+            }else {
+                try{
+                    const response = await createProduct(formData);
+                    if(response.status === 200){
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "success",
+                            title: "producto creado",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setProducts([...products, response.data])
+                    }else{
+                        Swal.fire({
+                            position: "center-center",
+                            icon: "error",
+                            title: response.data.message,
+                            confirmButtonText: 'Cerrar'
+                        });
+                    }
+                }catch(error){
+                    Swal.fire({
+                        position: "center-center",
+                        icon: "error",
+                        title: error.response.data.message,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
+                    });
+                }
             }
 
             action.resetForm();
@@ -63,7 +115,8 @@ const ModalProduct = ({ data }) => {
             title: Yup.string()
                 .required('Campo obligatorio')
                 .max(30, 'El nombre no puede tener más de 30 caracteres'),
-            category: Yup.string(),
+            category: Yup.string()
+                .required('Campo obligatorio'),
             description: Yup.string()
                 .required('Campo obligatorio')
                 .max(100, 'La descripcion no puede tener mas de 100 caracteres'),
@@ -179,18 +232,28 @@ const ModalProduct = ({ data }) => {
                     error={!!errors.title && touched.title}
                     helperText={errors.title && touched.title && errors.title}
                 />
-                <select
-                    name="category"
-                    className='input-select'
-                    value={values.category}
-                    onChange={(e) => setFieldValue('category', e.target.value)}
-                >
-                    {categories.map(category => (
-                        <option value={category.name} key={category.id}>
-                            {category.name}
-                        </option>
-                    ))}
-                </select>
+                <div className="select-container">
+                    <select
+                        name="category"
+                        className='input-select'
+                        value={values.category}
+                        onChange={(e) => {
+                            setTouched({ ...touched, category: true })
+                            if (e.target.value === "") setTouched({ ...touched, category: true })
+                            else setTouched({ ...touched, category: false });
+                        }}
+                    >
+                        <option value="" disabled>Categoría</option>
+                        {categories.map(category => (
+                            <option value={category.name} key={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.category && touched.category &&
+                        <span>{errors.category}</span>
+                    }
+                </div>
                 <TextField
                     className='input-description'
                     type="text"
