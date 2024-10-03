@@ -20,7 +20,7 @@ const ModalProduct = ({ data }) => {
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
             title: '',
-            category: '',
+            category: 'Entrada',
             description: '',
             price: '',
             discountPercentage: 0,
