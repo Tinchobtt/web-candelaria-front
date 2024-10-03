@@ -15,7 +15,7 @@ import { createProduct, deleteProduct, updateProduct } from '../../../services/p
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null);
-    const { categories, products, setProducts } = useProductsCategories(); 
+    const { categories, products, setProducts, filterProductsByCategory } = useProductsCategories(); 
 
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue,setTouched  } = useFormik({
         initialValues: {
@@ -107,7 +107,7 @@ const ModalProduct = ({ data }) => {
                     });
                 }
             }
-
+            filterProductsByCategory('todos')
             action.resetForm();
             closeModal();
         },
@@ -177,13 +177,25 @@ const ModalProduct = ({ data }) => {
         });
     }
 
+    const discount = () => {
+        if(data.actualPrice !== data.price){
+            return (data.price - data.actualPrice) * 100 / data.price
+        }else{
+            return 0
+        }
+        
+    }
+    
     useEffect(() => {
+        console.log(data.price);
+        console.log(data.actualPrice);
+        
         if (data) {
             setFieldValue('title', data.title || '');
             setFieldValue('category', data.category || '');
             setFieldValue('description', data.description || '');
             setFieldValue('price', data.price || '');
-            setFieldValue('discountPercentage', data.actualPrice !== data.price ? data.actualPrice : 0 );
+            setFieldValue('discountPercentage', discount() );
             setFieldValue('active', data.active !== undefined ? data.active : true);
             setFieldValue('image', data.image || null);
 
@@ -238,7 +250,7 @@ const ModalProduct = ({ data }) => {
                         className='input-select'
                         value={values.category}
                         onChange={(e) => {
-                            setTouched({ ...touched, category: true })
+                            setFieldValue('category', e.target.value);
                             if (e.target.value === "") setTouched({ ...touched, category: true })
                             else setTouched({ ...touched, category: false });
                         }}
