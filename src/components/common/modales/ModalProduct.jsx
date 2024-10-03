@@ -20,7 +20,7 @@ const ModalProduct = ({ data }) => {
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
             title: '',
-            category: 'Entrada',
+            category: '',
             description: '',
             price: '',
             discountPercentage: 0,
@@ -63,7 +63,8 @@ const ModalProduct = ({ data }) => {
             title: Yup.string()
                 .required('Campo obligatorio')
                 .max(30, 'El nombre no puede tener más de 30 caracteres'),
-            category: Yup.string(),
+            category: Yup.string()
+                .required('Campo obligatorio'),
             description: Yup.string()
                 .required('Campo obligatorio')
                 .max(100, 'La descripcion no puede tener mas de 100 caracteres'),
@@ -179,18 +180,24 @@ const ModalProduct = ({ data }) => {
                     error={!!errors.title && touched.title}
                     helperText={errors.title && touched.title && errors.title}
                 />
-                <select
-                    name="category"
-                    className='input-select'
-                    value={values.category}
-                    onChange={(e) => setFieldValue('category', e.target.value)}
-                >
-                    {categories.map(category => (
-                        <option value={category.name} key={category.id}>
-                            {category.name}
-                        </option>
-                    ))}
-                </select>
+                <div className="select-container">
+                    <select
+                        name="category"
+                        className='input-select'
+                        value={values.category}
+                        onChange={(e) => setFieldValue('category', e.target.value)}
+                    >
+                        <option value="" disabled>Categoría</option>
+                        {categories.map(category => (
+                            <option value={category.name} key={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.category &&
+                        <span>{errors.category}</span>
+                    }
+                </div>
                 <TextField
                     className='input-description'
                     type="text"

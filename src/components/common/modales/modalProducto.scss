@@ -82,14 +82,22 @@
                 }
             }
         }
-        .input-select{
+        .select-container{
             width: 100%;
-            height: 56px;
             margin-bottom: 1rem;
-            border-radius: 5px;
-            color: #666666;
-            font-size: 16px;
-            padding-left: .5rem;
+            .input-select{
+                width: 100%;
+                height: 56px;
+                border-radius: 5px;
+                color: #666666;
+                font-size: 16px;
+                padding-left: .5rem;
+            }
+            span{
+                font-size: 12px;
+                color: #D32f2f;
+                margin-left: 14px;
+            }
         }
         .double-input-container{
             display: flex;
