@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { TextField } from "@mui/material";
 import * as Yup from 'yup';
 import { useFormik } from "formik";
-import defaultProdImg from '../../../../public/images/defaultProdImg.png';
+import defaultProdImg from '/images/defaultProdImg.png';
 import { FaEdit } from "react-icons/fa";
 import StateCircle from '../stateCircle/StateCircle';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
@@ -20,7 +20,7 @@ const ModalProduct = ({ data }) => {
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue } = useFormik({
         initialValues: {
             title: '',
-            category: '',
+            category: 'Entrada',
             description: '',
             price: '',
             discountPercentage: 0,
