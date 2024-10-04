@@ -19,7 +19,7 @@ export const TimeContextProvider = ({ children }) => {
             { start: "19:00", end: "22:30" }
         ],
         "Viernes": [
-            { start: "11:30", end: "15:00" },
+            { start: "08:30", end: "15:00" },
             { start: "19:00", end: "22:30" }
         ],
         "Sábado": [

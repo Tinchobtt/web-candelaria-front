@@ -329,7 +329,8 @@ const ModalPedido = () => {
                         }}
                     />
                 </div>
-                <span>Se redirigirá a WhatsApp para notificar al establecimiento.
+                <span>
+                    Se redirigirá a WhatsApp para notificar al establecimiento.
                     Su solicitud será respondida a la brevedad.
                 </span>
                 <Button type={'submit'} className="modal-btn-send" size={"large"} variant='contained'>Enviar</Button>

@@ -55,4 +55,12 @@
         justify-content: center;
         gap: 1rem;
     }
+    span{
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        color: var(--greyHover);
+        max-width: 400px;
+        margin: 0 1rem 2rem;
+    }
 }

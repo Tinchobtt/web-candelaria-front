@@ -30,7 +30,7 @@ const AdminCategories = () => {
 
     const handleDrag = (event) => {
         const { active, over } = event;
-    
+        
         if (active.id !== over.id) {
             const oldIndex = categories.findIndex((category) => category.id === active.id);
             const newIndex = categories.findIndex((category) => category.id === over.id);
@@ -262,6 +262,9 @@ const AdminCategories = () => {
                                     )
                                 }
                             </div>
+                            <span>
+                                Presione y mantenga una categoría para arrastrarla a una nueva posición, luego suelte para reorganizar
+                            </span>
                             <div className="admin-category-control">
                                 <Button onClick={cancelDrag} variant='contained'>Cancelar</Button>
                                 <Button onClick={saveDrag} variant='contained'>Guardar</Button>
