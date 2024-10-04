@@ -24,9 +24,9 @@ const AdminHeader = () => {
         const { value: formValues } = await Swal.fire({
             title: 'Actualizar Contraseña',
             html: `
-                <input id="username" class="swal2-input" placeholder="Usuario">
-                <input type="password" id="oldPassword" class="swal2-input" placeholder="Contraseña Vieja">
-                <input type="password" id="newPassword" class="swal2-input" placeholder="Contraseña Nueva">
+                <input id="username" class="swal2-input swal-input" placeholder="Usuario">
+                <input type="password" id="oldPassword" class="swal2-input swal-input" placeholder="Contraseña anterior">
+                <input type="password" id="newPassword" class="swal2-input swal-input" placeholder="Contraseña nueva">
             `,
             focusConfirm: false,
             showCancelButton: true,

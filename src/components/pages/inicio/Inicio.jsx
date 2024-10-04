@@ -7,6 +7,7 @@ import Contacto from "../../common/contacto/Contacto.jsx";
 import PedidosYa from "../../common/pedidosYa/PedidosYa.jsx";
 import Carta from "../../common/carta/Carta.jsx";
 import { especialidades } from '../../../information/especialidades.js';
+import WhatsAppIcon from '../../common/whatappIcon/WhatsAppIcon.jsx';
 
 const Inicio = () => {
     return (
@@ -36,6 +37,7 @@ const Inicio = () => {
             <EventosSection />
             <Contacto />
             <PedidosYa />
+            <WhatsAppIcon />
         </main>
     )
 }
