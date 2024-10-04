@@ -31,7 +31,11 @@
     }
 }
 @media (min-width: 1024px){
-    .cart-summary{
-        padding: 2rem;
+    .expanded{
+        .restricted{
+            .cart-summary{
+                padding: 2rem;
+            }
+        }
     }
 }

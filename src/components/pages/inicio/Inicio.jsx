@@ -13,7 +13,7 @@ const Inicio = () => {
     return (
         <main id="main-inicio">
             <Hero />
-            <section id={"nosotros"} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <section id="nosotros" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <CardInfo
                     left={true}
                     content={{
