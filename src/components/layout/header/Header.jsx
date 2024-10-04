@@ -4,10 +4,7 @@ import { useState } from 'react';
 import Redes from "../../common/redes/Redes.jsx";
 import ModalButton from "../../common/modalButton/ModalButton.jsx";
 import {useLocation} from "react-router-dom";
-import {HashLink} from "react-router-hash-link";
 import useWindowResolution from "../../../hooks/useWindowResolution.jsx";
-import { VscGear } from "react-icons/vsc";
-import { logout } from '../../../services/authServide.js';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -27,9 +24,9 @@ const Header = () => {
         <div className='header-container'>
             <header>
                 <div className="logo-container">
-                    <HashLink to={'/'} onClick={closeMenu}>
+                    <Link to={'/'} onClick={closeMenu}>
                         <img src={logo} alt="logo" className='logo-img'/>
-                    </HashLink>
+                    </Link>
                 </div>
                 {resolution < 768 && 
                     <div className="menu-icon" onClick={handleWidget}>
@@ -40,25 +37,25 @@ const Header = () => {
                 }
                 <nav className={menuWidgetOpen ? "nav-open navbar": "navbar"}>
                     <ul className="nabvar-list">
-                        <li className="nav-item"><HashLink to={'/'}
+                        <li className="nav-item"><Link to={'/'}
                                                             className={loc === '/' ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Inicio</HashLink></li>
+                                                            onClick={handleWidget}>Inicio</Link></li>
 
-                        <li className="nav-item"><HashLink to={'/menu'}
+                        <li className="nav-item"><Link to={'/menu'}
                                                             className={loc.startsWith('/menu') ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Menú</HashLink></li>
+                                                            onClick={handleWidget}>Menú</Link></li>
 
-                        <li className="nav-item"><HashLink to={'/ecommerce'}
+                        <li className="nav-item"><Link to={'/ecommerce'}
                                                             className={loc.startsWith('/ecommerce') ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Pedí Ahora</HashLink></li>
+                                                            onClick={handleWidget}>Pedí Ahora</Link></li>
 
-                        <li className="nav-item"><HashLink to={'/eventos'}
+                        <li className="nav-item"><Link to={'/eventos'}
                                                             className={loc.startsWith('/eventos') ? 'nav-link active': 'nav-link'}
-                                                            onClick={handleWidget}>Eventos</HashLink></li>
+                                                            onClick={handleWidget}>Eventos</Link></li>
 
-                        <li className="nav-item"><HashLink to={'/#contacto'}
+                        <li className="nav-item"><Link to={'/#contacto'}
                                                             className='nav-link'
-                                                            onClick={handleWidget}>Contacto</HashLink></li>
+                                                            onClick={handleWidget}>Contacto</Link></li>
                     </ul>
                     <div className="nav-contact">
                         <ModalButton name={'modalReservaMesa'}>Reservá</ModalButton>

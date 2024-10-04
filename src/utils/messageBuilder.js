@@ -3,16 +3,25 @@ export const messageBuilder = (tipoMensaje, values, tipoPedido, metodoPago, prod
     let message = '';
 
     if (tipoMensaje === 'pedido') {
-        message = `Hola, me llamo ${values.name}. Quiero hacer un pedido para el ${values.date} a las ${values.time} hs.\nMensaje adicional: ${values.message}\nTipo de pedido: ${tipoPedido}\nMétodo de pago: ${metodoPago}`;
+        message = `Hola, me llamo ${values.name}. Quiero hacer un pedido para el ${values.date} a las ${values.time} hs.`;
+        message += `\nTipo de pedido: ${tipoPedido}\nMétodo de pago: ${metodoPago}`;
+
+        if (tipoPedido === 'A domicilio') {
+            message += `\nDomicilio: ${values.domicilio}`;
+        }
 
         if (productos && productos.length > 0) {
             message += `\n\nPedido:\n`;
-            productos.forEach((producto, index) => {
-                message += `${index + 1}. ${producto.title} - Cantidad: ${producto.quantity}\n`;
+            productos.forEach((producto) => {
+                message += `• ${producto.title} - Cantidad: ${producto.quantity}\n`;
             });
         }
     } else if (tipoMensaje === 'reserva') {
-        message = `Hola, me llamo ${values.name}. Quiero hacer una reserva para ${values.amount} personas para el ${values.date} a las ${values.time}.\nMensaje adicional: ${values.message}`;
+        message = `Hola, me llamo ${values.name}. Quiero hacer una reserva para ${values.amount} personas para el ${values.date} a las ${values.time}.`;
+    }
+
+    if (values.message) {
+        message += `\nMensaje adicional: ${values.message}`;
     }
 
     const encodedMessage = encodeURIComponent(message);

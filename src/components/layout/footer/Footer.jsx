@@ -1,7 +1,7 @@
 import './footer.scss'
 import logo from '../../../assets/logo/logo.png'
-import {HashLink} from "react-router-hash-link";
 import Redes from "../../common/redes/Redes.jsx";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -10,19 +10,19 @@ const Footer = () => {
                 <nav className="navbar-footer">
                     <ul className="navbar-footer-list">
                         <div className="footer-item-container">
-                            <li className="nav-footer-item nav-footer-item-title"><HashLink to={'/'} className="nav-footer-link">Inicio</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/#nosotros'} className="nav-footer-link">Sobre Nosotros</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/#especialidades'} className="nav-footer-link">Especialidades</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/#contacto'} className="nav-footer-link">Contacto</HashLink></li>
+                            <li className="nav-footer-item nav-footer-item-title"><Link to={'/'} className="nav-footer-link">Inicio</Link></li>
+                            <li className="nav-footer-item"><Link to={'/#nosotros'} className="nav-footer-link">Sobre Nosotros</Link></li>
+                            <li className="nav-footer-item"><Link to={'/#especialidades'} className="nav-footer-link">Especialidades</Link></li>
+                            <li className="nav-footer-item"><Link to={'/#contacto'} className="nav-footer-link">Contacto</Link></li>
                         </div>
                         <div className="footer-item-container">
-                            <li className="nav-footer-item nav-footer-item-title"><HashLink to={'/'} className="nav-footer-link">Menú</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/menu'} className="nav-footer-link">Carta digital</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/ecommerce'} className="nav-footer-link">Armar pedido</HashLink></li>
+                            <li className="nav-footer-item nav-footer-item-title"><Link to={'/'} className="nav-footer-link">Menú</Link></li>
+                            <li className="nav-footer-item"><Link to={'/menu'} className="nav-footer-link">Carta digital</Link></li>
+                            <li className="nav-footer-item"><Link to={'/ecommerce'} className="nav-footer-link">Armar pedido</Link></li>
                         </div>
                         <div className="footer-item-container">
-                            <li className="nav-footer-item nav-footer-item-title"><HashLink to={'/'} className="nav-footer-link">Eventos</HashLink></li>
-                            <li className="nav-footer-item"><HashLink to={'/eventos'} className="nav-footer-link">Información de eventos</HashLink></li>
+                            <li className="nav-footer-item nav-footer-item-title"><Link to={'/'} className="nav-footer-link">Eventos</Link></li>
+                            <li className="nav-footer-item"><Link to={'/eventos'} className="nav-footer-link">Información de eventos</Link></li>
                         </div>
                     </ul>
                 </nav>

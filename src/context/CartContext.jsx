@@ -38,7 +38,10 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
+    const clearCart = () => setCart([])
+
     const totalPrice = cart.reduce((accumulator, prod) => accumulator + prod.actualPrice * prod.quantity, 0);
+    const totalProductsCount = () => cart.reduce((acc, prod) => acc + prod.quantity, 0);
 
     const findIndexItem = (id) => cart.findIndex(prod => prod.id === id)
 
@@ -48,6 +51,8 @@ export const CartContextProvider = ({ children }) => {
             deleteFromCart,
             changeQuantity,
             totalPrice,
+            clearCart,
+            totalProductsCount,
             cart
         }}>
             {children}
