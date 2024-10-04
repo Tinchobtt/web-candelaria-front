@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import {HashLink} from "react-router-hash-link";
+import { Link } from "react-router-dom";
 
 const RedirectButton = ({link, variant, children}) => {
     const getStyles = () => {
@@ -37,11 +37,11 @@ const RedirectButton = ({link, variant, children}) => {
 
 
     return(
-        <HashLink to={link} target={link.startsWith('https://') ? '_blank' : '_self'}>
+        <Link to={link} target={link.startsWith('https://') ? '_blank' : '_self'}>
             <Button sx={getStyles}>
                {children}
             </Button>
-        </HashLink>
+        </Link>
     )
 }
 

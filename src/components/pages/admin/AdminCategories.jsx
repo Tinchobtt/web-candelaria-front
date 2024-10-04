@@ -214,6 +214,10 @@ const AdminCategories = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        const updatedCategories = categories.map(cat => 
+                            cat.id === category.id ? { ...cat, name: result.value } : cat
+                        );
+                        setCategories(updatedCategories);
                     }else{
                         Swal.fire({
                             position: "center-center",
@@ -231,10 +235,6 @@ const AdminCategories = () => {
                         confirmButtonColor: '#1975d1'
                     });
                 }
-                const updatedCategories = categories.map(cat => 
-                    cat.id === category.id ? { ...cat, name: result.value } : cat
-                );
-                setCategories(updatedCategories);
             }
         })
     }

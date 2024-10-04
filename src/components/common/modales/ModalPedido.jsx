@@ -10,13 +10,17 @@ import { splitAddress } from '../../../utils/splitAdress';
 import { useCart } from '../../../context/CartContext';
 import { messageBuilder } from '../../../utils/messageBuilder';
 import { getAddress } from '../../../services/addressService';
+import { useModal } from '../../../context/ModalContext';
+import { useNavigate } from 'react-router-dom';
 
 const ModalPedido = () => {
     const formRef = useRef(null);
     const inputTime = useRef(null);
     const inputDate = useRef(null);
     const {checkIfOpen} = useTime()
-    const {cart} = useCart()
+    const {cart, clearCart} = useCart()
+    const { closeModal } = useModal()
+    const navigate = useNavigate()
     const today = new Date();
     today.setHours(0,0,0,0);
 
@@ -44,6 +48,14 @@ const ModalPedido = () => {
         setExpandedMetodoPago(false); 
         setMetodoPagoHelper('')
     };
+
+    const finishOrder = (action, whatsappUrl) => {
+        window.open(whatsappUrl, '_blank');
+        action.resetForm();
+        closeModal()
+        clearCart()
+        navigate('/')
+    }
 
     const {handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue} = useFormik({
         initialValues: {
@@ -95,7 +107,11 @@ const ModalPedido = () => {
                     const { street, number } = splitAddress(values.domicilio);
                     const response = await getAddress(street, number);
                     
-                    if (response.valido) {
+                    if (response.valid) {
+                        action.setSubmitting(false);
+                        finishOrder(action, whatsappUrl)
+                    }else{
+                        action.setFieldError('domicilio', 'Domicilio fuera de rango');
                         action.setSubmitting(false);
                     }
                 } catch (error) {
@@ -104,9 +120,9 @@ const ModalPedido = () => {
                     action.setSubmitting(false);
                     return;
                 }
+            }else{
+                finishOrder(action, whatsappUrl)
             }
-            window.open(whatsappUrl, '_blank');
-            action.resetForm();
         },
         // VALIDACIONES
         validationSchema: Yup.object().shape({

@@ -54,7 +54,7 @@ const ModalProduct = ({ data }) => {
                         Swal.fire({
                             position: "center-center",
                             icon: "success",
-                            title: "producto actualizado",
+                            title: "Producto actualizado",
                             showConfirmButton: false,
                             timer: 1500
                         });
@@ -84,7 +84,7 @@ const ModalProduct = ({ data }) => {
                         Swal.fire({
                             position: "center-center",
                             icon: "success",
-                            title: "producto creado",
+                            title: "Producto creado",
                             showConfirmButton: false,
                             timer: 1500
                         });
@@ -187,9 +187,6 @@ const ModalProduct = ({ data }) => {
     }
     
     useEffect(() => {
-        console.log(data.price);
-        console.log(data.actualPrice);
-        
         if (data) {
             setFieldValue('title', data.title || '');
             setFieldValue('category', data.category || '');

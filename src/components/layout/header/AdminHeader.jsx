@@ -2,7 +2,6 @@ import './header.scss'
 import logo from '../../../assets/logo/logo.png'
 import { useEffect, useRef, useState } from 'react';
 import {useLocation} from "react-router-dom";
-import {HashLink} from "react-router-hash-link";
 import { VscGear } from "react-icons/vsc";
 import { logout, updatePassword } from '../../../services/authServide.js';
 import { Link } from 'react-router-dom';
@@ -92,9 +91,9 @@ const AdminHeader = () => {
             <div className='header-container'>
                 <header>
                     <div className="logo-container">
-                        <HashLink to={'/'} onClick={closeMenu}>
+                        <Link to={'/'} onClick={closeMenu}>
                             <img src={logo} alt="logo" className='logo-img'/>
-                        </HashLink>
+                        </Link>
                     </div>
                     <span style={{fontSize: 'clamp(10px, 4vw, 18px)'}}>ADMINISTRADOR</span>
                 </header>
