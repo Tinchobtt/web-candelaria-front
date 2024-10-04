@@ -51,7 +51,7 @@
 @media (min-width: 600px){
     .footer-container{
         footer{
-            max-width: 1400px;
+            max-width: var(--maxWidth);
             .navbar-footer{
                 .navbar-footer-list{
                     display: flex;

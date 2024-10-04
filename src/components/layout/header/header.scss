@@ -205,7 +205,7 @@
 @media (min-width: 768px){
     .header-container{
         header{
-            max-width: 1400px;
+            max-width: var(--maxWidth);
             height: 6rem;
             background-color: transparent;
             .navbar{
