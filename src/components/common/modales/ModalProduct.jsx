@@ -118,13 +118,13 @@ const ModalProduct = ({ data }) => {
             category: Yup.string()
                 .required('Campo obligatorio'),
             description: Yup.string()
-                .required('Campo obligatorio')
                 .max(100, 'La descripcion no puede tener mas de 100 caracteres'),
             price: Yup.number()
                 .typeError('El precio debe ser un número')
                 .positive('El precio debe ser un valor positivo')
                 .required('Campo obligatorio'),
             discountPercentage: Yup.number()
+                .required('Campo obligatorio')
                 .typeError('El descuento debe ser un número')
                 .min(0, 'El descuento no puede ser menor que 0')
                 .max(100, 'El descuento no puede ser mayor que 100'),

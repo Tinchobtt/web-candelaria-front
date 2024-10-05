@@ -60,7 +60,7 @@ const Contacto = () => {
                     </iframe>
                 </div>
             </div>
-            <RedirectButton link={'https://web.whatsapp.com/send?phone=541125372314'} variant={'contained'}>¡Envianos un mensaje!</RedirectButton>
+            <RedirectButton link={'https://wa.me/541125372314'} variant={'contained'}>¡Envianos un mensaje!</RedirectButton>
         </section>
     )
 }
