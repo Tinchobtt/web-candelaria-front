@@ -34,6 +34,11 @@
         .MuiButtonBase-root{
             height: 100%;
         }
+        .direccion-container{
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 1rem;
+        }
         .date-hour-container{
             width: 100%;
             margin-bottom: 1rem;
@@ -71,6 +76,11 @@
     .modal-content{
         padding: 2rem;
         .modal-form{
+            .direccion-container{
+                display: grid;
+                grid-template-columns: 5fr 3fr;
+                gap: 1rem;
+            }
             .date-hour-container{
                 display: flex;
                 justify-content: space-between;
