@@ -6,7 +6,6 @@ import {Accordion, AccordionDetails, AccordionSummary, Box, TextField, Typograph
 import * as Yup from 'yup';
 import {useFormik} from "formik";
 import { useTime } from '../../../context/TimeContext';
-import { splitAddress } from '../../../utils/splitAdress';
 import { useCart } from '../../../context/CartContext';
 import { messageBuilder } from '../../../utils/messageBuilder';
 import { getAddress } from '../../../services/addressService';
@@ -61,13 +60,14 @@ const ModalPedido = () => {
         initialValues: {
             name: '',
             domicilio: '',
+            domicilio_number: '',
             message: '',
             date: '',
             time: '',
         },
         onSubmit: async (values, action) => {
             const whatsappUrl = messageBuilder('pedido', values, tipoPedido, metodoPago, cart)
- 
+
             let selectedDate = new Date(values.date);
             selectedDate = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000);
 
@@ -104,19 +104,18 @@ const ModalPedido = () => {
             if (tipoPedido === 'A domicilio') {
                 action.setSubmitting(true);
                 try {
-                    const { street, number } = splitAddress(values.domicilio);
-                    const response = await getAddress(street, number);
+                    const response = await getAddress(values.domicilio, values.domicilio_number);
                     
                     if (response.valid) {
                         action.setSubmitting(false);
                         finishOrder(action, whatsappUrl)
                     }else{
-                        action.setFieldError('domicilio', 'Domicilio fuera de rango');
+                        action.setFieldError('domicilio', 'El delivery no llega a esta dirección');
                         action.setSubmitting(false);
                     }
                 } catch (error) {
                     action.error('Error verificando el domicilio:', error);
-                    action.setFieldError('domicilio', 'Domicilio fuera de rango');
+                    action.setFieldError('domicilio', 'El delivery no llega a esta dirección');
                     action.setSubmitting(false);
                     return;
                 }
@@ -136,6 +135,14 @@ const ModalPedido = () => {
                     }
                     return true;
                 }),
+            domicilio_number: Yup.number()
+                .test('required', 'Campo obligatorio', function (value) {
+                    if (this.parent.tipoPedido === 'A domicilio') {
+                        return !!value;
+                    }
+                    return true;
+                })
+                .positive('Debe ser positivo'),
             message: Yup.string(),
             date: Yup.date()
                 .required('Campo obligatorio')
@@ -197,17 +204,30 @@ const ModalPedido = () => {
                 </div>
                 {
                     tipoPedido === 'A domicilio' && (
-                        <TextField
-                            type="text"
-                            name="domicilio"
-                            label="Domicilio"
-                            variant="filled"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.domicilio}
-                            error={(!!errors.domicilio && touched.domicilio)}
-                            helperText={errors.domicilio && touched.domicilio && errors.domicilio}
-                        />
+                        <div className="direccion-container">
+                            <TextField
+                                type="text"
+                                name="domicilio"
+                                label="Domicilio"
+                                variant="filled"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.domicilio}
+                                error={(!!errors.domicilio && touched.domicilio)}
+                                helperText={errors.domicilio && touched.domicilio && errors.domicilio}
+                            />
+                            <TextField
+                                type="number"
+                                name="domicilio_number"
+                                label="Número"
+                                variant="filled"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.domicilio_number}
+                                error={(!!errors.domicilio_number && touched.domicilio_number)}
+                                helperText={errors.domicilio_number && touched.domicilio_number && errors.domicilio_number}
+                            />
+                        </div>
                     )
                 }
                 <TextField
@@ -336,17 +356,7 @@ const ModalPedido = () => {
                 <Button type={'submit'} className="modal-btn-send" size={"large"} variant='contained'>Enviar</Button>
             </form>
         </div>
-    );
+    )
 }
 
 export default ModalPedido
-
-const messageBuild = (values) =>{
-    const message = `Hola, me llamo ${values.name}. Quiero hacer un pedido para el ${values.date} a las ${values.time} hs.\nMensaje adicional: ${values.message}\nPedido: `
-
-    const phoneNumber = 541125372314;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
-
-    return encodeURIComponent(whatsappUrl)
-}
