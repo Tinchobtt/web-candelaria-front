@@ -11,47 +11,14 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [actualCategory, setActualCategory] = useState('todos')
 
-    // const fetchData = async (activeValue) => {
-    //     if (products && categories) {
-    //         const someProducts = products?.some(product => product.active === activeValue);
-    //         if (someProducts) {
-    //             return;
-    //         }
-    //     }
-    //     setIsLoading(true);
-
-    //     try {
-    //         const [productsResponse, categoriesResponse] = await Promise.all([
-    //             getProducts(activeValue), 
-    //             getCategories(activeValue)
-    //         ]);
-    //         const sortedCategories = categoriesResponse.data.sort((a, b) => a.position - b.position);
-    //         setProducts(productsResponse.data);
-    //         setCategories(sortedCategories);
-            
-    //     } catch (error) {
-    //         console.error("Error fetching products or categories:", error);
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
-
-    const fetchData = async (activeValue) => {
-        if (products !== null && categories !== null) { // Cambia la condición para chequear si ya se inicializó
-            const someProducts = products?.some(product => product.active === activeValue);
-            if (someProducts) {
-                return; // Ya tenemos los productos activos
-            }
-        }
+    const fetchData = async (activeValue, inMenu, inEcommerce) => {
         setIsLoading(true);
-    
         try {
             const [productsResponse, categoriesResponse] = await Promise.all([
-                getProducts(activeValue), 
-                getCategories(activeValue)
+                getProducts(activeValue, inMenu, inEcommerce), 
+                getCategories(activeValue, inMenu, inEcommerce)
             ]);
     
-            // Si las respuestas son listas vacías, se inicializan como arrays vacíos
             const sortedCategories = categoriesResponse.data.length > 0
                 ? categoriesResponse.data.sort((a, b) => a.position - b.position)
                 : [];

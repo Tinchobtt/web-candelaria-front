@@ -3,9 +3,9 @@ import {BASE_API_URL} from "../../config.js";
 
 const API_URL = BASE_API_URL + '/api/categories';
 
-export const getCategories = async (active) => {
+export const getCategories = async (active, inMenu, inEcommerce) => {
   try {
-    const response = await axios.get(`${API_URL}?onlyActives=${active}`);
+    const response = await axios.get(`${API_URL}?onlyActives=${active}&menu=${inMenu}&takeaway=${inEcommerce}`);
     return response;
   } catch (error) {
     console.error("Error fetching categories:", error);

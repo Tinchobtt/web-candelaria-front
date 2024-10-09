@@ -17,7 +17,7 @@ const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null);
     const { categories, products, setProducts, filterProductsByCategory } = useProductsCategories(); 
-
+    
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue,setTouched  } = useFormik({
         initialValues: {
             title: '',
@@ -28,6 +28,25 @@ const ModalProduct = ({ data }) => {
             active: true,
             image: null
         },
+        validationSchema: Yup.object().shape({
+            title: Yup.string()
+                .required('Campo obligatorio')
+                .max(30, 'El nombre no puede tener más de 30 caracteres'),
+            category: Yup.string()
+                .required('Campo obligatorio'),
+            description: Yup.string()
+                .max(100, 'La descripcion no puede tener mas de 100 caracteres'),
+            price: Yup.number()
+                .typeError('El precio debe ser un número')
+                .positive('El precio debe ser un valor positivo')
+                .required('Campo obligatorio'),
+            discountPercentage: Yup.number()
+                .required('Campo obligatorio')
+                .typeError('El descuento debe ser un número')
+                .min(0, 'El descuento no puede ser menor que 0')
+                .max(100, 'El descuento no puede ser mayor que 100'),
+            active: Yup.boolean()
+        }),
         onSubmit: async (values, action) => {
             const formData = new FormData();
             let image;
@@ -115,25 +134,6 @@ const ModalProduct = ({ data }) => {
             action.resetForm();
             closeModal();
         },
-        validationSchema: Yup.object().shape({
-            title: Yup.string()
-                .required('Campo obligatorio')
-                .max(30, 'El nombre no puede tener más de 30 caracteres'),
-            category: Yup.string()
-                .required('Campo obligatorio'),
-            description: Yup.string()
-                .max(100, 'La descripcion no puede tener mas de 100 caracteres'),
-            price: Yup.number()
-                .typeError('El precio debe ser un número')
-                .positive('El precio debe ser un valor positivo')
-                .required('Campo obligatorio'),
-            discountPercentage: Yup.number()
-                .required('Campo obligatorio')
-                .typeError('El descuento debe ser un número')
-                .min(0, 'El descuento no puede ser menor que 0')
-                .max(100, 'El descuento no puede ser mayor que 100'),
-            active: Yup.boolean()
-        }),
     });
 
     const handleIconClick = () => {

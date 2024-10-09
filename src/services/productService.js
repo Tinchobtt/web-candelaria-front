@@ -12,6 +12,26 @@ export const getProducts = async (active) => {
         throw error
     }
 }
+
+export const getMenuProducts = async (active) => {
+    try {
+        const response = await axios.get(`${API_URL}/menu?onlyActives=${active}`);
+        return response;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error
+    }
+}
+
+export const getEcommerceProducts = async (active) => {
+    try {
+        const response = await axios.get(`${API_URL}/take-away?onlyActives=${active}`);
+        return response;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error
+    }
+}
   
 export const createProduct = async (formData) => {
     try {
@@ -53,7 +73,7 @@ export const deleteProduct = async (id) => {
         });
         return response;
     } catch (error){
-        console.log("Error deleting product");
+        console.error("Error deleting product");
         throw error
     }
 }

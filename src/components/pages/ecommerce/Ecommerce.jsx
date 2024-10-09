@@ -10,14 +10,11 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { filteredProducts: products, categories, isLoading, filterProductsByCategory, fetchData, actualCategory } = useProductsCategories();
+    const { filteredProducts: products, categories, filterProductsByCategory, fetchData, actualCategory } = useProductsCategories();
     const { cart } = useCart();
     const { isOpen } = useTime();
     const navigate = useNavigate();
     const [alertShown, setAlertShown] = useState(false);
-    
-    // Verificamos si los productos y categorías ya han sido cargados (aunque estén vacíos)
-    const hasFetchedData = products !== null && categories !== null;
 
     useEffect(() => {
         if (!isOpen && !alertShown) {
@@ -43,11 +40,8 @@ const Ecommerce = () => {
             }, 500);
         }
 
-        // Solo hacemos la petición si los datos no han sido cargados y no estamos cargando actualmente
-        if (!hasFetchedData && !isLoading) {
-            fetchData(true);
-        }
-    }, [hasFetchedData]);
+        fetchData(true, true, false)
+    }, []);
 
     return (
         <div className="expandenContainer">
