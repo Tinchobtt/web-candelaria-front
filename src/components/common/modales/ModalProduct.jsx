@@ -11,6 +11,7 @@ import StateCircle from '../stateCircle/StateCircle';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import { useModal } from '../../../context/ModalContext';
 import { createProduct, deleteProduct, updateProduct } from '../../../services/productService';
+import { scrollToTop } from '../../../utils/scrollToTop';
 
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
@@ -52,7 +53,7 @@ const ModalProduct = ({ data }) => {
                     const response = await updateProduct(data.id, formData);
                     if(response.status === 200){
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "success",
                             title: "Producto actualizado",
                             showConfirmButton: false,
@@ -62,7 +63,7 @@ const ModalProduct = ({ data }) => {
                         setProducts(updatedProducts)
                     }else{
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "error",
                             title: response.data.message,
                             confirmButtonText: 'Cerrar'
@@ -70,7 +71,7 @@ const ModalProduct = ({ data }) => {
                     }
                 }catch(error){
                     Swal.fire({
-                        position: "center-center",
+                        position: "center",
                         icon: "error",
                         title: error.response.data.message,
                         confirmButtonText: 'Cerrar',
@@ -82,7 +83,7 @@ const ModalProduct = ({ data }) => {
                     const response = await createProduct(formData);
                     if(response.status === 200){
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "success",
                             title: "Producto creado",
                             showConfirmButton: false,
@@ -91,7 +92,7 @@ const ModalProduct = ({ data }) => {
                         setProducts([...products, response.data])
                     }else{
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "error",
                             title: response.data.message,
                             confirmButtonText: 'Cerrar'
@@ -99,7 +100,7 @@ const ModalProduct = ({ data }) => {
                     }
                 }catch(error){
                     Swal.fire({
-                        position: "center-center",
+                        position: "center",
                         icon: "error",
                         title: error.response.data.message,
                         confirmButtonText: 'Cerrar',
@@ -108,6 +109,7 @@ const ModalProduct = ({ data }) => {
                 }
             }
             filterProductsByCategory('todos')
+            scrollToTop()
             action.resetForm();
             closeModal();
         },
@@ -152,22 +154,46 @@ const ModalProduct = ({ data }) => {
             showCancelButton: true,
             confirmButtonText: "Eliminar",
             reverseButtons: true,
-        }).then((result) => {
+        }).then( async (result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                position: "center-center",
-                icon: "success",
-                title: "El producto se eliminó correctamente",
-                showConfirmButton: false,
-                timer: 1000
-            });
-            deleteProduct(id)
+            try{
+                const response = await deleteProduct(id)
+                
+                if(response.status === 200){
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "El producto se eliminó correctamente",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    const updatedProducts = products.map(prod => prod.id === data.id ? response.data : prod)
+                    setProducts(updatedProducts)
+                    filterProductsByCategory('todos')
+                    scrollToTop()
+                }else{
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: response.message,
+                        confirmButtonText: 'Cerrar'
+                    });
+                }
+            }catch(error){
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: error.response.message,
+                    confirmButtonText: 'Cerrar',
+                    confirmButtonColor: '#1975d1'
+                })
+            }
             const updatedProducts = products.filter(product => product.id !== id)
             setProducts(updatedProducts)
 
         } else if (result.isDismissed) {
             Swal.fire({
-                position: "center-center",
+                position: "center",
                 icon: "warning",
                 title: "Operación cancelada",
                 showConfirmButton: false,

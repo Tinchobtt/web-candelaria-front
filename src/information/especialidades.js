@@ -17,4 +17,10 @@ export const especialidades = [
         description: 'Bife estilo americano acompañado con papas españolas',
         image: '/imagenes/Bife_de_chorizo.png'
     },
+    {
+        id: 4,
+        title: 'Entrañita',
+        description: 'Entraña elaborada a las brasas acampada con ensalada a elección',
+        image: '/imagenes/entrania.png'
+    }
 ]

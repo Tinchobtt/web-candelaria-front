@@ -52,7 +52,7 @@ const AdminCategories = () => {
             const response = await updateCategories(categories)
             if(response.status === 200){
                 Swal.fire({
-                    position: "center-center",
+                    position: "center",
                     icon: "success",
                     title: "Categoria actualizada",
                     showConfirmButton: false,
@@ -60,7 +60,7 @@ const AdminCategories = () => {
                 });
             }else{
                 Swal.fire({
-                    position: "center-center",
+                    position: "center",
                     icon: "error",
                     title: response.data.message,
                     confirmButtonText: 'Cerrar'
@@ -68,7 +68,7 @@ const AdminCategories = () => {
             }
         }catch(error){
             Swal.fire({
-                position: "center-center",
+                position: "center",
                 icon: "error",
                 title: error.response.data.message,
                 confirmButtonText: 'Cerrar',
@@ -98,7 +98,7 @@ const AdminCategories = () => {
                     const response = await deleteCategory(id)
                     if(response.status === 200){
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "success",
                             title: "Categoria eliminada",
                             showConfirmButton: false,
@@ -108,7 +108,7 @@ const AdminCategories = () => {
                         setCategories(reindexCategories(updatedCategories));
                     }else{
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "error",
                             title: response.data.message,
                             confirmButtonText: 'Cerrar'
@@ -116,7 +116,7 @@ const AdminCategories = () => {
                     }
                 }catch(error){
                     Swal.fire({
-                        position: "center-center",
+                        position: "center",
                         icon: "error",
                         title: error.response.data.message,
                         confirmButtonText: 'Cerrar',
@@ -152,7 +152,7 @@ const AdminCategories = () => {
                     
                     if(response.status === 200){
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "success",
                             title: "Categoria creada",
                             showConfirmButton: false,
@@ -168,7 +168,7 @@ const AdminCategories = () => {
                         setCategories(reindexCategories(updatedCategories));
                     }else{
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "error",
                             title: response.data.message,
                             confirmButtonText: 'Cerrar'
@@ -176,7 +176,7 @@ const AdminCategories = () => {
                     }
                 }catch(error){
                     Swal.fire({
-                        position: "center-center",
+                        position: "center",
                         icon: "error",
                         title: error.response.data.message,
                         confirmButtonText: 'Cerrar',
@@ -208,7 +208,7 @@ const AdminCategories = () => {
                     const response = await updateCategory(category.id, updatedCategory)
                     if(response.status === 200){
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "success",
                             title: "Categoria actualizada",
                             showConfirmButton: false,
@@ -220,7 +220,7 @@ const AdminCategories = () => {
                         setCategories(updatedCategories);
                     }else{
                         Swal.fire({
-                            position: "center-center",
+                            position: "center",
                             icon: "error",
                             title: response.data.message,
                             confirmButtonText: 'Cerrar'
@@ -228,7 +228,7 @@ const AdminCategories = () => {
                     }
                 }catch(error){
                     Swal.fire({
-                        position: "center-center",
+                        position: "center",
                         icon: "error",
                         title: error.response.data.message,
                         confirmButtonText: 'Cerrar',
