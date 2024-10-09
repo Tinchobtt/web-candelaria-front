@@ -66,7 +66,8 @@ const ModalProduct = ({ data }) => {
                             position: "center",
                             icon: "error",
                             title: response.data.message,
-                            confirmButtonText: 'Cerrar'
+                            confirmButtonText: 'Cerrar',
+                            confirmButtonColor: '#1975d1'
                         });
                     }
                 }catch(error){
@@ -95,7 +96,8 @@ const ModalProduct = ({ data }) => {
                             position: "center",
                             icon: "error",
                             title: response.data.message,
-                            confirmButtonText: 'Cerrar'
+                            confirmButtonText: 'Cerrar',
+                            confirmButtonColor: '#1975d1'
                         });
                     }
                 }catch(error){
@@ -139,7 +141,23 @@ const ModalProduct = ({ data }) => {
     };
 
     const handleFileChange = (event) => {
-        setFieldValue('image', event.currentTarget.files[0]);
+        const file = event.currentTarget.files[0];
+        
+        const maxSize = 3 * 1024 * 1024; // 3MB
+    
+        if (file && file.size > maxSize) {
+            closeModal()
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "El tamaño de la imagen no puede exceder los 3MB",
+                confirmButtonText: 'Cerrar',
+                confirmButtonColor: '#1975d1'
+            })
+            return;
+        }
+    
+        setFieldValue('image', file);
     };
 
     const changeCheckbox = (value) => {
