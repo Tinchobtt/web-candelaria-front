@@ -51,7 +51,7 @@ export const deleteProduct = async (id) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
-        return response.data;
+        return response;
     } catch (error){
         console.log("Error deleting product");
         throw error
