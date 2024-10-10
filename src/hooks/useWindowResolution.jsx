@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useWindowResolution() {
+function UseWindowResolution() {
     const [resolution, setResolution] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -18,4 +18,4 @@ function useWindowResolution() {
     return resolution;
 }
 
-export default useWindowResolution;
+export default UseWindowResolution;

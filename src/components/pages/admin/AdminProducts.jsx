@@ -3,10 +3,11 @@ import ProductList from '../../common/productsList/ProductList.jsx';
 import ModalButton from '../../common/modalButton/ModalButton.jsx';
 import GenericModal from '../../common/genericModal/GenericModal.jsx';
 import { useProductsCategories } from "../../../context/ProductsCategoriesContext";
+import { useEffect } from "react";
 
 const AdminProducts = () => {
   const { filteredProducts: products, categories, filterProductsByCategory, actualCategory } = useProductsCategories();
-  
+
   return (
     <>
     <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory}/>

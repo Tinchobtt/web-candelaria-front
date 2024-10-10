@@ -4,12 +4,12 @@ import { useState } from 'react';
 import Redes from "../../common/redes/Redes.jsx";
 import ModalButton from "../../common/modalButton/ModalButton.jsx";
 import {useLocation} from "react-router-dom";
-import useWindowResolution from "../../../hooks/useWindowResolution.jsx";
+import UseWindowResolution from "../../../hooks/UseWindowResolution.jsx";
 import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [menuWidgetOpen, setMenuWidgetOpen] = useState(false);//Estado de cambio del icono del Nav
-    const resolution = useWindowResolution()
+    const resolution = UseWindowResolution()
 
     const loc = useLocation().pathname //path de la page actual
 

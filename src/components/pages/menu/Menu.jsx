@@ -3,17 +3,30 @@ import { useEffect } from 'react';
 import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import Carta from '../../common/carta/Carta';
 import MenuCard from '../../common/menuCard/MenuCard';
-import { Backdrop, CircularProgress, Skeleton } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const Menu = () => {
-    const { products, categories, isLoading, fetchData, groupProductsByCategory } = useProductsCategories();
-    const hasFetchedData = products !== null && categories !== null;  // Verificar si los datos han sido cargados (aunque estén vacíos)
+    const { products, categories, isLoading, fetchMenuData } = useProductsCategories();
 
-    useEffect(() => {
-        if (!hasFetchedData && !isLoading) {
-            fetchData(true);  // True para traer productos activos solamente
-        }
-    }, [hasFetchedData]);
+    const groupProductsByCategory = (categories, products) => {
+        const categoriesWithProducts = [];
+        
+        categories.forEach(category => {
+            const productsInCategory = products.filter(product => product.category === category.name);
+            const categoryWithProducts = {
+                id: category.id,
+                category: category.name,
+                products: productsInCategory
+            };
+            categoriesWithProducts.push(categoryWithProducts);
+        });
+        
+        return categoriesWithProducts;
+    }
+
+    useEffect(()=>{
+        fetchMenuData()
+    },[])
     
     return (
         <>{
