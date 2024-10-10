@@ -10,7 +10,7 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { filteredProducts: products, categories, filterProductsByCategory, fetchData, actualCategory } = useProductsCategories();
+    const { filteredProducts: products, categories, filterProductsByCategory, fetchEcommerceData, actualCategory } = useProductsCategories();
     const { cart } = useCart();
     const { isOpen } = useTime();
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ const Ecommerce = () => {
             }, 500);
         }
 
-        fetchData(true, true, false)
+        fetchEcommerceData(true, true, false)
     }, []);
 
     return (

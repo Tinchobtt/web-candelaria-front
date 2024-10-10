@@ -3,9 +3,29 @@ import {BASE_API_URL} from "../../config.js";
 
 const API_URL = BASE_API_URL + '/api/categories';
 
-export const getCategories = async (active, inMenu, inEcommerce) => {
+export const getCategories = async () => {
   try {
-    const response = await axios.get(`${API_URL}?onlyActives=${active}&menu=${inMenu}&takeaway=${inEcommerce}`);
+    const response = await axios.get(API_URL);
+    return response;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
+
+export const getMenuCategories = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/menu`);
+    return response;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+};
+
+export const getEcommerceCategories = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/take-away`);
     return response;
   } catch (error) {
     console.error("Error fetching categories:", error);

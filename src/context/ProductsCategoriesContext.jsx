@@ -1,37 +1,57 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { getProducts } from "../services/productService";
-import { getCategories } from "../services/categoryService";
+import { createContext, useContext, useEffect, useState } from "react"
+import { getEcommerceProducts, getMenuProducts, getProducts } from "../services/productService"
+import { getCategories, getEcommerceCategories, getMenuCategories } from "../services/categoryService"
 
-const ProductsCategoriesContext = createContext();
+const ProductsCategoriesContext = createContext()
 
 export const ProdcutsCategoriesProvider = ({ children }) => {
-    const [products, setProducts] = useState(null);
-    const [filteredProducts, setFilteredProducts] = useState();
-    const [categories, setCategories] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+    const [products, setProducts] = useState(null)
+    const [filteredProducts, setFilteredProducts] = useState()
+    const [categories, setCategories] = useState()
+    const [isLoading, setIsLoading] = useState(false)
     const [actualCategory, setActualCategory] = useState('todos')
 
-    const fetchData = async (activeValue, inMenu, inEcommerce) => {
-        setIsLoading(true);
-        try {
-            const [productsResponse, categoriesResponse] = await Promise.all([
-                getProducts(activeValue, inMenu, inEcommerce), 
-                getCategories(activeValue, inMenu, inEcommerce)
-            ]);
-    
-            const sortedCategories = categoriesResponse.data.length > 0
-                ? categoriesResponse.data.sort((a, b) => a.position - b.position)
-                : [];
-    
-            setProducts(productsResponse.data.length > 0 ? productsResponse.data : []);
-            setCategories(sortedCategories);
-    
-        } catch (error) {
-            console.error("Error fetching products or categories:", error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    const fetchAllData = async () => {
+        setIsLoading(true)
+        const [productsResponse, categoriesResponse] = await Promise.all([
+            getProducts(), 
+            getCategories()
+        ])
+        setProductsAndCategories(productsResponse.data, categoriesResponse.data)
+        setIsLoading(false)
+    }
+
+    const fetchMenuData = async () => {
+        setIsLoading(true)
+        const [productsResponse, categoriesResponse] = await Promise.all([
+            getMenuProducts(), 
+            getMenuCategories()
+        ])
+        setProductsAndCategories(productsResponse.data, categoriesResponse.data)
+        setIsLoading(false)
+    }
+
+    const fetchEcommerceData = async () => {
+        setIsLoading(true)
+        const [productsResponse, categoriesResponse] = await Promise.all([
+            getEcommerceProducts(), 
+            getEcommerceCategories()
+        ])
+        setProductsAndCategories(productsResponse.data, categoriesResponse.data)
+        setIsLoading(false)
+    }
+
+    const sortCategories = (categories) => {
+        return categories.length > 0
+        ? categories.sort((a, b) => a.position - b.position)
+        : [];
+    }
+
+    const setProductsAndCategories = (products, categories) => {
+        const sortedCategories = sortCategories(categories)
+        setProducts(products.length > 0 ? products : [])
+        setCategories(sortedCategories)
+    }
 
     const filterProductsByCategory = (category) => {
         setActualCategory(category)
@@ -40,31 +60,15 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         } else {
             setFilteredProducts(products?.filter(product => product.category === category));
         }
-    };
-    
-    const groupProductsByCategory = (categories, products) => {
-        const categoriesWithProducts = [];
-        
-        categories.forEach(category => {
-            const productsInCategory = products.filter(product => product.category === category.name);
-            const categoryWithProducts = {
-                id: category.id,
-                category: category.name,
-                products: productsInCategory
-            };
-            categoriesWithProducts.push(categoryWithProducts);
-        });
-        
-        return categoriesWithProducts;
     }
     
     useEffect(() => {
         if(actualCategory === 'todos'){
-            setFilteredProducts(products);
+            setFilteredProducts(products)
         }else{
-            setFilteredProducts(filteredProducts);
+            setFilteredProducts(filteredProducts)
         }
-    }, [products]);
+    }, [products])
 
     return (
         <ProductsCategoriesContext.Provider value={{
@@ -72,18 +76,19 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
             setProducts,
             categories,
             setCategories,
+            fetchAllData,
+            fetchMenuData,
+            fetchEcommerceData,
             isLoading,
             filterProductsByCategory,
             filteredProducts,
             setFilteredProducts,
-            groupProductsByCategory,
-            fetchData,
             actualCategory,
             setActualCategory
         }}>
             {children}
         </ProductsCategoriesContext.Provider>
-    );
-};
+    )
+}
 
-export const useProductsCategories = () => useContext(ProductsCategoriesContext);
+export const useProductsCategories = () => useContext(ProductsCategoriesContext)

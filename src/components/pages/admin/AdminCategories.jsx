@@ -12,16 +12,16 @@ import { MdEdit } from "react-icons/md";
 
 const AdminCategories = () => {
     const { categories, setCategories } = useProductsCategories()
-    const [ isEditing, setIsEditing ] = useState(false);
-    const [ categoriesBU, setCategoriesBU ] = useState();
+    const [ isEditing, setIsEditing ] = useState(false)
+    const [ categoriesBU, setCategoriesBU ] = useState()
     
-    const pointerSensor = useSensor(PointerSensor);
+    const pointerSensor = useSensor(PointerSensor)
     const touchSensor = useSensor(TouchSensor, {
         activationConstraint: { distance: 10 }
     });
     
-    const isTouchDevice = 'ontouchstart' in window;
-    const sensors = isTouchDevice ? [touchSensor] : [pointerSensor];
+    const isTouchDevice = 'ontouchstart' in window
+    const sensors = isTouchDevice ? [touchSensor] : [pointerSensor]
 
     const edit = () => {
         setCategoriesBU(categories)
@@ -29,14 +29,14 @@ const AdminCategories = () => {
     }
 
     const handleDrag = (event) => {
-        const { active, over } = event;
+        const { active, over } = event
         
         if (active.id !== over.id) {
-            const oldIndex = categories.findIndex((category) => category.id === active.id);
-            const newIndex = categories.findIndex((category) => category.id === over.id);
+            const oldIndex = categories.findIndex((category) => category.id === active.id)
+            const newIndex = categories.findIndex((category) => category.id === over.id)
             const newOrder = arrayMove(categories, oldIndex, newIndex);
     
-            setCategories(reindexCategories(newOrder));
+            setCategories(reindexCategories(newOrder))
         }
     };
     

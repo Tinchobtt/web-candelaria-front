@@ -9,15 +9,17 @@
         display: flex;
         align-items: center;
         gap: 1rem;
-        overflow-x: scroll;
+        overflow-x: auto;
         padding: 0 1rem;
         white-space: nowrap;
         box-sizing: border-box;
-        scrollbar-width: none;
         border-top: 1px solid #bfbfbf;
         border-bottom: 1px solid #bfbfbf;
         &::-webkit-scrollbar {
-            display: none;
+            height: 6px;
+        }
+        &::-webkit-scrollbar-thumb {
+            cursor: pointer;
         }
         .category-btn {
             flex-shrink: 0;

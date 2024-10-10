@@ -3,9 +3,9 @@ import {BASE_API_URL} from "../../config.js";
 
 const API_URL = BASE_API_URL + '/api/products';
 
-export const getProducts = async (active) => {
+export const getProducts = async () => {
     try {
-        const response = await axios.get(`${API_URL}?onlyActives=${active}`);
+        const response = await axios.get(API_URL);
         return response;
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -13,9 +13,9 @@ export const getProducts = async (active) => {
     }
 }
 
-export const getMenuProducts = async (active) => {
+export const getMenuProducts = async () => {
     try {
-        const response = await axios.get(`${API_URL}/menu?onlyActives=${active}`);
+        const response = await axios.get(`${API_URL}/menu?`);
         return response;
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -23,9 +23,9 @@ export const getMenuProducts = async (active) => {
     }
 }
 
-export const getEcommerceProducts = async (active) => {
+export const getEcommerceProducts = async () => {
     try {
-        const response = await axios.get(`${API_URL}/take-away?onlyActives=${active}`);
+        const response = await axios.get(`${API_URL}/take-away`);
         return response;
     } catch (error) {
         console.error("Error fetching products:", error);

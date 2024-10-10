@@ -1,6 +1,6 @@
 import RedirectButton from "../redirectButton/RedirectButton.jsx";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
-import UseWindowResolution from "../../../hooks/useWindowResolution.jsx";
+import UseWindowResolution from "../../../hooks/UseWindowResolution.jsx";
 import './hero.scss'
 
 const Hero = () => {

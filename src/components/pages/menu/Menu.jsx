@@ -6,11 +6,27 @@ import MenuCard from '../../common/menuCard/MenuCard';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 const Menu = () => {
-    const { products, categories, isLoading, fetchData, groupProductsByCategory } = useProductsCategories();
+    const { products, categories, isLoading, fetchMenuData } = useProductsCategories();
 
-    useEffect(() => {
-        fetchData(true, true, false)
-    }, [])
+    const groupProductsByCategory = (categories, products) => {
+        const categoriesWithProducts = [];
+        
+        categories.forEach(category => {
+            const productsInCategory = products.filter(product => product.category === category.name);
+            const categoryWithProducts = {
+                id: category.id,
+                category: category.name,
+                products: productsInCategory
+            };
+            categoriesWithProducts.push(categoryWithProducts);
+        });
+        
+        return categoriesWithProducts;
+    }
+
+    useEffect(()=>{
+        fetchMenuData()
+    },[])
     
     return (
         <>{

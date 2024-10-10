@@ -1,22 +1,22 @@
-import './modalProducto.scss';
+import './modalProducto.scss'
 import Swal from 'sweetalert2'
-import Button from "@mui/material/Button";
-import { useEffect, useRef } from "react";
-import { TextField } from "@mui/material";
-import * as Yup from 'yup';
-import { useFormik } from "formik";
-import defaultProdImg from '/imagenes/defaultProdImg.png';
-import { FaEdit } from "react-icons/fa";
-import StateCircle from '../stateCircle/StateCircle';
-import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
-import { useModal } from '../../../context/ModalContext';
-import { createProduct, deleteProduct, updateProduct } from '../../../services/productService';
-import { scrollToTop } from '../../../utils/scrollToTop';
+import Button from "@mui/material/Button"
+import { useEffect, useRef } from "react"
+import { TextField } from "@mui/material"
+import * as Yup from 'yup'
+import { useFormik } from "formik"
+import defaultProdImg from '/imagenes/defaultProdImg.png'
+import { FaEdit } from "react-icons/fa"
+import StateCircle from '../stateCircle/StateCircle'
+import { useProductsCategories } from '../../../context/ProductsCategoriesContext'
+import { useModal } from '../../../context/ModalContext'
+import { createProduct, deleteProduct, updateProduct } from '../../../services/productService'
+import { scrollToTop } from '../../../utils/scrollToTop'
 
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
-    const formRef = useRef(null);
-    const { categories, products, setProducts, filterProductsByCategory } = useProductsCategories(); 
+    const formRef = useRef(null)
+    const { categories, products, setProducts, filterProductsByCategory } = useProductsCategories()
     
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue,setTouched  } = useFormik({
         initialValues: {
@@ -26,6 +26,8 @@ const ModalProduct = ({ data }) => {
             price: '',
             discountPercentage: 0,
             active: true,
+            menu: true,
+            takeAway: true,
             image: null
         },
         validationSchema: Yup.object().shape({
@@ -59,13 +61,15 @@ const ModalProduct = ({ data }) => {
                 image = values.image
             }
             
-            formData.append('image', image);
-            formData.append('title', values.title);
-            formData.append('category', values.category);
-            formData.append('description', values.description);
-            formData.append('price', values.price);
-            formData.append('discountPercentage', values.discountPercentage);
-            formData.append('active', values.active);
+            formData.append('image', image)
+            formData.append('title', values.title)
+            formData.append('category', values.category)
+            formData.append('description', values.description)
+            formData.append('price', values.price)
+            formData.append('discountPercentage', values.discountPercentage)
+            formData.append('active', values.active)
+            formData.append('menu', values.menu)
+            formData.append('takeAway', values.takeAway)
 
             if (data) { 
                 try{
@@ -134,11 +138,11 @@ const ModalProduct = ({ data }) => {
             action.resetForm();
             closeModal();
         },
-    });
+    })
 
     const handleIconClick = () => {
         document.getElementById('file-input').click();
-    };
+    }
 
     const handleFileChange = (event) => {
         const file = event.currentTarget.files[0];
@@ -158,11 +162,11 @@ const ModalProduct = ({ data }) => {
         }
     
         setFieldValue('image', file);
-    };
+    }
 
-    const changeCheckbox = (value) => {
-        setFieldValue('active', value);
-    };
+    const changeCheckbox = (checkbox, value) => {
+        setFieldValue(checkbox, value)
+    }
 
     const deleteProd = (id) => {
         closeModal()
@@ -223,31 +227,32 @@ const ModalProduct = ({ data }) => {
 
     const discount = () => {
         if(data.actualPrice !== data.price){
-            return (data.price - data.actualPrice) * 100 / data.price
+            return Math.round((data.price - data.actualPrice) * 100 / data.price)
         }else{
             return 0
         }
-        
     }
     
     useEffect(() => {
         if (data) {
-            setFieldValue('title', data.title || '');
-            setFieldValue('category', data.category || '');
-            setFieldValue('description', data.description || '');
-            setFieldValue('price', data.price || '');
-            setFieldValue('discountPercentage', discount() );
-            setFieldValue('active', data.active !== undefined ? data.active : true);
-            setFieldValue('image', data.image || null);
+            setFieldValue('title', data.title || '')
+            setFieldValue('category', data.category || '')
+            setFieldValue('description', data.description || '')
+            setFieldValue('price', data.price || '')
+            setFieldValue('discountPercentage', discount() )
+            setFieldValue('active', data.active !== undefined ? data.active : true)
+            setFieldValue('menu', data.menu !== undefined ? data.menu : true)
+            setFieldValue('takeAway', data.takeAway !== undefined ? data.takeAway : true)
+            setFieldValue('image', data.image || null)
 
             fetch(data.image)
             .then(response => response.blob())
             .then(blob => {
-                let image = new File([blob], `${data.title}`, { type: blob.type });
-                setFieldValue('image', image);
+                let image = new File([blob], `${data.title}`, { type: blob.type })
+                setFieldValue('image', image)
             })
             .catch(error => {
-                setFieldValue('image', null);
+                setFieldValue('image', null)
             });
         }
     }, [data]);
@@ -346,20 +351,32 @@ const ModalProduct = ({ data }) => {
                     />
                 </div>
                 <div className="prodcut-actions">
-                    <label type='button' className="product-action-btn activo-btn" htmlFor="active-checkbox">
-                            <input
-                                id="active-checkbox"
-                                type="checkbox"
-                                checked={values.active}
-                                onChange={(e) => changeCheckbox(!values.active)}
-                                name="active"
-                            />
-                            Activo
-                        <StateCircle state={values.active} />
-                    </label>
-                    {
-                        data && <button type="button" className='product-action-btn delete-prod-btn' onClick={() => deleteProd(data.id)}>Eliminar producto</button>
-                    }
+                    <div className="prodcut-actions-column">
+                        <div className="checkbox-container">
+                            <input type="checkbox" name="menu" id="check-menu"  onChange={(e) => changeCheckbox("menu",!values.menu)} checked={values.menu}/>
+                            <label htmlFor="check-menu">Menú</label>
+                        </div>
+                        <div className="checkbox-container">
+                            <input type="checkbox" name="takeAway" id="check-ecom" onChange={(e) => changeCheckbox("takeAway",!values.takeAway)} checked={values.takeAway}/>
+                            <label htmlFor="check-ecom">Take away</label>
+                        </div>
+                    </div>
+                    <div className="prodcut-actions-column">
+                        <label type='button' className="product-action-btn activo-btn" htmlFor="active-checkbox">
+                                <input
+                                    id="active-checkbox"
+                                    type="checkbox"
+                                    checked={values.active}
+                                    onChange={(e) => changeCheckbox("active", !values.active)}
+                                    name="active"
+                                />
+                                Activo
+                            <StateCircle state={values.active} />
+                        </label>
+                        {
+                            data && <button type="button" className='product-action-btn delete-prod-btn' onClick={() => deleteProd(data.id)}>Eliminar producto</button>
+                        }
+                    </div>
                 </div>
                 <div className="modal-action-btns">
                     <Button className="modal-btn-send" color='error' size={"large"} variant='contained' onClick={closeModal}>Cancelar</Button>

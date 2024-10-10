@@ -19,7 +19,7 @@ const Inicio = () => {
                     content={{
                         title: 'Fuego y sabor',
                         text: `Tu destino gourmet en San Isidro, zona norte.<br/>
-                               Somos apasionados de la buena carne, expertos en la elaboración de carnes a las leñas y a las brasa.<br/>
+                               Somos apasionados de la buena carne, expertos en la elaboración de carnes a las leñas y a las brasas.<br/>
                                Nuestra misión es ofrecer una experiencia culinaria unica que resalte los sabores autenticos y tradicionales de la parrilla Argentina.<br/><br/>
                                Te invitamos a disfrutar de un ambiente calido e ideal para compartir momentos en familia y con amigos.`,
                         img: '/imagenes/fire.png'

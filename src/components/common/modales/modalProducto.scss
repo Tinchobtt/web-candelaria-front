@@ -14,10 +14,10 @@
         visibility: hidden;
     }
 
-    input, select{
-        width: 100%;
-        min-width: 100px;
-    }
+    // input, select{
+    //     width: 100%;
+    //     min-width: 100px;
+    // }
 
     .modal-title{
         text-align: center;
@@ -72,12 +72,12 @@
                 width: 2.5rem;
                 height: 2.5rem;
                 border-radius: 50%;
-                background-color: #1976D2;
+                background-color: var(--blue);
                 padding: 5px;
                 cursor: pointer;
                 .editIcon{
                     font-size: 1.5rem;
-                    color: #fff;
+                    color: var(--white);
                     margin-right: 1px;
                 }
             }
@@ -95,7 +95,7 @@
             }
             span{
                 font-size: 12px;
-                color: #D32f2f;
+                color: var(--red);
                 margin-left: 14px;
             }
         }
@@ -107,10 +107,37 @@
         }
         .prodcut-actions{
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
             gap: 1rem;
             width: 100%;
+            .prodcut-actions-column{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 50%;
+                max-width: 160px;
+                gap: 1rem;
+                height: 100%;
+                .checkbox-container{
+                    display: flex;
+                    align-items: center;
+                    input[type="checkbox"] {
+                        width: 1.6rem;
+                        height: 1.6rem;
+                        min-width: 1.6rem;
+                        min-height: 1.6rem;
+                        &:checked{
+                            accent-color: var(--blue);
+                        }
+                    }
+                    label{
+                        font-size: clamp(14px, 4vw, 16px);
+                        color: var(--white);
+                        margin-left: clamp(.5rem, 4vw, 1rem);
+                    }
+                }
+            }
             .MuiFormControl-root, .MuiFormControlLabel-root, .MuiCheckbox-root{
                 padding: 0;
                 margin: 0;
@@ -127,7 +154,7 @@
                 background-color: var(--background);
                 height: 40px;
                 padding: 5px 1rem;
-                color: #fff;
+                color: var(--white);
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;

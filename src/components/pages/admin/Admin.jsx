@@ -5,10 +5,10 @@ import { Outlet } from 'react-router-dom';
 import AdminHeader from '../../layout/header/AdminHeader.jsx';
 
 const Admin = () => {
-    const { fetchData } = useProductsCategories();
+    const { fetchAllData } = useProductsCategories();
 
-    useEffect(() => {
-        fetchData(true, true, false)
+    useEffect(()=>{
+        fetchAllData()    
     }, [])
 
     return (
