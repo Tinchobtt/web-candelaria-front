@@ -94,13 +94,23 @@ const ModalProduct = ({ data }) => {
                         });
                     }
                 }catch(error){
-                    Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        title: error.response.data.message,
-                        confirmButtonText: 'Cerrar',
-                        confirmButtonColor: '#1975d1'
-                    })
+                    if (error.response.status === 413) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "El archivo es demasiado grande",
+                            confirmButtonText: 'Cerrar',
+                            confirmButtonColor: '#1975d1'
+                        });
+                    } else {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: error.response.data.message,
+                            confirmButtonText: 'Cerrar',
+                            confirmButtonColor: '#1975d1'
+                        });
+                    }
                 }
             }else {
                 try{
