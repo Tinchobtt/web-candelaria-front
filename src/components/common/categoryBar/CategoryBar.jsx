@@ -2,6 +2,7 @@ import './categoryBar.scss'
 import { Box, Skeleton } from '@mui/material';
 
 const CategoryBar = ( {categories, filterProductsByCategory, actualCategory} ) =>{
+    
     const selectCategory = (category) =>{
         filterProductsByCategory(category)
     }

@@ -56,7 +56,12 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     const filterProductsByCategory = (category) => {
         setActualCategory(category)
         if (category === 'todos') {
-            setFilteredProducts(products);
+            let orderProducts = products.sort((a, b) => {
+                if (a.category < b.category) return -1;
+                if (a.category > b.category) return 1;
+                return 0;
+            })
+            setFilteredProducts(orderProducts)
         } else {
             setFilteredProducts(products?.filter(product => product.category === category));
         }
