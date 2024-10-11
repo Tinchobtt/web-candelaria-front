@@ -147,14 +147,14 @@ const ModalProduct = ({ data }) => {
     const handleFileChange = (event) => {
         const file = event.currentTarget.files[0];
         
-        const maxSize = 3 * 1024 * 1024; // 3MB
+        const maxSize = 7 * 1024 * 1024; // 7MB
     
         if (file && file.size > maxSize) {
             closeModal()
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: "El tamaño de la imagen no puede exceder los 3MB",
+                title: "El tamaño de la imagen no puede exceder los 7MB",
                 confirmButtonText: 'Cerrar',
                 confirmButtonColor: '#1975d1'
             })
