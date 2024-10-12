@@ -4,12 +4,12 @@ import { Skeleton } from '@mui/material';
 import AdminProductCard from '../adminProductCard/AdminProductCard.jsx';
 
 
-const ProductList = ({products, admin}) =>{
+const ProductList = ({products, admin, isLoading}) =>{
     
     return(
         <section className="product-list">
             {
-                products ? (
+                !isLoading ? (
                     products.map(product => (
                       admin ? (
                           <AdminProductCard key={product.id} product={product} />
@@ -17,7 +17,7 @@ const ProductList = ({products, admin}) =>{
                           <ProductCard key={product.id} product={product} />
                       )
                     ))
-                  ) : (
+                ) : (
                 <>
                     <Skeleton variant='rectangular' width={'100%'} height={'150px'} />
                     <Skeleton variant='rectangular' width={'100%'} height={'150px'} />

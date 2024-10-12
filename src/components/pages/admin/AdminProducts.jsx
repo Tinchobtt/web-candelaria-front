@@ -3,15 +3,14 @@ import ProductList from '../../common/productsList/ProductList.jsx';
 import ModalButton from '../../common/modalButton/ModalButton.jsx';
 import GenericModal from '../../common/genericModal/GenericModal.jsx';
 import { useProductsCategories } from "../../../context/ProductsCategoriesContext";
-import { useEffect } from "react";
 
 const AdminProducts = () => {
-  const { filteredProducts: products, categories, filterProductsByCategory, actualCategory } = useProductsCategories();
+  const { filteredProducts: products, isLoading } = useProductsCategories();
 
   return (
     <>
-    <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory}/>
-    <ProductList products={products} admin={true} />
+    <CategoryBar />
+    <ProductList products={products} admin={true} isLoading={isLoading}/>
     <div className="add-btn-container">
         <ModalButton name="modalProducto">Agregar producto</ModalButton>
     </div>

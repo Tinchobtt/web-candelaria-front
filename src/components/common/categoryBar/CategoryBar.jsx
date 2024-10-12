@@ -1,7 +1,9 @@
+import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import './categoryBar.scss'
 import { Box, Skeleton } from '@mui/material';
 
-const CategoryBar = ( {categories, filterProductsByCategory, actualCategory} ) =>{
+const CategoryBar = () =>{
+    const {categories, filterProductsByCategory, actualCategory, isLoading} = useProductsCategories()
     
     const selectCategory = (category) =>{
         filterProductsByCategory(category)
@@ -10,7 +12,7 @@ const CategoryBar = ( {categories, filterProductsByCategory, actualCategory} ) =
     return(
         <div className="category-bar">
             {
-                categories ? (
+                !isLoading ? (
                 <div className="category-slider">
                     <button
                         className={actualCategory === 'todos' ? 'category-btn active' : 'category-btn'}
