@@ -9,7 +9,7 @@ const ProductList = ({products, admin, isLoading}) =>{
     return(
         <section className="product-list">
             {
-                !isLoading ? (
+                !isLoading && products ? (
                     products.map(product => (
                       admin ? (
                           <AdminProductCard key={product.id} product={product} />
