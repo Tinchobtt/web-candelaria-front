@@ -10,7 +10,7 @@ import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Ecommerce = () => {
-    const { filteredProducts: products, categories, filterProductsByCategory, fetchEcommerceData, actualCategory } = useProductsCategories();
+    const { filteredProducts: products, fetchEcommerceData, isLoading } = useProductsCategories();
     const { cart } = useCart();
     const { isOpen } = useTime();
     const navigate = useNavigate();
@@ -39,10 +39,10 @@ const Ecommerce = () => {
                 });
             }, 500);
         }
-
-        fetchEcommerceData(true, true, false)
+        
+        fetchEcommerceData()
     }, []);
-
+    
     return (
         <div className="expandenContainer">
             <main id="main-ecommerce" style={{ backgroundColor: 'var(--paper)', position: 'relative' }}>
@@ -51,12 +51,8 @@ const Ecommerce = () => {
                         <span>Local Cerrado</span>
                     </div>
                 }
-                <CategoryBar 
-                    categories={categories} 
-                    filterProductsByCategory={filterProductsByCategory} 
-                    actualCategory={actualCategory} 
-                />
-                <ProductList products={products} admin={false} />
+                <CategoryBar />
+                <ProductList products={products} admin={false} isLoading={isLoading}/>
             </main>
             {
                 cart.length > 0 &&

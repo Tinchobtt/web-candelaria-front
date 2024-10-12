@@ -11,7 +11,12 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [actualCategory, setActualCategory] = useState('todos')
 
+    const [hasFetchedAll, setHasFetchedAll] = useState(false);
+    const [hasFetchedEcom, setHasFetchedEcom] = useState(false);
+    const [hasFetchedMenu, setHasFetchedMenu] = useState(false);
+
     const fetchAllData = async () => {
+        if (hasFetchedAll) return;
         setIsLoading(true)
         const [productsResponse, categoriesResponse] = await Promise.all([
             getProducts(), 
@@ -19,9 +24,11 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         ])
         setProductsAndCategories(productsResponse.data, categoriesResponse.data)
         setIsLoading(false)
+        setHasFetchedAll(true)
     }
 
     const fetchMenuData = async () => {
+        if (hasFetchedMenu) return;
         setIsLoading(true)
         const [productsResponse, categoriesResponse] = await Promise.all([
             getMenuProducts(), 
@@ -29,9 +36,11 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         ])
         setProductsAndCategories(productsResponse.data, categoriesResponse.data)
         setIsLoading(false)
+        setHasFetchedMenu(true)
     }
-
+    
     const fetchEcommerceData = async () => {
+        if (hasFetchedEcom) return;
         setIsLoading(true)
         const [productsResponse, categoriesResponse] = await Promise.all([
             getEcommerceProducts(), 
@@ -39,6 +48,7 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
         ])
         setProductsAndCategories(productsResponse.data, categoriesResponse.data)
         setIsLoading(false)
+        setHasFetchedEcom(true)
     }
 
     const sortCategories = (categories) => {
@@ -56,7 +66,7 @@ export const ProdcutsCategoriesProvider = ({ children }) => {
     const filterProductsByCategory = (category) => {
         setActualCategory(category)
         if (category === 'todos') {
-            setFilteredProducts(products)
+            setFilteredProducts(products);
         } else {
             setFilteredProducts(products?.filter(product => product.category === category));
         }
