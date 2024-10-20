@@ -4,6 +4,7 @@ import { useProductsCategories } from '../../../context/ProductsCategoriesContex
 import Carta from '../../common/carta/Carta';
 import MenuCard from '../../common/menuCard/MenuCard';
 import { Backdrop, CircularProgress } from '@mui/material';
+import { Helmet } from 'react-helmet';
 
 const Menu = () => {
     const { products, categories, isLoading, fetchMenuData } = useProductsCategories();
@@ -29,7 +30,12 @@ const Menu = () => {
     },[])
     
     return (
-        <>{
+        <>
+        <Helmet>
+            <title>Menú</title>
+            <meta name="robots" content="index, follow" />
+        </Helmet>
+        {
             products ? (
                 <main id="main-menu">
                     <Carta title="Menú">
