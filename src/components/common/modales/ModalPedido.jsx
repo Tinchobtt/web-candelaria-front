@@ -11,6 +11,7 @@ import { messageBuilder } from '../../../utils/messageBuilder';
 import { getAddress } from '../../../services/addressService';
 import { useModal } from '../../../context/ModalContext';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ModalPedido = () => {
     const formRef = useRef(null);
@@ -65,6 +66,37 @@ const ModalPedido = () => {
             date: '',
             time: '',
         },
+        // VALIDACIONES
+        validationSchema: Yup.object().shape({
+            name: Yup.string()
+                .required('Campo obligatorio')
+                .max(30, 'El nombre no puede tener más de 30 caracteres'),
+            domicilio: Yup.string()
+                .test('required', 'Campo obligatorio', function (value) {
+                    if (tipoPedido === 'A domicilio') {
+                        return !!value;
+                    }
+                    return true;
+                })
+                .matches(/^[a-zA-Z0-9\s]+$/, 'El domicilio contiene caracteres no permitidos'),
+            domicilio_number: Yup.number()
+                .positive('Debe ser positivo')
+                .test('required', 'Campo obligatorio', function (value) {
+                    if (this.parent.tipoPedido === 'A domicilio') {
+                        return !!value;
+                    }
+                    return true;
+                })
+                .integer('Debe ser un número entero'),
+            message: Yup.string(),
+            date: Yup.date()
+                .required('Campo obligatorio')
+                .min(today, 'La fecha no puede ser anterior al día presente')
+                .typeError('Fecha no válida'),
+            time: Yup.string()
+                .required('Campo obligatorio')
+                .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Hora no válida'),
+        }),
         onSubmit: async (values, action) => {
             const whatsappUrl = messageBuilder('pedido', values, tipoPedido, metodoPago, cart)
 
@@ -114,44 +146,20 @@ const ModalPedido = () => {
                         action.setSubmitting(false);
                     }
                 } catch (error) {
-                    action.error('Error verificando el domicilio:', error);
-                    action.setFieldError('domicilio', 'El delivery no llega a esta dirección');
-                    action.setSubmitting(false);
+                    closeModal()
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: error.response.data.message,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
+                    });
                     return;
                 }
             }else{
                 finishOrder(action, whatsappUrl)
             }
-        },
-        // VALIDACIONES
-        validationSchema: Yup.object().shape({
-            name: Yup.string()
-                .required('Campo obligatorio')
-                .max(30, 'El nombre no puede tener más de 30 caracteres'),
-            domicilio: Yup.string()
-                .test('required', 'Campo obligatorio', function (value) {
-                    if (tipoPedido === 'A domicilio') {
-                        return !!value;
-                    }
-                    return true;
-                }),
-            domicilio_number: Yup.number()
-                .test('required', 'Campo obligatorio', function (value) {
-                    if (this.parent.tipoPedido === 'A domicilio') {
-                        return !!value;
-                    }
-                    return true;
-                })
-                .positive('Debe ser positivo'),
-            message: Yup.string(),
-            date: Yup.date()
-                .required('Campo obligatorio')
-                .min(today, 'La fecha no puede ser anterior al día presente')
-                .typeError('Fecha no válida'),
-            time: Yup.string()
-                .required('Campo obligatorio')
-                .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Hora no válida'),
-        }),
+        }
     });
 
     return (
