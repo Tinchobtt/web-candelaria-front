@@ -2,8 +2,14 @@ import ModalButton from "../../common/modalButton/ModalButton.jsx";
 import './eventos.scss'
 import CardInfo from "../../common/cardInfo/CardInfo.jsx";
 import {eventos} from "../../../information/eventos.js";
+import { Helmet } from "react-helmet";
 const Eventos = () => {
     return (
+        <>
+        <Helmet>
+            <title>Eventos</title>
+            <meta name="robots" content="index, follow" />
+        </Helmet>
         <main id="main-eventos">
             <section className="event-portada">
                 <div className="blackout">
@@ -17,6 +23,7 @@ const Eventos = () => {
                 }
             </section>
         </main>
+        </>
     )
 }
 export default Eventos

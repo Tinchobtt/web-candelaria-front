@@ -8,6 +8,7 @@ import CartSummary from "../../common/cartSummary/CartSummary.jsx";
 import { useCart } from "../../../context/CartContext.jsx";
 import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Ecommerce = () => {
     const { filteredProducts: products, fetchEcommerceData, isLoading } = useProductsCategories();
@@ -44,6 +45,11 @@ const Ecommerce = () => {
     }, []);
     
     return (
+        <>
+        <Helmet>
+            <title>Armar pedido</title>
+            <meta name="robots" content="index, follow" />
+        </Helmet>
         <div className="expandenContainer">
             <main id="main-ecommerce" style={{ backgroundColor: 'var(--paper)', position: 'relative' }}>
                 { !isOpen &&
@@ -59,6 +65,7 @@ const Ecommerce = () => {
                 <CartSummary />
             }
         </div>
+        </>
     );
 };
 

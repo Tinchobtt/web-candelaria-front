@@ -8,9 +8,15 @@ import PedidosYa from "../../common/pedidosYa/PedidosYa.jsx";
 import Carta from "../../common/carta/Carta.jsx";
 import { especialidades } from '../../../information/especialidades.js';
 import WhatsAppIcon from '../../common/whatappIcon/WhatsAppIcon.jsx';
+import { Helmet } from 'react-helmet';
 
 const Inicio = () => {
     return (
+        <>
+        <Helmet>
+            <title>La Candelaria III Express</title>
+            <meta name="robots" content="index, follow" />
+        </Helmet>
         <main id="main-inicio">
             <Hero />
             <section id="nosotros" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -39,6 +45,7 @@ const Inicio = () => {
             <PedidosYa />
             <WhatsAppIcon />
         </main>
+        </>
     )
 }
 export default Inicio
