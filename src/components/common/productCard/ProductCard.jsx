@@ -5,13 +5,12 @@ import { formattedPrice } from '../../../utils/numberFormater'
 import { Button, Skeleton } from '@mui/material'
 import { useTime } from '../../../context/TimeContext'
 import Swal from 'sweetalert2'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { FaCartPlus } from "react-icons/fa";
 
 const ProductCard = ({product}) => {
     const {addToCart} = useCart()
     const {isOpen} = useTime()
-    const [isImageLoaded, setImageLoaded] = useState(false);
 
     const addToCartAction = () => {
         if (!isOpen){
@@ -36,15 +35,11 @@ const ProductCard = ({product}) => {
     return(
         <div className="product-card">
             <div className="product-img">
-                {isImageLoaded ? (
-                    <img
-                        src={product.image}
-                        alt={product.title}
-                        onLoad={() => setImageLoaded(true)}
-                    />
-                ) : (
-                    <Skeleton variant='rounded' width={'100%'} height={'80%'} />
-                )}
+                <img
+                    src={product.image}
+                    alt={product.title}
+                    loading='lazy'
+                />
             </div>
             <div className="product-info">
                 <h3 className="product-title">{product.title}</h3>
