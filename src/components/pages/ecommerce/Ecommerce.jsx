@@ -9,13 +9,37 @@ import { useCart } from "../../../context/CartContext.jsx";
 import { useTime } from '../../../context/TimeContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { getEcommerceProducts } from '../../../services/productService.js';
+import { getEcommerceCategories } from '../../../services/categoryService.js';
 
 const Ecommerce = () => {
-    const { filteredProducts: products, fetchEcommerceData, isLoading } = useProductsCategories();
+    const [products, setProducts] = useState(null)
+    const [filteredProducts, setFilteredProducts] = useState(null)
+    const [categories, setCategories] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [actualCategory, setActualCategory] = useState('todos')
+
+    const {hasFetchedEcom, setHasFetchedEcom, ecomProducts, setEcomProducts, ecomCategories, setEcomCategories} = useProductsCategories()
+
     const { cart } = useCart();
     const { isOpen } = useTime();
     const navigate = useNavigate();
     const [alertShown, setAlertShown] = useState(false);
+
+    const filterProductsByCategory = (category) => {
+        setActualCategory(category)
+        if (category === 'todos') {
+            setFilteredProducts(products);
+        } else {
+            setFilteredProducts(products?.filter(product => product.category === category));
+        }
+    }
+
+    const sortCategories = (categories) => {
+        return categories.length > 0
+        ? categories.sort((a, b) => a.position - b.position)
+        : [];
+    }
 
     useEffect(() => {
         if (!isOpen && !alertShown) {
@@ -40,9 +64,30 @@ const Ecommerce = () => {
                 });
             }, 500);
         }
-        
-        fetchEcommerceData()
-    }, []);
+
+        const fetchData = async () => {
+            setIsLoading(true)
+            if (!hasFetchedEcom){
+                const [productsResponse, categoriesResponse] = await Promise.all([
+                    getEcommerceProducts(), 
+                    getEcommerceCategories()
+                ])
+                setProducts(productsResponse.data)
+                const sortedCategories = sortCategories(categoriesResponse.data)
+                setCategories(sortedCategories)
+                setFilteredProducts(productsResponse.data)
+                setEcomProducts(productsResponse.data)
+                setEcomCategories(sortedCategories)
+                setHasFetchedEcom(true)
+            }else{
+                setProducts(ecomProducts)
+                setFilteredProducts(ecomProducts)
+                setCategories(ecomCategories)
+            }
+            setIsLoading(false)
+        }
+        fetchData()
+    }, [ecomProducts])
     
     return (
         <>
@@ -57,8 +102,8 @@ const Ecommerce = () => {
                         <span>Local Cerrado</span>
                     </div>
                 }
-                <CategoryBar />
-                <ProductList products={products} admin={false} isLoading={isLoading}/>
+                <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory} />
+                <ProductList products={filteredProducts} admin={false} isLoading={isLoading}/>
             </main>
             {
                 cart.length > 0 &&

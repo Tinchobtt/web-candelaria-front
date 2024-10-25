@@ -16,7 +16,7 @@ import { scrollToTop } from '../../../utils/scrollToTop'
 const ModalProduct = ({ data }) => {
     const { closeModal } = useModal()
     const formRef = useRef(null)
-    const { categories, products, setProducts, filterProductsByCategory } = useProductsCategories()
+    const { adminCategories: categories, adminProducts: products, setAdminProducts } = useProductsCategories()
     
     const { handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue,setTouched  } = useFormik({
         initialValues: {
@@ -83,7 +83,7 @@ const ModalProduct = ({ data }) => {
                             timer: 1500
                         });
                         const updatedProducts = products.map(prod => prod.id === data.id ? response.data : prod)
-                        setProducts(updatedProducts)
+                        setAdminProducts(updatedProducts)
                     }else{
                         Swal.fire({
                             position: "center",
@@ -123,7 +123,7 @@ const ModalProduct = ({ data }) => {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        setProducts([...products, response.data])
+                        setAdminProducts([...products, response.data])
                     }else{
                         Swal.fire({
                             position: "center",
@@ -143,7 +143,6 @@ const ModalProduct = ({ data }) => {
                     });
                 }
             }
-            filterProductsByCategory('todos')
             scrollToTop()
             action.resetForm();
             closeModal();
@@ -200,8 +199,7 @@ const ModalProduct = ({ data }) => {
                         timer: 1000
                     });
                     const updatedProducts = products.map(prod => prod.id === data.id ? response.data : prod)
-                    setProducts(updatedProducts)
-                    filterProductsByCategory('todos')
+                    setAdminProducts(updatedProducts)
                     scrollToTop()
                 }else{
                     Swal.fire({
@@ -221,7 +219,7 @@ const ModalProduct = ({ data }) => {
                 })
             }
             const updatedProducts = products.filter(product => product.id !== id)
-            setProducts(updatedProducts)
+            setAdminProducts(updatedProducts)
 
         } else if (result.isDismissed) {
             Swal.fire({

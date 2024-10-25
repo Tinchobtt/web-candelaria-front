@@ -1,100 +1,48 @@
-import { createContext, useContext, useEffect, useState } from "react"
-import { getEcommerceProducts, getMenuProducts, getProducts } from "../services/productService"
-import { getCategories, getEcommerceCategories, getMenuCategories } from "../services/categoryService"
+import { createContext, useContext, useState } from "react"
 
 const ProductsCategoriesContext = createContext()
 
 export const ProdcutsCategoriesProvider = ({ children }) => {
-    const [products, setProducts] = useState(null)
-    const [filteredProducts, setFilteredProducts] = useState()
-    const [categories, setCategories] = useState()
-    const [isLoading, setIsLoading] = useState(false)
-    const [actualCategory, setActualCategory] = useState('todos')
-
-    const [hasFetchedAll, setHasFetchedAll] = useState(false);
-    const [hasFetchedEcom, setHasFetchedEcom] = useState(false);
-    const [hasFetchedMenu, setHasFetchedMenu] = useState(false);
-
-    const fetchAllData = async () => {
-        if (hasFetchedAll) return;
-        setIsLoading(true)
-        const [productsResponse, categoriesResponse] = await Promise.all([
-            getProducts(), 
-            getCategories()
-        ])
-        setProductsAndCategories(productsResponse.data, categoriesResponse.data)
-        setIsLoading(false)
-        setHasFetchedAll(true)
-    }
-
-    const fetchMenuData = async () => {
-        if (hasFetchedMenu) return;
-        setIsLoading(true)
-        const [productsResponse, categoriesResponse] = await Promise.all([
-            getMenuProducts(), 
-            getMenuCategories()
-        ])
-        setProductsAndCategories(productsResponse.data, categoriesResponse.data)
-        setIsLoading(false)
-        setHasFetchedMenu(true)
-    }
+    const [menuProducts, setMenuProducts] = useState([]);
+    const [ecomProducts, setEcomProducts] = useState([]);
+    const [adminProducts, setAdminProducts] = useState([]);
     
-    const fetchEcommerceData = async () => {
-        if (hasFetchedEcom) return;
-        setIsLoading(true)
-        const [productsResponse, categoriesResponse] = await Promise.all([
-            getEcommerceProducts(), 
-            getEcommerceCategories()
-        ])
-        setProductsAndCategories(productsResponse.data, categoriesResponse.data)
-        setIsLoading(false)
-        setHasFetchedEcom(true)
-    }
+    const [menuCategories, setMenuCategories] = useState([]);
+    const [ecomCategories, setEcomCategories] = useState([]);
+    const [adminCategories, setAdminCategories] = useState([]);
 
-    const sortCategories = (categories) => {
-        return categories.length > 0
-        ? categories.sort((a, b) => a.position - b.position)
-        : [];
-    }
-
-    const setProductsAndCategories = (products, categories) => {
-        const sortedCategories = sortCategories(categories)
-        setProducts(products.length > 0 ? products : [])
-        setCategories(sortedCategories)
-    }
-
-    const filterProductsByCategory = (category) => {
-        setActualCategory(category)
-        if (category === 'todos') {
-            setFilteredProducts(products);
-        } else {
-            setFilteredProducts(products?.filter(product => product.category === category));
-        }
-    }
-    
-    useEffect(() => {
-        if(actualCategory === 'todos'){
-            setFilteredProducts(products)
-        }else{
-            setFilteredProducts(filteredProducts)
-        }
-    }, [products])
+    const [hasFetchedMenu, setHasFetchedMenu] = useState(false)
+    const [hasFetchedEcom, setHasFetchedEcom] = useState(false)
+    const [hasFetchedAdmin, setHasFetchedAdmin] = useState(false)
+    const [hasFetchedCategoriesAdmin, setHasFetchedCategoriesAdmin] = useState(false)
 
     return (
         <ProductsCategoriesContext.Provider value={{
-            products,
-            setProducts,
-            categories,
-            setCategories,
-            fetchAllData,
-            fetchMenuData,
-            fetchEcommerceData,
-            isLoading,
-            filterProductsByCategory,
-            filteredProducts,
-            setFilteredProducts,
-            actualCategory,
-            setActualCategory
+            // Productos
+            menuProducts,
+            setMenuProducts,
+            ecomProducts,
+            setEcomProducts,
+            adminProducts,
+            setAdminProducts,
+            
+            // Categorías
+            menuCategories,
+            setMenuCategories,
+            ecomCategories,
+            setEcomCategories,
+            adminCategories,
+            setAdminCategories,
+
+            // Estados de carga
+            hasFetchedMenu,
+            setHasFetchedMenu,
+            hasFetchedEcom,
+            setHasFetchedEcom,
+            hasFetchedAdmin,
+            setHasFetchedAdmin,
+            hasFetchedCategoriesAdmin,
+            setHasFetchedCategoriesAdmin,
         }}>
             {children}
         </ProductsCategoriesContext.Provider>

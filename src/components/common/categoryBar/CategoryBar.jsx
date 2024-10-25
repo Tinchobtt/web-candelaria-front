@@ -1,14 +1,12 @@
-import { useProductsCategories } from '../../../context/ProductsCategoriesContext';
 import './categoryBar.scss'
 import { Box, Skeleton } from '@mui/material';
 
-const CategoryBar = () =>{
-    const {categories, filterProductsByCategory, actualCategory, isLoading} = useProductsCategories()
+const CategoryBar = ({categories, filterProductsByCategory, actualCategory, isLoading}) =>{
     
     const selectCategory = (category) =>{
         filterProductsByCategory(category)
     }
-
+    
     return(
         <div className="category-bar">
             {
