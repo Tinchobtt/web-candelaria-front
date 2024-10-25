@@ -2,14 +2,13 @@ import './productCard.scss'
 import { toast } from 'sonner'
 import { useCart } from '../../../context/CartContext'
 import { formattedPrice } from '../../../utils/numberFormater'
-import { Button, Skeleton } from '@mui/material'
+import { Button } from '@mui/material'
 import { useTime } from '../../../context/TimeContext'
 import Swal from 'sweetalert2'
-import { useCallback, useState } from 'react'
 import { FaCartPlus } from "react-icons/fa";
 
 const ProductCard = ({product}) => {
-    const {addToCart} = useCart()
+    const {totalProductsCount, addToCart} = useCart()
     const {isOpen} = useTime()
 
     const addToCartAction = () => {
@@ -21,13 +20,21 @@ const ProductCard = ({product}) => {
                 confirmButtonText: 'Ver Horarios',
                 showCloseButton: true
             })
-        }else{
-            addToCart(product)
-            toast.success("Se agrego un producto al carrito", {
-                style: {background: 'black', color: 'white'},
-                duration: 1500,
-                position: "top-center"
-            });
+        }else{            
+            if(totalProductsCount() < 20){
+                addToCart(product)
+                toast.success("Se agrego un producto al carrito", {
+                    style: { color: 'var(--green)'},
+                    duration: 1500,
+                    position: "top-center"
+                });
+            }else{
+                toast.error("El carrito esta lleno", {
+                    style: { color: 'var(--red)'},
+                    duration: 1500,
+                    position: "top-center"
+                });
+            }
         }
     }
     const discount = () => product.actualPrice !== product.price

@@ -5,7 +5,7 @@ import AdminProductCard from '../adminProductCard/AdminProductCard.jsx';
 
 
 const ProductList = ({products, admin, isLoading}) =>{
-    
+
     return(
         <section className="product-list">
             {

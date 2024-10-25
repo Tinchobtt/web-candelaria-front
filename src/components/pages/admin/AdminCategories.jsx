@@ -2,8 +2,8 @@ import './adminCategories.scss';
 import { closestCenter, DndContext, PointerSensor, TouchSensor, useSensor } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useProductsCategories } from "../../../context/ProductsCategoriesContext";
-import { createCategory, updateCategory, deleteCategory, updateCategories } from '../../../services/categoryService';
-import { useState } from "react";
+import { createCategory, updateCategory, deleteCategory, updateCategories, getCategories } from '../../../services/categoryService';
+import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import { Button } from '@mui/material';
 import CategoryButton from '../../common/categoryButton/CategoryButton';
@@ -11,7 +11,8 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 
 const AdminCategories = () => {
-    const { categories, setCategories } = useProductsCategories()
+    const [categories, setCategories] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
     const [ isEditing, setIsEditing ] = useState(false)
     const [ categoriesBU, setCategoriesBU ] = useState()
     
@@ -239,9 +240,20 @@ const AdminCategories = () => {
         })
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true)
+            const categoriesResponse = await getCategories()
+            setCategories(categoriesResponse.data)
+            setIsLoading(false)
+        }
+
+        fetchData()
+    }, [])
+
     return (
         <>
-        {categories && (            
+        {categories && !isLoading && (            
             isEditing ? (
                 <DndContext 
                     sensors={sensors}
