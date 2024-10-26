@@ -1,0 +1,99 @@
+.product-card {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: 150px auto;
+    max-width: 600px;
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: var(--white);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.33);
+    .product-img {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        grid-row: 1/2;
+        img {
+            width: 100%;
+            height: 100%;
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+    }
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 10px;
+        .product-title {
+            font-size: clamp(16px, 4vw, 18px);
+            margin-bottom: 4px;
+            color: #000;
+        }
+        .product-desc {
+            font-size: clamp(12px, 3vw, 14px);
+            font-weight: 500;
+            color: #000;
+        }
+    }
+    .product-card-bottom{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        grid-column: 1/3;
+        margin-left: .5rem;
+        .product-price-container {
+            display: flex;
+            align-items: center;
+            .product-actual-price {
+                span {
+                    font-size: clamp(18px, 4vw, 22px);
+                    font-weight: 600;
+                    color: #000;
+                }
+            }
+            .product-real-price {
+                span {
+                    font-size: clamp(12px, 3vw, 14px);
+                    color: #000;
+                    text-decoration: line-through;
+                    color: #c10000;
+                    margin-left: 8px;
+                }
+            }
+        }
+        .product-add {
+            border: none;
+            width: 30px;
+            height: 30px;
+            color: #000;
+            font-size: 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            background-color: #efd6ac;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.32);
+            cursor: pointer;
+            &:hover{
+                background-color: #ffdb9e;
+            }
+        }
+        .product-add.close {
+            background-color: #bebebe;
+        }
+    }
+}
+@media (min-width: 320px){
+    .product-card {
+        grid-template-columns: 100px auto;
+        grid-template-rows: auto 40px;
+        column-gap: .5rem;
+        height: 180px;
+        .product-info {
+            margin: 0;
+        }
+    }
+}

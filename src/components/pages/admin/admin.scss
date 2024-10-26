@@ -1,0 +1,26 @@
+.admin-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    main{
+        .category-bar {
+            .category-slider {
+                .category-btn {
+                    color: var(--white);
+                    background-color: transparent;
+                }
+            }
+        }
+        .add-btn-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            height: 100px;
+            background-color: var(--background);
+            box-shadow: 0 0 10px #0000008e;
+        }
+    }
+}

@@ -1,8 +1,11 @@
-# React + Vite
+# TIP
+Para que el proceso siempre ocupe el mismo puerto, matarlo con q + enter. Si no se hace de esta manera el proceso ocupara el puerto hasta reiniciar la PC. Se necesita ocupar siempre el mismo puerto ya que el backend solo le da permiso a lo que viene de localhost:81.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Docker
+Comandos para generar la imagen que utiliza el server
+- docker login
+- npm run build
+- docker build -t tobiasriccone/frontend-lacandelaria:latest .
+- docker push tobiasriccone/frontend-lacandelaria:latest
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Antes de construir la imagen, setear correctamente el valor de API_URL.

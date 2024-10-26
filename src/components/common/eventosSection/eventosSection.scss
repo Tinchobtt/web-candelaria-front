@@ -1,0 +1,41 @@
+#eventosSection {
+  margin: 4rem 0;
+  padding: 0;
+  background-image: url("/imagenes/eventos_section.jpg");
+  background-size: cover;
+  background-position: bottom center;
+  overflow: hidden;
+  .blackout{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  h4{
+    font-size: clamp(12px, 3vw, 18px);
+    font-family: LM-light;
+    margin-bottom: 1rem;
+  }
+  h2{
+    font-size: clamp(40px, 5vw, 80px);
+    margin-bottom: 3rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+}
+@media (min-width: 768px){
+  #eventosSection {
+    height: 50vh;
+    h4{
+      margin-bottom: 2rem;
+    }
+    h2{
+      margin-bottom: 4rem;
+    }
+  }
+}

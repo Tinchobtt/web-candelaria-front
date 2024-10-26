@@ -1,0 +1,217 @@
+.modal-content-producto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    max-height: 100vh;
+    overflow-y: scroll;
+    padding: 2rem 4px 2rem 1rem;
+    border-radius: 5px;
+    background-color: #000;
+
+    &::-webkit-scrollbar-track, &::-webkit-scrollbar-thumb, &::-webkit-scrollbar {
+        visibility: hidden;
+    }
+
+    // input, select{
+    //     width: 100%;
+    //     min-width: 100px;
+    // }
+
+    .modal-title{
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .modal-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        .MuiFormControl-root{ //Todo el input
+            margin-bottom: 1rem;
+            width: 100%;
+            min-width: unset;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            .MuiInputBase-root{ //La parte de color
+                width: 100%;
+                background-color: var(--white);
+                border-radius: 5px;
+            }
+        }
+        .modal-btn-send{
+            margin-top: 3rem;
+        }
+        //MODAL PRODUCT
+        .image-upload{
+            position: relative;
+            height: 150px;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            background-color: #EBEBEB;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 5px;
+            }
+            input[type="file"] {
+                visibility: hidden;
+                width: 0;
+            }
+            .editImg{
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                position: absolute;
+                bottom: -5px;
+                right: -5px;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                background-color: var(--blue);
+                padding: 5px;
+                cursor: pointer;
+                .editIcon{
+                    font-size: 1.5rem;
+                    color: var(--white);
+                    margin-right: 1px;
+                }
+            }
+        }
+        .select-container{
+            width: 100%;
+            margin-bottom: 1rem;
+            .input-select{
+                width: 100%;
+                height: 56px;
+                border-radius: 5px;
+                color: #666666;
+                font-size: 16px;
+                padding-left: .5rem;
+            }
+            span{
+                font-size: 12px;
+                color: var(--red);
+                margin-left: 14px;
+            }
+        }
+        .double-input-container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1rem;
+        }
+        .prodcut-actions{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            .prodcut-actions-column{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 50%;
+                max-width: 160px;
+                gap: 1rem;
+                height: 100%;
+                .checkbox-container{
+                    display: flex;
+                    align-items: center;
+                    input[type="checkbox"] {
+                        width: 1.6rem;
+                        height: 1.6rem;
+                        min-width: 1.6rem;
+                        min-height: 1.6rem;
+                        &:checked{
+                            accent-color: var(--blue);
+                        }
+                    }
+                    label{
+                        font-size: clamp(14px, 4vw, 16px);
+                        color: var(--white);
+                        margin-left: clamp(.5rem, 4vw, 1rem);
+                    }
+                }
+            }
+            .MuiFormControl-root, .MuiFormControlLabel-root, .MuiCheckbox-root{
+                padding: 0;
+                margin: 0;
+            }
+            .MuiFormControl-root{
+                display: flex;
+                align-items: center;
+            }
+            .product-action-btn{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+                background-color: var(--background);
+                height: 40px;
+                padding: 5px 1rem;
+                color: var(--white);
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                input[type="checkbox"] {
+                    display: none;
+                }
+                .activo-btn{
+                    width: 105px;
+                }
+                .delete-prod-btn{
+                    width: 155px;
+                }
+                &:hover{
+                    background-color: var(--darkerBackground);
+                }
+            }
+        }
+        .modal-action-btns{
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            gap: 1rem;
+        }
+    }
+}
+
+@media (min-width: 425px){
+    .modal-content-producto{
+        padding: 2rem 22px 2rem 2rem;
+        .modal-form{
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            grid-template-rows: repeat(6, auto);
+            align-items: unset;
+            .image-upload{
+                grid-row: 1/3;
+            }
+            .input-select{
+                grid-column: 2/3;
+            }
+            .input-description{
+                grid-column: 1/3;
+            }
+            .double-input-container{
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                grid-row: 4/5;
+                grid-column: 1/3;
+            }
+            .prodcut-actions{
+                flex-direction: row;
+                justify-content: space-between;
+                grid-column: 1/3;
+            }
+            .modal-action-btns{
+                grid-column: 1/3;
+            }
+        }
+    }
+}

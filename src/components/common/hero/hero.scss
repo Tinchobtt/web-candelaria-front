@@ -1,0 +1,122 @@
+#hero{
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100vw auto auto;
+  justify-items: center;
+  row-gap: 2rem;
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+  padding: 1rem;
+  margin-bottom: 6rem;
+  .hero-titles-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vw;
+    width: 100%;
+    .hero-title, h2{
+      text-align: center;
+      font-size: clamp(24px, 4vw, 50px);
+      font-family: 'LM-regular';
+      margin-bottom: 1rem;
+      z-index: 10;
+   }
+    h3{
+      text-align: center;
+      font-size: clamp(14px, 3vw, 18px);
+      font-weight: 300;
+      z-index: 10;
+   }
+    .circle{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      background: radial-gradient(circle, rgba(52,52,52,1) 0%, rgba(29,29,29,0.8) 70%, rgba(29,29,29,0.5) 85%, rgba(29,29,29,0) 100%);
+    }
+  }
+  .hero-buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    & >:first-child{
+      margin-bottom: 1rem;
+    }
+  }
+  .arrow-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &>*{
+      font-size: 50px;
+      color: var(--white);
+      opacity: .5;
+      animation: moveAndFade 2.5s infinite ease-in-out;
+    }
+  }
+  @keyframes moveAndFade {
+    0% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(15px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0.5;
+    }
+  }
+}
+@media (min-width: 600px){
+  #hero{
+    grid-template-rows: 600px auto auto;
+    .hero-titles-container {
+      .circle{
+        width: 600px;
+        height: 600px;
+      }
+    }
+  }
+}
+@media (min-width: 768px){
+  #hero{
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 400px 100px;
+    gap: 0;
+    min-height: unset;
+    max-height: 600px;
+    padding: 1rem 2rem;
+    .hero-titles-container{
+      height: 400px;
+      padding: 1rem;
+      .circle{
+        width: 400px;
+        height: 400px;
+      }
+    }
+    .hero-buttons{
+      grid-column: 1/2;
+    }
+    .img-container{
+      display: flex;
+      align-items: center;
+      grid-column: 2/3;
+      grid-row: 1/3;
+      width: 100%;
+      max-width: 500px;
+      margin-top: 5rem;
+      background-image: url("/imagenes/hero.gif");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 50px;
+      box-shadow: 0 5px 10px #000;
+    }
+  }
+}

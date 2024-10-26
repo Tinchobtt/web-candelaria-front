@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'LM-light';
+    src: url('./assets/fonts/LEMONMILK-Light.otf') format('opentype');
+}
+@font-face {
+    font-family: 'LM-regular';
+    src: url('./assets/fonts/LEMONMILK-Regular.otf') format('opentype');
+}
+@font-face {
+    font-family: 'LM-medium';
+    src: url('./assets/fonts/LEMONMILK-Medium.otf') format('opentype');
+}
+@font-face {
+    font-family: 'LM-bold';
+    src: url('./assets/fonts/LEMONMILK-Bold.otf') format('opentype');
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+:root{
+    --background: #1C1C1C;
+    --darkerBackground: #131313;
+    --white: #fff;
+    --paper: #F0F0F0;
+    --grey: #464646;
+    --greyHover: #737373;
+    --brown: #9E6F5E;
+    --red: #DF0000;
+    --green: rgb(4, 196, 4);
+    --blue: #1975d1;
+    --maxWidth: 1440px
+}
+html{
+    scroll-padding-top: 6rem;
+}
+body{
+    background-color: var(--background);
+    overflow-x: hidden;
+}
+#start{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-width: var(--maxWidth);
+    min-height: 100vh;
+    padding-top: 6rem;
+    background-color: var(--background);
+}
+section{
+    width: 100vw;
+    max-width: var(--maxWidth);
+    padding: 1rem;
+}
+h1,h2,h3,h4,p,span{
+    color: var(--white);
+}
+li{
+    list-style: none;
+}
+a{
+    color: unset;
+    text-decoration: none;
+}
+.expandenContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: var(--paper);
+}
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de scroll */
+}
+
+/* Estilo del "track" (fondo de la barra de scroll) */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de fondo */
+    border-radius: 6px; /* Bordes redondeados */
+}
+
+/* Estilo del "thumb" (el área que se arrastra) */
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color del "thumb" */
+    border-radius: 6px; /* Bordes redondeados */
+}
+
+/* Estilo del "thumb" cuando se pasa el mouse sobre él */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color del "thumb" al hacer hover */
+}

@@ -1,0 +1,96 @@
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem 1rem;
+    border-radius: 5px;
+    background-color: #000;
+    .modal-title{
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .modal-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .MuiFormControl-root{ //Todo el input
+            margin-bottom: 1rem;
+            width: 100%;
+            min-width: unset;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            .MuiInputBase-root{ //La parte de color
+                width: 100%;
+                background-color: var(--white);
+                border-radius: 5px;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+        .MuiButtonBase-root{
+            height: 100%;
+        }
+        .direccion-container{
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 1rem;
+        }
+        .date-hour-container{
+            width: 100%;
+            margin-bottom: 1rem;
+            .MuiFormControl-root{
+                width: 100%;
+            }
+        }
+        span{
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: var(--greyHover);
+        }
+        .modal-btn-send{
+            margin-top: 3rem;
+        }
+        .categories-list{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 1rem;
+            .category-add-btn{
+                font-size: 2rem;
+                font-weight: 500;
+                padding: 0 .6rem;
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+@media (min-width: 425px){
+    .modal-content{
+        padding: 2rem;
+        .modal-form{
+            .direccion-container{
+                display: grid;
+                grid-template-columns: 5fr 3fr;
+                gap: 1rem;
+            }
+            .date-hour-container{
+                display: flex;
+                justify-content: space-between;
+                .MuiFormControl-root{
+                    width: 100%;
+                    &:last-child{
+                        margin-left: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}

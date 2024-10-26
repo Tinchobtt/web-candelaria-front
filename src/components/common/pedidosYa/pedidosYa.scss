@@ -1,0 +1,47 @@
+.py-container{
+    position: fixed;
+    bottom: 1.5rem;
+    left: 0;
+    width: 180px;
+    height: 60px;
+    z-index: 1000;
+    a{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        img{
+            height: 100%;
+            border-radius: 0 5px 5px 0;
+        }
+        .label-text{
+            display: none;
+            align-items: center;
+            height: 100%;
+            background-color: #666;
+            border-radius: 0 5px 5px 0;
+            span{
+                text-align: center;
+                font-size: 14px;
+            }
+        }
+    }
+}
+@media (min-width: 768px){
+    .py-container{
+        a{
+            img{
+                border-radius: 0;
+                z-index: 20;
+            }
+            .label-text{
+                display: flex;
+                transform: translate(-120px);
+                transition: .3s ease-in-out;
+                z-index: 10;
+            }
+            .visible{
+                transform: translate(0);
+            }
+        }
+    }
+}

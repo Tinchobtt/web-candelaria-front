@@ -1,0 +1,90 @@
+.cardInfo{
+  width: 100%;
+  height: auto;
+  margin-bottom: 4rem;
+  .cardInfo-img{
+    display: none;
+    height: 100%;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    }
+  }
+  .cardInfo-content{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 15px;
+    background: linear-gradient(270deg, rgba(28,28,28,1) 0%, rgba(0,0,0,1) 100%);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.75);
+    .cardInfo-title{
+      margin-bottom: 2rem;
+      font-size: clamp(16px, 3vw, 24px);
+      font-family: 'LM-light';
+      letter-spacing: 3px;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .cardInfo-text{
+      border-radius: 15px;
+      font-size: clamp(14px, 3vw, 16px);
+      font-weight: 200;
+      line-height: 20px;
+    }
+  }
+}
+@media (min-width: 768px){
+  .cardInfo{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    width: 100%;
+    height: 400px;
+    max-width: 1400px;
+    margin: 3rem 0;
+    padding: 0 2rem;
+    &.imageRight{
+      grid-template-columns: 70% 30%;
+    }
+    .cardInfo-img{
+      display: block;
+      img{
+        border-radius: 0;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.7);
+        &.borderLeft{
+          border-radius: 50px 0 0 0;
+        }
+        &.borderRight{
+          border-radius: 0 50px 0 0 ;
+        }
+      }
+    }
+    .cardInfo-content{
+      justify-content: center;
+      align-items: start;
+      padding: 2rem 3rem;
+      border: none;
+      .cardInfo-title{
+        text-align: start;
+        text-shadow: none;
+        padding: 0;
+      }
+      .cardInfo-text{
+        background-color: transparent;
+        box-shadow: none;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+        font-weight: 300;
+      }
+      &.borderLeft{
+        border-radius: 0 0 50px 0;
+      }
+      &.borderRight{
+        border-radius: 0 0 0 50px;
+        order: -1;
+      }
+    }
+  }
+}
