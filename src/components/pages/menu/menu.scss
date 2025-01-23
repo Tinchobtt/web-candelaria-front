@@ -4,6 +4,17 @@
         justify-items: center;
         width: 100%;
     }
+    .noProducts{
+        margin: 2rem 0 1rem;
+        padding: 1rem;
+        border: 1px solid var(--darkerBackground);
+        border-radius: 5px;
+        background-color: #ffffff;
+        span{
+            font-weight: 500;
+            color: var(--darkerBackground);
+        }
+    }
 }
 .skeleton{
     width: 100%;

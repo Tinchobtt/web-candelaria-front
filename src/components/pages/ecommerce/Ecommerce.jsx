@@ -37,8 +37,8 @@ const Ecommerce = () => {
 
     const sortCategories = (categories) => {
         return categories.length > 0
-        ? categories.sort((a, b) => a.position - b.position)
-        : [];
+            ? categories.sort((a, b) => a.position - b.position)
+            : [];
     }
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const Ecommerce = () => {
             setIsLoading(true)
             if (!hasFetchedEcom){
                 const [productsResponse, categoriesResponse] = await Promise.all([
-                    getEcommerceProducts(), 
+                    getEcommerceProducts(),
                     getEcommerceCategories()
                 ])
                 setProducts(productsResponse.data)
@@ -88,28 +88,38 @@ const Ecommerce = () => {
         }
         fetchData()
     }, [ecomProducts])
-    
+    console.log(ecomProducts)
     return (
         <>
-        <Helmet>
-            <title>Armar pedido</title>
-            <meta name="robots" content="index, follow" />
-        </Helmet>
-        <div className="expandenContainer">
-            <main id="main-ecommerce" style={{ backgroundColor: 'var(--paper)', position: 'relative' }}>
-                { !isOpen &&
-                    <div className="localClose">
-                        <span>Local Cerrado</span>
-                    </div>
+            <Helmet>
+                <title>Armar pedido</title>
+                <meta name="robots" content="index, follow" />
+            </Helmet>
+            <div className="expandenContainer">
+                {
+                    ecomProducts.length === 0 ? (
+                        <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative'}}>
+                            <div className="noProducts">
+                                <span>No hay productos en este momento!</span>
+                            </div>
+                        </main>
+                    ) : (
+                        <main id="main-ecommerce" style={{backgroundColor: 'var(--paper)', position: 'relative' }}>
+                            {!isOpen &&
+                                <div className="localClose">
+                                    <span>Local Cerrado</span>
+                                </div>
+                            }
+                            <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory} />
+                            <ProductList products={filteredProducts} admin={false} isLoading={isLoading}/>
+                        </main>
+                    )
                 }
-                <CategoryBar categories={categories} filterProductsByCategory={filterProductsByCategory} actualCategory={actualCategory} />
-                <ProductList products={filteredProducts} admin={false} isLoading={isLoading}/>
-            </main>
-            {
-                cart.length > 0 &&
-                <CartSummary />
-            }
-        </div>
+                {
+                    cart.length > 0 &&
+                    <CartSummary />
+                }
+            </div>
         </>
     );
 };

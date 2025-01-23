@@ -1,5 +1,5 @@
 .expandenContainer{
-    .localClose{
+    .localClose, .noProducts{
         margin: 1rem;
         padding: 1rem;
         border: 1px solid var(--red);
@@ -9,6 +9,15 @@
         span{
             font-weight: 500;
             color: var(--red);
+        }
+    }
+    .noProducts{
+        margin-top: 2rem;
+        border: 1px solid var(--darkerBackground);
+        background-color: #ffffff;
+        animation: none;
+        span{
+            color: var(--darkerBackground);
         }
     }
 }
@@ -25,10 +34,10 @@
     0%, 80% {
         transform: rotate(0);
     }
-    10%, 30%, 50% { 
+    10%, 30%, 50% {
         transform: rotate(2deg);
     }
-    20%, 40%, 60% { 
+    20%, 40%, 60% {
         transform: rotate(-2deg);
     }
 }
