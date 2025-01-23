@@ -108,6 +108,7 @@ const AdminCategories = () => {
                             timer: 1500
                         });
                         const updatedCategories = categories.filter(category => category.id !== id);
+                        setHasFetchedAdmin(false)
                         setCategories(reindexCategories(updatedCategories));
                     }else{
                         Swal.fire({
@@ -220,6 +221,7 @@ const AdminCategories = () => {
                         const updatedCategories = categories.map(cat =>
                             cat.id === category.id ? { ...cat, name: result.value } : cat
                         );
+                        setHasFetchedAdmin(false)
                         setCategories(updatedCategories);
                     }else{
                         Swal.fire({
