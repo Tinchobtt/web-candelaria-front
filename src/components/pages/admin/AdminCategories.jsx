@@ -15,12 +15,14 @@ const AdminCategories = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [ isEditing, setIsEditing ] = useState(false)
     const [ categoriesBU, setCategoriesBU ] = useState()
-    
+
+    const {setHasFetchedAdmin} = useProductsCategories()
+
     const pointerSensor = useSensor(PointerSensor)
     const touchSensor = useSensor(TouchSensor, {
         activationConstraint: { distance: 10 }
     });
-    
+
     const isTouchDevice = 'ontouchstart' in window
     const sensors = isTouchDevice ? [touchSensor] : [pointerSensor]
 
@@ -31,23 +33,23 @@ const AdminCategories = () => {
 
     const handleDrag = (event) => {
         const { active, over } = event
-        
+
         if (active.id !== over.id) {
             const oldIndex = categories.findIndex((category) => category.id === active.id)
             const newIndex = categories.findIndex((category) => category.id === over.id)
             const newOrder = arrayMove(categories, oldIndex, newIndex);
-    
+
             setCategories(reindexCategories(newOrder))
         }
     };
-    
+
     const reindexCategories = (categories) => {
         return categories.map((category, id) => ({
             ...category,
             position: id
         }));
     };
-    
+
     const saveDrag =( async () => {
         try{
             const response = await updateCategories(categories)
@@ -140,7 +142,7 @@ const AdminCategories = () => {
             reverseButtons: true,
             confirmButtonText: "Agregar",
             confirmButtonColor: '#1975d1',
-            
+
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const newCategory = {
@@ -150,7 +152,7 @@ const AdminCategories = () => {
 
                 try{
                     const response = await createCategory(newCategory)
-                    
+
                     if(response.status === 200){
                         Swal.fire({
                             position: "center",
@@ -165,7 +167,7 @@ const AdminCategories = () => {
                             response.data,
                             ...categories.slice(position)
                         ];
-
+                        setHasFetchedAdmin(false)
                         setCategories(reindexCategories(updatedCategories));
                     }else{
                         Swal.fire({
@@ -201,7 +203,7 @@ const AdminCategories = () => {
             reverseButtons: true,
             confirmButtonText: "Agregar",
             confirmButtonColor: '#1975d1',
-            
+
         }).then(async (result) => {
             if (result.isConfirmed) {
                 let updatedCategory = {...category, name: result.value}
@@ -215,7 +217,7 @@ const AdminCategories = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        const updatedCategories = categories.map(cat => 
+                        const updatedCategories = categories.map(cat =>
                             cat.id === category.id ? { ...cat, name: result.value } : cat
                         );
                         setCategories(updatedCategories);
@@ -253,62 +255,62 @@ const AdminCategories = () => {
 
     return (
         <>
-        {categories && !isLoading && (            
-            isEditing ? (
-                <DndContext 
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragEnd={handleDrag}
-                >
-                    <SortableContext
-                        items={categories}
-                        strategy={verticalListSortingStrategy}
+            {categories && !isLoading && (
+                isEditing ? (
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        onDragEnd={handleDrag}
                     >
-                        <div className="category-admin">
-                            <div className="admin-categories-container">
-                                {
-                                    categories.map( category =>
-                                        <div className='admin-category-item' key={category.id}>
-                                            <CategoryButton category={category}/>
-                                        </div>
-                                    )
-                                }
-                            </div>
-                            <span>
+                        <SortableContext
+                            items={categories}
+                            strategy={verticalListSortingStrategy}
+                        >
+                            <div className="category-admin">
+                                <div className="admin-categories-container">
+                                    {
+                                        categories.map( category =>
+                                            <div className='admin-category-item' key={category.id}>
+                                                <CategoryButton category={category}/>
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                                <span>
                                 Presione y mantenga una categoría para arrastrarla a una nueva posición, luego suelte para reorganizar
                             </span>
-                            <div className="admin-category-control">
-                                <Button onClick={cancelDrag} variant='contained'>Cancelar</Button>
-                                <Button onClick={saveDrag} variant='contained'>Guardar</Button>
-                            </div>
-                        </div>
-                    </SortableContext>
-                </DndContext>
-            ) : (
-                <div className="category-admin">
-                    <div className="admin-categories-container">
-                        <button className='category-add-btn' onClick={() => handleAddCategory(0)}>+</button>
-                        {
-                            categories.map((category, index) =>
-                                <div className='admin-category-item' key={category.id}>
-                                    <CategoryButton category={category} />
-                                    <button className='category-delete-btn' onClick={() => handleDeleteCategory(category.id)}>
-                                        <MdOutlineDeleteOutline />
-                                    </button>
-                                    <button className='category-edit-btn' onClick={() => handleEditCategory(category)}>
-                                        <MdEdit />
-                                    </button>
-                                    <button className='category-add-btn' onClick={() => handleAddCategory(index + 1)}>+</button>
+                                <div className="admin-category-control">
+                                    <Button onClick={cancelDrag} variant='contained'>Cancelar</Button>
+                                    <Button onClick={saveDrag} variant='contained'>Guardar</Button>
                                 </div>
-                            )
-                        }
+                            </div>
+                        </SortableContext>
+                    </DndContext>
+                ) : (
+                    <div className="category-admin">
+                        <div className="admin-categories-container">
+                            <button className='category-add-btn' onClick={() => handleAddCategory(0)}>+</button>
+                            {
+                                categories.map((category, index) =>
+                                    <div className='admin-category-item' key={category.id}>
+                                        <CategoryButton category={category} />
+                                        <button className='category-delete-btn' onClick={() => handleDeleteCategory(category.id)}>
+                                            <MdOutlineDeleteOutline />
+                                        </button>
+                                        <button className='category-edit-btn' onClick={() => handleEditCategory(category)}>
+                                            <MdEdit />
+                                        </button>
+                                        <button className='category-add-btn' onClick={() => handleAddCategory(index + 1)}>+</button>
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <div className="admin-category-control">
+                            <Button onClick={edit} variant='contained'>Editar orden</Button>
+                        </div>
                     </div>
-                    <div className="admin-category-control">
-                        <Button onClick={edit} variant='contained'>Editar orden</Button>
-                    </div>
-                </div>
-            )
-        )}
+                )
+            )}
         </>
     );
 }
