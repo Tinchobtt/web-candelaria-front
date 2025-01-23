@@ -4,28 +4,13 @@ const TimeContext = createContext();
 
 export const TimeContextProvider = ({ children }) => {
     const schedules = {
-        "Domingo": [{ start: "11:30", end: "15:00" }],
-        "Lunes": [{ start: "19:00", end: "22:30" }],
-        "Martes": [
-            { start: "11:30", end: "15:00" },
-            { start: "19:00", end: "22:30" }
-        ],
-        "Miércoles": [
-            { start: "11:30", end: "15:00" },
-            { start: "19:00", end: "22:30" }
-        ],
-        "Jueves": [
-            { start: "11:30", end: "15:00" },
-            { start: "19:00", end: "22:30" }
-        ],
-        "Viernes": [
-            { start: "011:30", end: "15:00" },
-            { start: "19:00", end: "22:30" }
-        ],
-        "Sábado": [
-            { start: "11:30", end: "15:00" },
-            { start: "19:00", end: "22:30" }
-        ]
+        "Domingo": [{ start: "10:00", end: "23:00" }],
+        "Lunes": [{ start: "10:00", end: "23:00" }],
+        "Martes": [{ start: "10:00", end: "23:00" }],
+        "Miércoles": [{ start: "10:00", end: "23:00" }],
+        "Jueves": [{ start: "10:00", end: "23:00" }],
+        "Viernes": [{ start: "10:00", end: "23:30" }],
+        "Sábado": [{ start: "10:00", end: "23:30" }]
     };
 
     const daysOfWeek = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
