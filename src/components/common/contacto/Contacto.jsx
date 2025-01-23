@@ -23,31 +23,31 @@ const Contacto = () => {
                         <div className="schedule">
                             <div className="day">
                                 <span>Domingo</span>
-                                <span className="time">10:00 - 23.00 hs</span>
+                                <span className="time">10:00 - 23:00 hs</span>
                             </div>
                             <div className="day">
                                 <span>Lunes</span>
-                                <span className="time">10:00 - 23.00 hs</span>
+                                <span className="time">10:00 - 23:00 hs</span>
                             </div>
                             <div className="day">
                                 <span>Martes</span>
-                                <span className="time">10:00 - 23.00 hs</span>
+                                <span className="time">10:00 - 23:00 hs</span>
                             </div>
                             <div className="day">
                                 <span>Miércoles</span>
-                                <span className="time">10:00 - 23.00 hs</span>
+                                <span className="time">10:00 - 23:00 hs</span>
                             </div>
                             <div className="day">
                                 <span>Jueves</span>
-                                <span className="time">10:00 - 23.00 hs</span>
+                                <span className="time">10:00 - 23:00 hs</span>
                             </div>
                             <div className="day">
                                 <span>Viernes</span>
-                                <span className="time">10:00 - 23.30 hs</span>
+                                <span className="time">10:00 - 23:30 hs</span>
                             </div>
                             <div className="day">
                                 <span>Sábado</span>
-                                <span className="time">10:00 - 23.30 hs</span>
+                                <span className="time">10:00 - 23:30 hs</span>
                             </div>
                         </div>
                     </div>
