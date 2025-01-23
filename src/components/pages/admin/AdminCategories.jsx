@@ -61,6 +61,7 @@ const AdminCategories = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                setHasFetchedAdmin(false)
             }else{
                 Swal.fire({
                     position: "center",
