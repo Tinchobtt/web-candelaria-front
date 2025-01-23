@@ -11,8 +11,8 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 
 const AdminCategories = () => {
-    const [categories, setCategories] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
+    const [ categories, setCategories ] = useState(null)
+    const [ isLoading, setIsLoading ] = useState(false)
     const [ isEditing, setIsEditing ] = useState(false)
     const [ categoriesBU, setCategoriesBU ] = useState()
 
@@ -41,6 +41,10 @@ const AdminCategories = () => {
 
             setCategories(reindexCategories(newOrder))
         }
+    };
+
+    const sortByPosition = (categories) => {
+        return categories.sort((a, b) => a.position - b.position);
     };
 
     const reindexCategories = (categories) => {
@@ -249,10 +253,9 @@ const AdminCategories = () => {
         const fetchData = async () => {
             setIsLoading(true)
             const categoriesResponse = await getCategories()
-            setCategories(categoriesResponse.data)
+            setCategories(sortByPosition(categoriesResponse.data))
             setIsLoading(false)
         }
-
         fetchData()
     }, [])
 
