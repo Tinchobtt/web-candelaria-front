@@ -14,12 +14,12 @@ const AppRouter = () => {
         <>
             <ScrollToTop />
             <Routes>
-                {/*<Route element={ <Layout /> }>
+                <Route element={ <Layout /> }>
                     {
                         routes.map( ({id, path, Element}) => <Route key={id} path={path} element={ <Element />} />)
                     }
                     <Route path={"*"} element={<Inicio />}/>
-                </Route>*/}
+                </Route>
                 <Route>
                     <Route path="/login" element={<Login />}/>
                 </Route>
@@ -27,13 +27,6 @@ const AppRouter = () => {
                     <Route path="/admin" element={<Admin />}>
                         <Route index element={<AdminProducts />} />
                         <Route path="categories" element={<AdminCategories />} />
-                    </Route>
-
-                    <Route element={ <Layout /> }>
-                        {
-                            routes.map( ({id, path, Element}) => <Route key={id} path={path} element={ <Element />} />)
-                        }
-                        <Route path={"*"} element={<Inicio />}/>
                     </Route>
                 </Route>
             </Routes>
