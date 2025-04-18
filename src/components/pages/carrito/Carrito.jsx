@@ -1,10 +1,10 @@
+import './carrito.scss'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../../context/CartContext'
 import { formattedPrice } from '../../../utils/numberFormater'
 import CartProductCard from '../../common/cartProductCard/CartProductCard'
-import ModalButton from '../../common/modalButton/ModalButton'
-import './carrito.scss'
 import { useEffect } from 'react'
+import RedirectButton from '../../common/redirectButton/RedirectButton'
 
 const Carrito = () => {
     const {cart, totalPrice} = useCart()
@@ -27,7 +27,7 @@ const Carrito = () => {
                 </section>
                 <div className="cart-checkout">
                     <span>TOTAL {formattedPrice(totalPrice)}</span>
-                    <ModalButton name="modalPedido">Continuar</ModalButton>
+                    <RedirectButton link={'/checkout'} variant={'contained'}>Continuar</RedirectButton>
                 </div>
             </main>
         </div>
