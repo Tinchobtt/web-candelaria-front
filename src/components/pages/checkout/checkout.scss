@@ -1,0 +1,69 @@
+#main-checkout{
+    background-color: var(--paper);
+    .checkout-title{
+        color: #000;
+        margin: 1rem;
+    }
+    .checkout-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        .MuiFormControl-root{ //Todo el input
+            margin-bottom: 1rem;
+            width: 100%;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            .MuiInputBase-root{ //La parte de color
+                width: 100%;
+                background-color: var(--white);
+                input{
+                    width: 100%;
+                    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+                }
+            }
+        }
+        .acordion{
+            border-radius: 5px 5px 0 0;
+        }
+        .direccion-container{
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 1rem;
+            width: 100%;
+        }
+        .date-hour-container{
+            width: 100%;
+            margin-bottom: 1rem;
+            .MuiFormControl-root{
+                width: 100%;
+            }
+        }
+        span{
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: var(--greyHover);
+            margin-bottom: 3rem;
+        }
+    }
+}
+
+@media (min-width: 1024px){
+    #main-checkout{
+        .checkout-title{
+            margin: 2rem;
+        }
+        .date-hour-container{
+            display: flex;
+            justify-content: space-between;
+            .MuiFormControl-root{
+                width: 100%;
+                &:last-child{
+                    margin-left: 2rem;
+                }
+            }
+        }
+    }
+}

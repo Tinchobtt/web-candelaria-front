@@ -1,4 +1,4 @@
-export const messageBuilder = (tipoMensaje, values, tipoPedido, metodoPago, productos) => {
+export const messageBuilder = (tipoMensaje, values, tipoPedido, metodoPago, productos, detallePedidoLink) => {
     const phoneNumber = 541125372314;
     let message = '';
 
@@ -8,7 +8,7 @@ export const messageBuilder = (tipoMensaje, values, tipoPedido, metodoPago, prod
         message += `\nTipo de pedido: ${tipoPedido}\nMétodo de pago: ${metodoPago}`;
 
         if (tipoPedido === 'A domicilio') {
-            message += `\nDomicilio: ${values.domicilio}`;
+            message += `\nDomicilio: ${values.domicilio} ${values.domicilio_number}`;
         }
 
         if (productos && productos.length > 0) {

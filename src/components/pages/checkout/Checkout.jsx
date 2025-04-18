@@ -1,0 +1,394 @@
+import './checkout.scss'
+import { Helmet } from 'react-helmet'
+import { MdKeyboardArrowDown } from "react-icons/md"
+import Button from "@mui/material/Button"
+import {useRef, useState} from "react"
+import {Accordion, AccordionDetails, AccordionSummary, Box, TextField, Typography} from "@mui/material"
+import * as Yup from 'yup'
+import { useTime } from '../../../context/TimeContext'
+import { useCart } from '../../../context/CartContext'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { getAddress } from '../../../services/addressService'
+import Swal from 'sweetalert2'
+import RedirectButton from '../../common/redirectButton/RedirectButton'
+
+const Checkout = () => {
+    const formRef = useRef(null);
+    const inputTime = useRef(null);
+    const inputDate = useRef(null);
+    const {checkIfOpen} = useTime()
+    const {cart} = useCart()
+    const navigate = useNavigate()
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const [tipoPedido, setTipoPedido] = useState(null);
+    const [tipoPedidoHelper, setTipoPedidoHelper] = useState('');
+    
+    const [metodoPago, setMetodoPago] = useState(null);
+    const [metodoPagoHelper, setMetodoPagoHelper] = useState(null);
+
+    const [expandedPedido, setExpandedPedido] = useState(false);
+    const [expandedMetodoPago, setExpandedMetodoPago] = useState(false);
+
+    const handleSelectPedido = (event) => {
+        setTipoPedido(event);   
+        setExpandedPedido(false); 
+        setTipoPedidoHelper('')
+
+        if (event === 'Retiro en el local') {
+            setFieldValue('domicilio', '');
+        }
+    }
+
+    const handleSelectMetodoPago = (event) => {
+        setMetodoPago(event);
+        setExpandedMetodoPago(false); 
+        setMetodoPagoHelper('')
+    }
+
+    const finishOrder = (action, values, tipoPedido, metodoPago, cart, response) => {
+        const pedidoCompleto = {
+            values,
+            tipoPedido,
+            metodoPago,
+            cart,
+            response
+        }
+        console.log(pedidoCompleto);
+        
+        localStorage.setItem('ultimoPedido', JSON.stringify(pedidoCompleto))
+        
+        action.resetForm()
+        navigate('/detallePedido')
+    }
+
+    const {handleSubmit, handleChange, handleBlur, touched, values, errors, setFieldValue} = useFormik({
+        initialValues: {
+            name: '',
+            domicilio: '',
+            domicilio_number: '',
+            message: '',
+            date: '',
+            time: '',
+        },
+        // VALIDACIONES
+        validationSchema: Yup.object().shape({
+            name: Yup.string()
+                .required('Campo obligatorio')
+                .max(30, 'El nombre no puede tener más de 30 caracteres'),
+            domicilio: Yup.string()
+                .test('required', 'Campo obligatorio', function (value) {
+                    if (tipoPedido === 'A domicilio') {
+                        return !!value
+                    }
+                    return true
+                })
+                .matches(/^[a-zA-Z0-9\s]+$/, 'El domicilio contiene caracteres no permitidos'),
+            domicilio_number: Yup.number()
+                .positive('Debe ser positivo')
+                .test('required', 'Campo obligatorio', function (value) {
+                    if (this.parent.tipoPedido === 'A domicilio') {
+                        return !!value;
+                    }
+                    return true;
+                })
+                .integer('Debe ser un número entero'),
+            message: Yup.string(),
+            date: Yup.date()
+                .required('Campo obligatorio')
+                .min(today, 'La fecha no puede ser anterior al día presente')
+                .typeError('Fecha no válida'),
+            time: Yup.string()
+                .required('Campo obligatorio')
+                .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Hora no válida'),
+        }),
+        onSubmit: async (values, action) => {
+            let selectedDate = new Date(values.date)
+            selectedDate = new Date(selectedDate.getTime() + selectedDate.getTimezoneOffset() * 60000)
+
+            // Obtener la hora actual
+            const now = new Date()
+            const currentDay = now.toDateString()
+            const selectedDay = selectedDate.toDateString()
+            const selectedTime = values.time
+
+            // Verificar si es hoy y si la hora ya ha pasado
+            if (currentDay === selectedDay) {
+                const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
+                
+                if (selectedTime < currentTime) {
+                    action.setFieldError('time', 'La hora seleccionada ya ha pasado. Por favor elige un horario futuro.')
+                    return
+                }
+            }
+
+            if (!checkIfOpen(values.date, values.time)) {
+                action.setFieldError('time', 'El local estará cerrado en la fecha y hora seleccionadas')
+                return
+            }
+            
+            if(!tipoPedido){
+                setTipoPedidoHelper('Campo obligatorio')
+                return
+            }
+            if(!metodoPago){
+                setMetodoPagoHelper('Campo obligatorio')
+                return
+            }
+
+            if (tipoPedido === 'A domicilio') {
+                action.setSubmitting(true);
+                try {
+                    const response = await getAddress(values.domicilio, values.domicilio_number)
+                    if (response.valid) {
+                        action.setSubmitting(false)
+                        finishOrder(action, values, tipoPedido, metodoPago, cart, response)
+                    }else{
+                        action.setFieldError('domicilio', 'El delivery no llega a esta dirección')
+                        action.setSubmitting(false)
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: error.response.data.message,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1975d1'
+                    })
+                    return
+                }
+            }else{
+                finishOrder(action, values, tipoPedido, metodoPago, cart)
+            }
+        }
+    })
+    
+    if (cart.length == 0) return <Navigate to="/" />
+
+  return (
+    <>
+        <Helmet>
+            <title>Checkout</title>
+        </Helmet>
+        <div className="expandenContainer">
+            <main id="main-checkout">
+                <h2 className="checkout-title">Tu pedido</h2>
+                <form ref={formRef} onSubmit={handleSubmit} className="checkout-form">
+                    <div style={{width: '100%', marginBottom: '1rem'}}>
+                        <Accordion 
+                            className='acordion'
+                            expanded={expandedPedido} 
+                            onChange={() => setExpandedPedido(!expandedPedido)}
+                        >
+                            <AccordionSummary expandIcon={<MdKeyboardArrowDown size={'1.5rem'} />}>
+                                <Typography sx={{ color: '#666666' }}>{tipoPedido ? tipoPedido : 'Tipo de pedido'}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Box display="flex" flexDirection="column">
+                                    <Button 
+                                        variant="text"
+                                        onClick={() => handleSelectPedido('A domicilio')}
+                                        sx={{
+                                            justifyContent: 'flex-start',
+                                            color: tipoPedido === 'A domicilio' ? 'black' : '#666666',
+                                            fontWeight: tipoPedido === 'A domicilio' ? 'bold' : 'normal',
+                                            textTransform: 'none',
+                                            padding: '8px 0',
+                                        }}
+                                    >
+                                        A domicilio
+                                    </Button>
+                                    <Button 
+                                        variant="text"
+                                        onClick={() => handleSelectPedido('Retiro en el local')}
+                                        sx={{
+                                            justifyContent: 'flex-start',
+                                            color: tipoPedido === 'Retiro en el local' ? 'black' : '#666666',
+                                            fontWeight: tipoPedido === 'Retiro en el local' ? 'bold' : 'normal',
+                                            textTransform: 'none',
+                                            padding: '8px 0',
+                                        }}
+                                    >
+                                        Retiro en el local
+                                    </Button>
+                                </Box>
+                            </AccordionDetails>
+                        </Accordion>
+                        <p className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root" style={{alignSelf: 'start'}}>
+                            {tipoPedidoHelper}
+                        </p>
+                    </div>
+                    {
+                        tipoPedido === 'A domicilio' && (
+                            <div className="direccion-container">
+                                <TextField
+                                    type="text"
+                                    name="domicilio"
+                                    label="Domicilio"
+                                    variant="filled"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.domicilio}
+                                    error={(!!errors.domicilio && touched.domicilio)}
+                                    helperText={errors.domicilio && touched.domicilio && errors.domicilio}
+                                />
+                                <TextField
+                                    type="number"
+                                    name="domicilio_number"
+                                    label="Número"
+                                    variant="filled"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.domicilio_number}
+                                    error={(!!errors.domicilio_number && touched.domicilio_number)}
+                                    helperText={errors.domicilio_number && touched.domicilio_number && errors.domicilio_number}
+                                />
+                            </div>
+                        )
+                    }
+                    <TextField
+                        type="text"
+                        name="name"
+                        label="Nombre"
+                        variant="filled"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.name}
+                        error={(!!errors.name && touched.name)}
+                        helperText={errors.name && touched.name && errors.name}
+                    />
+                    <div style={{width: '100%', marginBottom: '1rem'}}>
+                    <Accordion 
+                        className='acordion'
+                        expanded={expandedMetodoPago} 
+                        onChange={() => setExpandedMetodoPago(!expandedMetodoPago)}
+                    >
+                        <AccordionSummary expandIcon={<MdKeyboardArrowDown size={'1.5rem'} />}>
+                            <Typography sx={{ color: '#666666' }}>{metodoPago ? metodoPago : 'Metodo de pago'}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Box display="flex" flexDirection="column">
+                                <Button 
+                                    variant="text"
+                                    onClick={() => handleSelectMetodoPago('Tarjeta debito/credito')}
+                                    sx={{
+                                        justifyContent: 'flex-start',
+                                        color: metodoPago === 'Tarjeta debito/credito' ? 'black' : '#666666',
+                                        fontWeight: metodoPago === 'Tarjeta debito/credito' ? 'bold' : 'normal',
+                                        textTransform: 'none',
+                                        padding: '8px 0',
+                                    }}
+                                >
+                                    Tarjeta debito/credito
+                                </Button>
+                                <Button 
+                                    variant="text"
+                                    onClick={() => handleSelectMetodoPago('Efectivo')}
+                                    sx={{
+                                        justifyContent: 'flex-start',
+                                        color: metodoPago === 'Efectivo' ? 'black' : '#666666',
+                                        fontWeight: metodoPago === 'Efectivo' ? 'bold' : 'normal',
+                                        textTransform: 'none',
+                                        padding: '8px 0',
+                                    }}
+                                >
+                                    Efectivo
+                                </Button>
+                                <Button 
+                                    variant="text"
+                                    onClick={() => handleSelectMetodoPago('Mercado Pago')}
+                                    sx={{
+                                        justifyContent: 'flex-start',
+                                        color: metodoPago === 'Mercado Pago' ? 'black' : '#666666',
+                                        fontWeight: metodoPago === 'Mercado Pago' ? 'bold' : 'normal',
+                                        textTransform: 'none',
+                                        padding: '8px 0',
+                                    }}
+                                >
+                                    Mercado Pago
+                                </Button>
+                                <Button 
+                                    variant="text"
+                                    onClick={() => handleSelectMetodoPago('Transferencia')}
+                                    sx={{
+                                        justifyContent: 'flex-start',
+                                        color: metodoPago === 'Transferencia' ? 'black' : '#666666',
+                                        fontWeight: metodoPago === 'Transferencia' ? 'bold' : 'normal',
+                                        textTransform: 'none',
+                                        padding: '8px 0',
+                                    }}
+                                >
+                                    Transferencia
+                                </Button>
+                            </Box>
+                        </AccordionDetails>
+                    </Accordion>
+                    <p className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root" style={{alignSelf: 'start'}}>
+                        {metodoPagoHelper}
+                    </p>
+                    </div>
+                    <TextField
+                        type="text"
+                        name="message"
+                        label="Nota"
+                        variant="filled"
+                        maxRows={3}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.message}
+                        error={!!(errors.message && touched.message)}
+                        helperText={errors.message && touched.message && errors.message}
+                    />
+                    <div className="date-hour-container">
+                        <TextField
+                            type="date"
+                            name="date"
+                            label="Fecha"
+                            variant="filled"
+                            InputLabelProps={{ shrink: true }}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.date}
+                            error={(!!errors.date && touched.date)}
+                            helperText={errors.date && touched.date && errors.date}
+                            inputRef={inputDate}
+                            onClick={() => {
+                                if (inputDate.current) {
+                                    inputDate.current.showPicker();
+                                }
+                            }}
+                        />
+                        <TextField
+                            type="time"
+                            name="time"
+                            label="Horario"
+                            variant="filled"
+                            InputLabelProps={{ shrink: true }}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.time}
+                            error={(!!errors.time && touched.time)}
+                            helperText={errors.time && touched.time && errors.time}
+                            inputRef={inputTime}
+                            onClick={() => {
+                                if (inputTime.current) {
+                                    inputTime.current.showPicker();
+                                }
+                            }}
+                        />
+                    </div>
+                    <span>
+                        Se redirigirá a WhatsApp para notificar al establecimiento.
+                        Su solicitud será respondida a la brevedad.
+                    </span>
+                    <Button type={'submit'} variant={'contained'} sx={{marginBottom: '2rem'}}>Continuar</Button>
+                </form>
+            </main>
+        </div>
+    </>
+  )
+}
+
+export default Checkout
