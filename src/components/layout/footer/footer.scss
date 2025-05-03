@@ -42,9 +42,18 @@
                 min-width: 150px;
             }
         }
-        span{
+        .labels{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            color: var(--grey);
+            gap: 1rem;
+            span{
+                color: var(--grey);
+                a{
+                    color: #D00042;
+                }
+            }
         }
     }
 }
@@ -84,8 +93,22 @@
             .logo-container{
                 width: 200px;
             }
-            span{
+            .labels{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
                 grid-column: 1/3;
+                span{
+                    color: var(--grey);
+                    a{
+                        color: #D00042;
+                    }
+                    &:last-child{
+                        color: #fff;
+                    }
+                }
             }
         }
     }
