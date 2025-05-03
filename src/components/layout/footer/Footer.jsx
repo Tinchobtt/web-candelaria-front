@@ -32,7 +32,10 @@ const Footer = () => {
                     </div>
                     <Redes style={{width: '100%', marginBottom: '4rem'}}/>
                 </div>
-                <span>© 2024 La Candelaria III Express. Todos los derechos reservados.</span>
+                <div className="labels">
+                    <span>© 2024 La Candelaria III Express. Todos los derechos reservados.</span>
+                    <span>Desarrollado por <a href="https://develio.dev/" target='_blank'>Develio</a></span>
+                </div>
             </footer>
         </div>
     )
