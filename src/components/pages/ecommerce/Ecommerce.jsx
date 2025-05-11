@@ -88,7 +88,7 @@ const Ecommerce = () => {
         }
         fetchData()
     }, [ecomProducts])
-    console.log(ecomProducts)
+
     return (
         <>
             <Helmet>
